@@ -1,0 +1,7 @@
+package cs2ts6;
+
+public class ChatPacket {
+	//TODO Extend packet
+	private String sender;
+	private String message;
+}
