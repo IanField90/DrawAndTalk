@@ -21,6 +21,7 @@
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="152" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.browser.editor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
@@ -33,17 +34,22 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
+<part id="2"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Canvas.java" partName="Canvas.java" path="/Users/ianfield/Desktop/Agile/DrawTalk/src/cs2ts6/client/Canvas.java" title="Canvas.java" tooltip="DrawTalk/src/cs2ts6/client/Canvas.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DrawTalk/src/cs2ts6/client/Canvas.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="382" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MainWindow.java" partName="MainWindow.java" path="/Users/ianfield/Desktop/Agile/DrawTalk/src/cs2ts6/client/MainWindow.java" title="MainWindow.java" tooltip="DrawTalk/src/cs2ts6/client/MainWindow.java" workbook="DefaultEditorWorkbook">
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MainWindow.java" partName="MainWindow.java" path="/Users/ianfield/Desktop/Agile/DrawTalk/src/cs2ts6/client/MainWindow.java" title="MainWindow.java" tooltip="DrawTalk/src/cs2ts6/client/MainWindow.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DrawTalk/src/cs2ts6/client/MainWindow.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="105" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="709" selectionTopPixel="62"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DrawingPanel.java" partName="DrawingPanel.java" path="/Users/ianfield/Desktop/Agile/DrawTalk/src/cs2ts6/client/DrawingPanel.java" title="DrawingPanel.java" tooltip="DrawTalk/src/cs2ts6/client/DrawingPanel.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DrawTalk/src/cs2ts6/client/DrawingPanel.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1753" selectionTopPixel="386"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ChatPanel.java" partName="ChatPanel.java" path="/Users/ianfield/Desktop/Agile/DrawTalk/src/cs2ts6/client/ChatPanel.java" title="ChatPanel.java" tooltip="DrawTalk/src/cs2ts6/client/ChatPanel.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/DrawTalk/src/cs2ts6/client/ChatPanel.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="524" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -52,7 +58,7 @@
 <expanded>
 <category IMemento.internal.id="Warnings (1 item)"/>
 </expanded>
-<columnWidths org.eclipse.ui.ide.locationField="84" org.eclipse.ui.ide.markerType="114" org.eclipse.ui.ide.pathField="144" org.eclipse.ui.ide.resourceField="114" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
+<columnWidths org.eclipse.ui.ide.locationField="84" org.eclipse.ui.ide.markerType="114" org.eclipse.ui.ide.pathField="144" org.eclipse.ui.ide.resourceField="114" org.eclipse.ui.ide.severityAndDescriptionField="327"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
@@ -196,7 +202,7 @@
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.25" ratioLeft="254" ratioRight="762" relationship="2" relative="left"/>
 <info folder="true" part="bottom" ratio="0.74963397" ratioLeft="512" ratioRight="171" relationship="4" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.views.TaskList" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
 <page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
@@ -230,108 +236,159 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/DrawTalk/src/cs2ts6/MainWindow.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/DrawTalk/src/cs2ts6/Canvas.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/DrawTalk/src/cs2ts6/PointPacket.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/DrawTalk/src/cs2ts6/ChatPacket.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/DrawTalk/src/cs2ts6/client/DrawingPanel.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/DrawTalk/src/cs2ts6/client/MainWindow.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/DrawTalk/src/cs2ts6/client/Canvas.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/DrawTalk/src/cs2ts6/client/PointPacket.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/DrawTalk/src/cs2ts6/client/ChatPacket.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/DrawTalk/src/cs2ts6/client/Canvas.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/DrawTalk/src/cs2ts6/client/ChatPanel.java"/>
 </editors>
-<item historyLabel="MainWindow.java" index="0">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="687" y="0"/>
 </item>
-<item historyLabel="MainWindow.java" index="0">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position/>
 </item>
-<item historyLabel="Canvas.java" index="1">
-<position info="not_deleted" x="366" y="0"/>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="687" y="0"/>
 </item>
-<item historyLabel="MainWindow.java" index="0">
-<position info="not_deleted" x="85" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position/>
 </item>
-<item historyLabel="Canvas.java" index="1">
-<position info="not_deleted" x="366" y="0"/>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="687" y="0"/>
 </item>
-<item historyLabel="PointPacket.java" index="2">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="813" y="0"/>
 </item>
-<item historyLabel="ChatPacket.java" index="3">
-<position info="not_deleted" x="359" y="0"/>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="687" y="0"/>
 </item>
-<item historyLabel="PointPacket.java" index="2">
-<position info="not_deleted" x="342" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="813" y="0"/>
 </item>
-<item historyLabel="ChatPacket.java" index="3">
-<position info="not_deleted" x="115" y="0"/>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="687" y="0"/>
 </item>
-<item historyLabel="Canvas.java" index="1">
-<position info="not_deleted" x="366" y="0"/>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="649" y="0"/>
 </item>
-<item historyLabel="PointPacket.java" index="2">
-<position info="not_deleted" x="244" y="0"/>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="330" y="0"/>
 </item>
-<item historyLabel="ChatPacket.java" index="3">
-<position info="not_deleted" x="328" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="570" y="0"/>
 </item>
-<item historyLabel="Canvas.java" index="1">
-<position info="not_deleted" x="366" y="0"/>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="316" y="0"/>
 </item>
-<item historyLabel="MainWindow.java" index="0">
-<position info="not_deleted" x="85" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1794" y="0"/>
 </item>
-<item historyLabel="MainWindow.java" index="4">
-<position info="not_deleted" x="85" y="0"/>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="316" y="0"/>
 </item>
-<item historyLabel="MainWindow.java" index="4">
-<position info="not_deleted" x="92" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1695" y="0"/>
 </item>
-<item historyLabel="Canvas.java" index="5">
-<position info="not_deleted" x="366" y="0"/>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="652" y="0"/>
 </item>
-<item historyLabel="Canvas.java" index="5">
-<position info="not_deleted" x="373" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1695" y="0"/>
 </item>
-<item historyLabel="PointPacket.java" index="6">
-<position info="not_deleted" x="244" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1021" y="0"/>
 </item>
-<item historyLabel="PointPacket.java" index="6">
-<position info="not_deleted" x="251" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="932" y="0"/>
 </item>
-<item historyLabel="ChatPacket.java" index="7">
-<position info="not_deleted" x="328" y="0"/>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="603" y="0"/>
 </item>
-<item historyLabel="ChatPacket.java" index="7">
-<position info="not_deleted" x="335" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="932" y="0"/>
 </item>
-<item historyLabel="PointPacket.java" index="6">
-<position info="not_deleted" x="251" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1297" y="0"/>
 </item>
-<item historyLabel="MainWindow.java" index="4">
-<position info="not_deleted" x="92" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1541" y="0"/>
 </item>
-<item historyLabel="Canvas.java" index="8">
-<position info="not_deleted" x="377" y="0"/>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="644" y="0"/>
 </item>
-<item historyLabel="MainWindow.java" index="4">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1541" y="0"/>
 </item>
-<item historyLabel="MainWindow.java" index="4">
-<position info="not_deleted" x="224" y="0"/>
+<item historyLabel="ChatPanel.java" index="2">
+<position info="not_deleted" x="527" y="0"/>
 </item>
-<item historyLabel="MainWindow.java" index="4">
-<position info="not_deleted" x="409" y="0"/>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1541" y="0"/>
 </item>
-<item historyLabel="Canvas.java" index="8">
-<position info="not_deleted" x="377" y="0"/>
+<item historyLabel="ChatPanel.java" index="2">
+<position info="not_deleted" x="527" y="0"/>
 </item>
-<item historyLabel="MainWindow.java" index="4">
-<position info="not_deleted" x="105" y="0"/>
+<item historyLabel="ChatPanel.java" index="2">
+<position info="not_deleted" x="379" y="0"/>
 </item>
-<item active="true" historyLabel="Canvas.java" index="8">
-<position info="not_deleted" x="377" y="0"/>
+<item historyLabel="ChatPanel.java" index="2">
+<position info="not_deleted" x="490" y="0"/>
+</item>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="644" y="0"/>
+</item>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1541" y="0"/>
+</item>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1225" y="0"/>
+</item>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1786" y="0"/>
+</item>
+<item historyLabel="ChatPanel.java" index="2">
+<position info="not_deleted" x="490" y="0"/>
+</item>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1695" y="0"/>
+</item>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="644" y="0"/>
+</item>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1695" y="0"/>
+</item>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1753" y="0"/>
+</item>
+<item historyLabel="ChatPanel.java" index="2">
+<position info="not_deleted" x="490" y="0"/>
+</item>
+<item historyLabel="ChatPanel.java" index="2">
+<position/>
+</item>
+<item historyLabel="ChatPanel.java" index="2">
+<position info="not_deleted" x="490" y="0"/>
+</item>
+<item historyLabel="ChatPanel.java" index="2">
+<position info="not_deleted" x="485" y="0"/>
+</item>
+<item historyLabel="ChatPanel.java" index="2">
+<position info="not_deleted" x="490" y="0"/>
+</item>
+<item historyLabel="DrawingPanel.java" index="0">
+<position info="not_deleted" x="1753" y="0"/>
+</item>
+<item historyLabel="ChatPanel.java" index="2">
+<position info="not_deleted" x="490" y="0"/>
+</item>
+<item historyLabel="ChatPanel.java" index="2">
+<position info="not_deleted" x="524" y="0"/>
+</item>
+<item historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="644" y="0"/>
+</item>
+<item active="true" historyLabel="MainWindow.java" index="1">
+<position info="not_deleted" x="598" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -350,11 +407,14 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MainWindow.java" tooltip="DrawTalk/src/cs2ts6/client/MainWindow.java">
-<persistable path="/DrawTalk/src/cs2ts6/client/MainWindow.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ChatPanel.java" tooltip="DrawTalk/src/cs2ts6/client/ChatPanel.java">
+<persistable path="/DrawTalk/src/cs2ts6/client/ChatPanel.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Canvas.java" tooltip="DrawTalk/src/cs2ts6/client/Canvas.java">
 <persistable path="/DrawTalk/src/cs2ts6/client/Canvas.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MainWindow.java" tooltip="DrawTalk/src/cs2ts6/client/MainWindow.java">
+<persistable path="/DrawTalk/src/cs2ts6/client/MainWindow.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ChatPacket.java" tooltip="DrawTalk/src/cs2ts6/ChatPacket.java">
 <persistable path="/DrawTalk/src/cs2ts6/ChatPacket.java"/>

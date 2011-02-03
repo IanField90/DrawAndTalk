@@ -1,0 +1,41 @@
+package cs2ts6.client;
+
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+//TODO 640x480 + 150 chat?
+public class MainWindow extends JPanel{
+
+	//TODO Canvas element within JPanel
+	/**
+	 * Default serialisation id
+	 */
+
+	private DrawingPanel drawingPanel;
+	private void createAndShowGUI(){
+		JFrame frame = new JFrame("Draw & Talk");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		drawingPanel = new DrawingPanel();
+		frame.setSize(new Dimension(790, 480));
+		frame.add(drawingPanel);
+		frame.add(new ChatPanel());
+		frame.pack();
+		frame.setVisible(true);
+	}
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		final MainWindow mainWindow = new MainWindow();
+		SwingUtilities.invokeLater(new Runnable(){
+			public void run(){
+				mainWindow.createAndShowGUI();
+			}
+		});
+	}
+
+}
