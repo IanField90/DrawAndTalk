@@ -1,6 +1,6 @@
 package cs2ts6.client;
 
-<<<<<<< HEAD
+
 import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -8,16 +8,20 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-=======
+
 import java.awt.Color;
 import java.awt.Dimension;
->>>>>>> 644854b860e6e5bf7099b26bb697c0c45314f04f
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+
+import cs2ts6.packets.PointPacket;
 
 /**
  * 
@@ -25,14 +29,14 @@ import javax.swing.JToolBar;
  * Creates the Canvas panel. This is a 640px x 480px white-background panel.
  * It includes a toolbar for drawing.
  */
-public class DrawingPanel extends JPanel implements ActionListener{
+public class DrawingPanel extends JPanel implements MouseMotionListener, MouseListener, ActionListener{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7531407885742074028L;
 	private JButton brush, clear, brushSize;
-	private DrawingCanvas canvas; //TODO Create custom canvas with 'draw' for points (+shapes sprint 2)
+	private Canvas canvas; //TODO Create custom canvas with 'draw' for points (+shapes sprint 2)
 	private Color color;
 
 	private ToolbarHandler toolbar;
@@ -44,9 +48,9 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		toolbar = new ToolbarHandler();
 		
 		JPanel panel = new JPanel(); //Panel with tooblar + canvas
-		canvas = new DrawingCanvas(); //White area
+		canvas = new Canvas(); //White area
 		canvas.setPreferredSize(new Dimension(640, 480));
-		canvas.setColor(color);
+		//canvas.setColor(color);
 		JToolBar toolbar = new JToolBar();
 		
 		brush = new JButton("Brush");//TODO Add reflection for image
@@ -68,12 +72,16 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		toolbar.add(clear);
 		toolbar.setFloatable(false);
 		
+		canvas.setBackground(Color.WHITE);
+		canvas.addMouseMotionListener(this);
+		canvas.addMouseListener(this);
+		
 		panel.add("North", toolbar);
 		panel.add(canvas);
 		add(panel);
 		color = Color.BLACK; //default colour
 	}
-<<<<<<< HEAD
+
 	
 	public void sendDrawPacket(PointPacket pointPacket){
 		//PointPacket pointPacket = new PointPacket();
@@ -138,17 +146,6 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		
 		// TODO Auto-generated method stub
 		Point drawLoc = e.getPoint();
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-=======
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
->>>>>>> 644854b860e6e5bf7099b26bb697c0c45314f04f
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -253,6 +250,12 @@ public class DrawingPanel extends JPanel implements ActionListener{
 	        
 	        // TODO: add some circles to give brush strokes nice round edges
 		}
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 	
