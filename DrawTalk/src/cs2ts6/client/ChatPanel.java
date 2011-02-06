@@ -20,6 +20,7 @@ public class ChatPanel extends JPanel implements ActionListener{
 		jtpChat.add("Global", globalChat);
 		//jtpChat.add()
 		add(jtpChat);
+		
 	}
 	
 	@Override
