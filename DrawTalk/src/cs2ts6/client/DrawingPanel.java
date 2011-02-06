@@ -90,8 +90,8 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 		
 		Graphics g = canvas.getGraphics();    
         g.setColor(colour);
-        g.fillOval(p.x, p.y, size, size);
-        repaint();
+        g.fillOval(p.x - (size / 2), p.y - (size / 2), size, size);
+        repaint(p.x - (size / 2), p.y - (size / 2), size, size);
 		
 		//Try to send packet
 		sendDrawPacket(new PointPacket(p, colour, size));
