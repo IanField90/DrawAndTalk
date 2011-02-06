@@ -32,6 +32,9 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 	private JButton brush, clear, brushSize;
 	private Canvas canvas; //TODO Create custom canvas with 'draw' for points (+shapes sprint 2)
 	private Color color;
+
+	// Used to connect last drawn point to next drawn point
+	private Point lastP;
 	
 	//TODO Draw point using pointpacket
 	public DrawingPanel(){
@@ -90,8 +93,9 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 		
 		Graphics g = canvas.getGraphics();    
         g.setColor(colour);
-        g.fillOval(p.x - (size / 2), p.y - (size / 2), size, size);
-        repaint(p.x - (size / 2), p.y - (size / 2), size, size);
+        g.drawLine(lastP.x, lastP.y, p.x, p.y);
+        repaint();     
+        lastP = p;
 		
 		//Try to send packet
 		sendDrawPacket(new PointPacket(p, colour, size));
@@ -131,6 +135,7 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 		// TODO Auto-generated method stub
 		Point drawLoc = e.getPoint();
 		
+		
 		doDrawPoint(e.getPoint(), this.color, 1);
 		
 		System.out.println("Clicked: ("+ drawLoc.x + ", " + drawLoc.y + ")");
@@ -149,13 +154,14 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
+	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		Point drawLoc = e.getPoint();
+		lastP = drawLoc;
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
+	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
