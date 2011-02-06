@@ -3,6 +3,7 @@ package cs2ts6.client;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -78,13 +79,19 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 	 * @param colour The colour of the point to draw
 	 */
 	public void doDrawPoint(Point p, Color colour, int size){
-		//TODO Implement paint on custom Canvas
-		/*
-		Graphics g = getGraphics();
-		g.setColor(colour);
-		g.drawRect(p.x, p.y, 1, 1);
-		canvas.repaint();
-		*/
+		
+		// Override just for testing
+		//size = 10;
+		//colour = Color.RED;
+		
+		// Increment size by 1, this is because not bothering to draw a border.
+		// Therefore a size of 1 would not be visible.
+		size++;
+		
+		Graphics g = canvas.getGraphics();    
+        g.setColor(colour);
+        g.fillOval(p.x, p.y, size, size);
+        repaint();
 		
 		//Try to send packet
 		sendDrawPacket(new PointPacket(p, colour, size));
@@ -123,6 +130,9 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		Point drawLoc = e.getPoint();
+		
+		doDrawPoint(e.getPoint(), this.color, 1);
+		
 		System.out.println("Clicked: ("+ drawLoc.x + ", " + drawLoc.y + ")");
 	}
 
