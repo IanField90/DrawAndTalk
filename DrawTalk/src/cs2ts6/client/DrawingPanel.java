@@ -217,6 +217,7 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 			switch (selectedOption) {
             	case 0: pencilDragged(current); break;      
             	case 1: brushDragged(current); break;
+            	case 2: rectangleDragged(current); break;
 			}
 			
 			
@@ -250,6 +251,16 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 	        
 	        // TODO: add some circles to give brush strokes nice round edges
 		}
+		
+		/**
+		 * Handles what to do when dragging with the pencil tool selected
+		 * @param p
+		 */
+		private void rectangleDragged(Point p){
+
+			// TODO: draw rectangle here.
+		}
+		
 		
 	}
 
