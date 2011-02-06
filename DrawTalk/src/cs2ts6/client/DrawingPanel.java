@@ -1,9 +1,11 @@
 package cs2ts6.client;
 
+import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,11 +35,14 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 	private Canvas canvas; //TODO Create custom canvas with 'draw' for points (+shapes sprint 2)
 	private Color color;
 
-	// Used to connect last drawn point to next drawn point
-	private Point lastP;
+	private ToolbarHandler toolbar;
 	
 	//TODO Draw point using pointpacket
 	public DrawingPanel(){
+		
+		// Initiate toolbar
+		toolbar = new ToolbarHandler();
+		
 		JPanel panel = new JPanel(); //Panel with tooblar + canvas
 		canvas = new Canvas(); //White area
 		canvas.setPreferredSize(new Dimension(640, 480));
@@ -74,42 +79,17 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 	public void sendDrawPacket(PointPacket pointPacket){
 		//PointPacket pointPacket = new PointPacket();
 	}
-	
-	/**
-	 * Draws a point on the Drawing canvas
-	 * @param x The x-coordinate of the point to draw
-	 * @param y The y-coordinate of the point to draw
-	 * @param colour The colour of the point to draw
-	 */
-	public void doDrawPoint(Point p, Color colour, int size){
 		
-		// Override just for testing
-		//size = 10;
-		//colour = Color.RED;
-		
-		// Increment size by 1, this is because not bothering to draw a border.
-		// Therefore a size of 1 would not be visible.
-		size++;
-		
-		Graphics g = canvas.getGraphics();    
-        g.setColor(colour);
-        g.drawLine(lastP.x, lastP.y, p.x, p.y);
-        repaint();     
-        lastP = p;
-		
-		//Try to send packet
-		sendDrawPacket(new PointPacket(p, colour, size));
-		//TODO if successful packet should be recieved + drawn
-	}
-	
 	/**
 	 * Sends PointPacket for live authoring
 	 */
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		// Send info for the toolbar to handle
+		toolbar.mouseDragged(e);
+		
 		//TODO check type of drawing Sprint 2
 		// TODO Send coordinate data + colour on move
-		doDrawPoint(e.getPoint(), this.color, 1);
 		
 		Point drawLoc = e.getPoint();
 		System.out.println("Dragged: ("+ drawLoc.x + ", " + drawLoc.y + ")");
@@ -125,18 +105,17 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == brush){
-			//do something
+			toolbar.selectOption(1);
 		}
 		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		
+		
 		// TODO Auto-generated method stub
 		Point drawLoc = e.getPoint();
-		
-		
-		doDrawPoint(e.getPoint(), this.color, 1);
 		
 		System.out.println("Clicked: ("+ drawLoc.x + ", " + drawLoc.y + ")");
 	}
@@ -155,9 +134,11 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		// Send info for the toolbar to handle
+		toolbar.mousePressed(e);
+		
 		// TODO Auto-generated method stub
 		Point drawLoc = e.getPoint();
-		lastP = drawLoc;
 	}
 
 	@Override
@@ -166,4 +147,109 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
 		
 	}
 
+	/**
+	 * Used to manage the various different functions the toolbar has
+	 */
+	private class ToolbarHandler {
+		
+		// Always the point that was in use before the current point
+		private Point previousP;
+		
+		// Always the point where the mouse press begins
+		private Point startP;
+		
+		// The currently selected tool
+		private int selectedOption = 0;
+		
+		// The currently selected colour
+		private Color selectedColour = Color.BLACK;
+		
+		// The options, mainly for programmer reference at the moment
+		private String[] options =  { 
+			"Pencil", 
+			"Brush", 
+			"Draw Rectangle" 
+		};
+		
+		public ToolbarHandler(){
+			
+		}
+		
+		/**
+		 * Set the currently selected tool in the toolbox
+		 * @param index
+		 */
+		public void selectOption(int index){
+			selectedOption = index;
+		}
+		
+		/**
+		 * Set the colour to draw with
+		 */
+		public void selectColour(Color c){
+			selectedColour = c;
+		}
+		
+		/**
+		 * The main mouse press handler for the tool bar, handles anything 
+		 * generic for all tools and calls individual tool handlers
+		 * @param e
+		 */
+		public void mousePressed(MouseEvent e){
+			startP = e.getPoint();
+			previousP = startP;
+			
+			// TODO: add some handlers to start off the pencil and brush strokes, else lines are only 
+			// drawn on mouse move, they dont begin on click
+		}
+		
+		/**
+		 * The main mouse drag handler for the tool bar, handles anything 
+		 * generic for all tools and calls individual tool handlers
+		 * @param e
+		 */
+		public void mouseDragged(MouseEvent e) {
+			// Get current point
+			Point current = e.getPoint();
+			
+			// Perform various different functions for currently selected tool
+			switch (selectedOption) {
+            	case 0: pencilDragged(current); break;      
+            	case 1: brushDragged(current); break;
+			}
+			
+			
+			// Reset the previous point for next use.
+			previousP = current;
+		}
+		
+		/**
+		 * Handles what to do when dragging with the pencil tool selected
+		 * @param p
+		 */
+		private void pencilDragged(Point p){
+
+			Graphics g = canvas.getGraphics();    
+	        g.setColor(selectedColour);
+	        g.drawLine(previousP.x, previousP.y, p.x, p.y);
+	        repaint();
+		}
+		
+		/**
+		 * Handles what to do when dragging with the brush tool selected
+		 * @param p
+		 */
+		private void brushDragged(Point p){
+			Graphics g = canvas.getGraphics();    
+	        g.setColor(selectedColour);       
+	        Graphics2D gThick = (Graphics2D) g;
+	        gThick.setStroke(new BasicStroke(5));
+	        gThick.drawLine(previousP.x, previousP.y, p.x, p.y);        
+	        repaint();
+	        
+	        // TODO: add some circles to give brush strokes nice round edges
+		}
+		
+	}
+	
 }
