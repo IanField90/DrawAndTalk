@@ -20,24 +20,23 @@ import cs2ts6.packets.PointPacket;
 public class DrawingPanel extends JPanel implements ActionListener{
 
 	/**
-	 * 
+	 * Automatically generated number
 	 */
 	private static final long serialVersionUID = 7531407885742074028L;
-	private JButton brush, clear, brushSize;
-	private DrawingCanvas canvas; //TODO Create custom canvas with 'draw' for points (+shapes sprint 2)
-	private Color color;
+	private JButton brush, clear, brushSize; //TODO Pen button
+	private DrawingCanvas canvas; //Canvas where drawing is handled
+	private Color colour; //Holds drawing colour - for GUI/feedback
 	
 	//TODO Use enums for types
-	//public enum drawType { PEN, BRUSH, SHAPE };
-	
+	//public enum drawType { PEN, BRUSH, SQUARE, CIRCLE };
 	//TODO Draw point using pointpacket
+	
 	public DrawingPanel(){
 		JPanel panel = new JPanel(); //Panel with tooblar + canvas
-
-		color = Color.BLACK; //default colour
-		canvas = new DrawingCanvas(); //White area
+		colour = Color.BLACK;
+		canvas = new DrawingCanvas();
 		canvas.setPreferredSize(new Dimension(640, 480));
-		canvas.set_color(color);
+		canvas.set_colour(colour); //Sets drawing colour inside canvas
 		JToolBar toolbar = new JToolBar();
 		
 		brush = new JButton("Brush");//TODO Add reflection for image
@@ -57,21 +56,20 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		toolbar.add(brush);
 		toolbar.add(brushSize);
 		toolbar.add(clear);
-		toolbar.setFloatable(false);
+		toolbar.setFloatable(false); //Disables dragging of toolbar
 		
-		canvas.setBackground(Color.WHITE);
-		
-		panel.add("North", toolbar);
+		panel.add("North", toolbar); //TODO align with top
 		panel.add(canvas);
 		add(panel);
 	}
+	
 	public void sendDrawPacket(PointPacket pointPacket){
-		//PointPacket pointPacket = new PointPacket();
+		//PointPacket pointPacket = new PointPacket(); //TODO possibly move into DrawingCanvas
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		//If the button 'brush' is clicked
 		if(e.getSource() == brush){
 			canvas.set_selectedOption(1); //TODO use enum
 		}
