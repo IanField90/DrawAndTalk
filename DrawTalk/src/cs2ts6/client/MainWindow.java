@@ -14,6 +14,8 @@ public class MainWindow extends JPanel{
 	 */
 	private static final long serialVersionUID = 983051938169997622L;
 	//TODO Drawing elements within JPanel
+	//TODO Create client
+	//TODO Pass client references to this.getDrawingPanel().getDrawingCanvas(); etc
 	private DrawingPanel drawingPanel;
 	private ChatPanel chatPanel;
 	

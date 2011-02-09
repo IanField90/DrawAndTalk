@@ -10,6 +10,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import cs2ts6.client.DrawingPanel.drawType;
+import cs2ts6.packets.PointPacket;
+
 /**
  * 
  * @author Ian Field
@@ -27,15 +30,25 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	// Always the point that was in use before the current point
 	private Point previousP;
 	// Always the point where the mouse press begins
-	private Point startP; //TODO currently unused?
 	// The currently selected tool
-	private int selectedOption;
+	//private int selectedOption;
+	private drawType selectedOption;
 	
 	public DrawingCanvas(){
 		setBackground(Color.white);
 		colour = Color.black;
 		this.addMouseMotionListener(this);
 		this.addMouseListener(this);
+	}
+	
+	public void sendPoints(){
+		// TODO Send point packet to server
+		int sX, sY, fX, fY;
+		//client.sendPoints()
+	}
+	
+	public void drawPoints(PointPacket pkt){
+		// TODO sort
 	}
 	
 	/**
@@ -46,7 +59,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		this.colour = color;
 	}
 	
-	public void set_selectedOption(int option){
+	public void set_selectedOption(drawType option){
 		selectedOption = option;
 	}
 	
@@ -61,8 +74,8 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		Point current = e.getPoint();
 		// Perform various different functions for currently selected tool
 		switch (selectedOption) {
-        	case 0: pencilDragged(current); break;      
-        	case 1: brushDragged(current); break;
+        	case PEN: pencilDragged(current); break;      
+        	case BRUSH: brushDragged(current); break;
 		}
 		// Reset the previous point for next use.
 		previousP = current;
@@ -96,8 +109,8 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		previousP = e.getPoint(); //Maybe?
 		Point current = e.getPoint();
 		switch (selectedOption) {
-    		case 0: pencilDragged(current); break;      
-    		case 1: brushDragged(current); break;
+    		case PEN: pencilDragged(current); break;      
+    		case BRUSH: brushDragged(current); break;
 		}
 	}
 

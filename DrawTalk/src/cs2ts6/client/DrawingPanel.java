@@ -28,7 +28,7 @@ public class DrawingPanel extends JPanel implements ActionListener{
 	private Color colour; //Holds drawing colour - for GUI/feedback
 	
 	//TODO Use enums for types
-	//public enum drawType { PEN, BRUSH, SQUARE, CIRCLE };
+	public static enum drawType { PEN, BRUSH, ERASE, SQUARE, CIRCLE };
 	//TODO Draw point using pointpacket
 	
 	public DrawingPanel(){
@@ -37,6 +37,7 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		canvas = new DrawingCanvas();
 		canvas.setPreferredSize(new Dimension(640, 480));
 		canvas.set_colour(colour); //Sets drawing colour inside canvas
+		canvas.set_selectedOption(drawType.PEN);
 		JToolBar toolbar = new JToolBar();
 		
 		brush = new JButton("Brush");//TODO Add reflection for image
@@ -71,7 +72,7 @@ public class DrawingPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		//If the button 'brush' is clicked
 		if(e.getSource() == brush){
-			canvas.set_selectedOption(1); //TODO use enum
+			canvas.set_selectedOption(drawType.BRUSH); //TODO use enum
 		}
 	}
 
