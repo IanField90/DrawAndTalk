@@ -19,7 +19,6 @@ import cs2ts6.packets.PointPacket;
  * A custom implementation of canvas to implement drawing for lines and brush strokes (Sprint 1)
  */
 public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseListener {
-	// TODO Packets - Bitmap [print()] or coordinates?
 
 	/**
 	 * Automatically generated, removes warning
@@ -48,7 +47,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	}
 	
 	public void drawPoints(PointPacket pkt){
-		// TODO sort
+		// TODO Implement
 	}
 	
 	/**
@@ -65,7 +64,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	
 	@Override
 	public void paint (Graphics g){
-		//TODO Unused but seeminly required
+		// Unused but required to override
 	}
 	
 	@Override

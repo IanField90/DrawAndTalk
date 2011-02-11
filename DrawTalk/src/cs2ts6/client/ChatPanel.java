@@ -62,9 +62,6 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		
 	}
 	
-
-	
-	
 	public void sendMessage(){
 		String msg = null;
 		msg = txtField.getText();

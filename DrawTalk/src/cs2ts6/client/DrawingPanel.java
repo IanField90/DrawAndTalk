@@ -23,11 +23,11 @@ public class DrawingPanel extends JPanel implements ActionListener{
 	 * Automatically generated number
 	 */
 	private static final long serialVersionUID = 7531407885742074028L;
-	private JButton brush, clear, brushSize; //TODO Pen button
+	private JButton pen, brush, clear, brushSize;
 	private DrawingCanvas canvas; //Canvas where drawing is handled
 	private Color colour; //Holds drawing colour - for GUI/feedback
 	
-	//TODO Use enums for types
+	// Use enums for types
 	public static enum drawType { PEN, BRUSH, ERASE, SQUARE, CIRCLE };
 	//TODO Draw point using pointpacket
 	
@@ -40,20 +40,25 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		canvas.set_selectedOption(drawType.PEN);
 		JToolBar toolbar = new JToolBar();
 		
-		brush = new JButton("Brush");//TODO Add reflection for image
+		brush = new JButton("Brush");
 		brush.setToolTipText("Brush");
 		brush.addActionListener(this);
 		
-		clear = new JButton("Clear");//TODO Add reflection for image
+		pen = new JButton("Pen");
+		pen.setToolTipText("Pen");
+		pen.addActionListener(this);
+		
+		clear = new JButton("Clear");
 		clear.setToolTipText("Clear canvas");
-		clear.setEnabled(false);//TODO Support teacher admin
+		clear.setEnabled(false);//TODO Support teacher admin (sprint 2)
 		clear.addActionListener(this);
 		
-		brushSize = new JButton("Brush Size");//TODO Add reflection for image
+		brushSize = new JButton("Brush Size");
 		brushSize.setToolTipText("Brush size");
 		brushSize.addActionListener(this);
 		
-		toolbar.setOrientation(1);//TODO Check vertical
+		toolbar.setOrientation(1);//Make toolbar appear vertically
+		toolbar.add(pen);
 		toolbar.add(brush);
 		toolbar.add(brushSize);
 		toolbar.add(clear);
@@ -70,11 +75,21 @@ public class DrawingPanel extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//If the button 'brush' is clicked
+		//TODO Emphasise selected drawType
+		//Sort drawing type
 		if(e.getSource() == brush){
-			canvas.set_selectedOption(drawType.BRUSH); //TODO use enum
+			canvas.set_selectedOption(drawType.BRUSH);
 		}
+		if(e.getSource() == pen){
+			canvas.set_selectedOption(drawType.PEN);
+		}
+		if(e.getSource() == brushSize){
+			//TODO Brush size
+		}
+		
+		//TODO Colours
+		//TODO Save
+
 	}
 
-	
 }
