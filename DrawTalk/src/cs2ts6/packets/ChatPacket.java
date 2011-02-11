@@ -5,6 +5,12 @@ public class ChatPacket {
 	private String sender;
 	private String message;
 	
+	//Constructor
+	public ChatPacket(String s, String m){
+		sender = s;
+		message = m;
+	}
+	
 	public void set_sender(String sender) {
 		this.sender = sender;
 	}
