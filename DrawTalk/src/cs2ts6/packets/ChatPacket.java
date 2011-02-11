@@ -1,6 +1,6 @@
 package cs2ts6.packets;
 
-public class ChatPacket {
+public class ChatPacket extends Packet{
 	//TODO Extend packet
 	private String sender;
 	private String message;

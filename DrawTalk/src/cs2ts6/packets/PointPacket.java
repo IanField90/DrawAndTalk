@@ -3,7 +3,7 @@ package cs2ts6.packets;
 import java.awt.Color;
 import java.awt.Point;
 
-public class PointPacket {
+public class PointPacket extends Packet{
 	//TODO Extend packet
 	private Point p;
 	private int size;
