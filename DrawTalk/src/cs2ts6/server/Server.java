@@ -2,7 +2,11 @@ package cs2ts6.server;
 
 import java.io.*;
 import java.net.*;
-
+/**
+ * 
+ * @author stephen
+ *
+ */
 public class Server {
 	private static final int port = 61000;
 	public static void main(String[] args) {
