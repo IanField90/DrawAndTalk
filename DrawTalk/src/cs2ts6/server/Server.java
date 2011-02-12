@@ -3,7 +3,7 @@ package cs2ts6.server;
 import java.io.*;
 import java.net.*;
 /**
- * 
+ * TCP Server Implementation
  * @author stephen
  *
  */

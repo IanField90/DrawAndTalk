@@ -2,7 +2,7 @@ package cs2ts6.server;
 
 import java.net.Socket;
 /**
- * 
+ * TCP Server Implementation
  * @author stephen
  *
  */
