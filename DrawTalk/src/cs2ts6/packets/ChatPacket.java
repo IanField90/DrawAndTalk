@@ -1,7 +1,10 @@
 package cs2ts6.packets;
 
+/**
+ * @author Ian Field
+ * Used to transmit the data of the chat between the clients and server.
+ */
 public class ChatPacket extends Packet{
-	//TODO Extend packet
 	private String sender;
 	private String message;
 	

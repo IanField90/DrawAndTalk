@@ -28,7 +28,7 @@ public class DrawingPanel extends JPanel implements ActionListener{
 	private Color colour; //Holds drawing colour - for GUI/feedback
 	
 	// Use enums for types
-	public static enum drawType { PEN, BRUSH, ERASE, SQUARE, CIRCLE };
+	public static enum DrawType { PEN, BRUSH, ERASE, SQUARE, CIRCLE };
 	//TODO Draw point using pointpacket
 	
 	public DrawingPanel(){
@@ -37,7 +37,7 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		canvas = new DrawingCanvas();
 		canvas.setPreferredSize(new Dimension(640, 480));
 		canvas.set_colour(colour); //Sets drawing colour inside canvas
-		canvas.set_selectedOption(drawType.PEN);
+		canvas.set_selectedOption(DrawType.PEN);
 		JToolBar toolbar = new JToolBar();
 		
 		brush = new JButton("Brush");
@@ -78,13 +78,16 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		//TODO Emphasise selected drawType
 		//Sort drawing type
 		if(e.getSource() == brush){
-			canvas.set_selectedOption(drawType.BRUSH);
+			canvas.set_selectedOption(DrawType.BRUSH);
 		}
 		if(e.getSource() == pen){
-			canvas.set_selectedOption(drawType.PEN);
+			canvas.set_selectedOption(DrawType.PEN);
 		}
 		if(e.getSource() == brushSize){
 			//TODO Brush size
+		}
+		if(e.getSource() == clear){
+			canvas = new DrawingCanvas(); //Clear the canvas
 		}
 		
 		//TODO Colours
