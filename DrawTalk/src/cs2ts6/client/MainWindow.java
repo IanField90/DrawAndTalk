@@ -21,6 +21,7 @@ public class MainWindow extends JPanel{
 	//TODO Pass client references to this.getDrawingPanel().getDrawingCanvas(); etc
 	private DrawingPanel drawingPanel;
 	private ChatPanel chatPanel;
+	private Client client;
 	
 	/**
 	 * Creates the GUI for the client side of the Draw & Talk application.
@@ -29,13 +30,19 @@ public class MainWindow extends JPanel{
 	private void createAndShowGUI(){
 		JFrame frame = new JFrame("Draw & Talk");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		drawingPanel = new DrawingPanel();
+		drawingPanel = new DrawingPanel(client);
 		chatPanel = new ChatPanel();
+		client = new Client(drawingPanel.get_canvas(), chatPanel); //Client needs canvas + chatpanel
+		drawingPanel.get_canvas().set_client(client); // canvas needs client
 		frame.setPreferredSize(new Dimension(1000, 480));
 		frame.add("West", drawingPanel);
 		frame.add(chatPanel);
 		frame.pack();
 		frame.setVisible(true);
+	}
+	
+	public Client get_client(){
+		return client;
 	}
 	
 	/**

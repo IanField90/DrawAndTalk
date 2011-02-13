@@ -32,19 +32,26 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	// The currently selected tool
 	private DrawType selectedOption;
 	
+	private Client client; //treated as a pointer
+	
 	public DrawingCanvas(){
+		//this.client = client;
 		setBackground(Color.white);
 		colour = Color.black;
 		this.addMouseMotionListener(this);
 		this.addMouseListener(this);
 	}
 	
+	public void set_client(Client client){
+		this.client = client;
+	}
+	
 	public void sendPoints(){
-		// TODO Send point packet to server
+		// Send point packet to server
 		PointPacket pkt = new PointPacket(previousP.x, previousP.y, currentP.x, 
 				currentP.y, colour, 1, selectedOption);
-		//../drawingPanel/mainWindow/client??
-		//this.getParent().getParent().getClient().sendPoints(pkt);
+		client.sendPoints(pkt);
+		//System.out.println("PointPacket sent!");
 	}
 	
 	public void drawPoints(PointPacket pkt){
@@ -70,8 +77,11 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		
 		// Get current point
 		currentP = e.getPoint();
+		sendPoints();
+		
 		// Perform various different functions for currently selected tool
 		switch (selectedOption) {
         	case PEN: pencilDragged(currentP); break;      

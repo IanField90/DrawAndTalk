@@ -26,12 +26,13 @@ public class DrawingPanel extends JPanel implements ActionListener{
 	private JButton pen, brush, clear, brushSize;
 	private DrawingCanvas canvas; //Canvas where drawing is handled
 	private Color colour; //Holds drawing colour - for GUI/feedback
+	private Client client; // treated like a pointer
 	
 	// Use enums for types
 	public static enum DrawType { PEN, BRUSH, ERASE, SQUARE, CIRCLE };
-	//TODO Draw point using pointpacket
 	
-	public DrawingPanel(){
+	public DrawingPanel(Client client){
+		this.client = client;
 		JPanel panel = new JPanel(); //Panel with tooblar + canvas
 		colour = Color.BLACK;
 		canvas = new DrawingCanvas();
@@ -69,8 +70,13 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		add(panel);
 	}
 	
+	public DrawingCanvas get_canvas(){
+		return canvas;
+	}
+
+	//TODO possibly move into DrawingCanvas
 	public void sendDrawPacket(PointPacket pointPacket){
-		//PointPacket pointPacket = new PointPacket(); //TODO possibly move into DrawingCanvas
+		//PointPacket pointPacket = new PointPacket(); 
 	}
 
 	@Override
@@ -88,6 +94,7 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		}
 		if(e.getSource() == clear){
 			canvas = new DrawingCanvas(); //Clear the canvas
+			canvas.set_client(client); // canvas needs client
 		}
 		
 		//TODO Colours
