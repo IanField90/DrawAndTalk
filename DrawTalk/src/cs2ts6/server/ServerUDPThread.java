@@ -41,7 +41,7 @@ public class ServerUDPThread extends Thread{
     }
 	
 	/**
-	 * Main execution cycle
+	 * Main execution cycle - sends broadcast messages to ALL connected clients
 	 */
 	public void run() {
 		byte[] buffer;
