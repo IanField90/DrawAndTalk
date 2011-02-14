@@ -31,7 +31,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	private Point currentP;
 	// The currently selected tool
 	private DrawType selectedOption;
-	
+	long time;
 	private Client client; //treated as a pointer
 	
 	public DrawingCanvas(){
@@ -40,6 +40,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		colour = Color.black;
 		this.addMouseMotionListener(this);
 		this.addMouseListener(this);
+		time = System.nanoTime();
 	}
 	
 	public void set_client(Client client){
@@ -77,7 +78,8 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		
+		System.out.println(System.nanoTime()-time);
+		time = System.nanoTime();
 		// Get current point
 		currentP = e.getPoint();
 		sendPoints();
