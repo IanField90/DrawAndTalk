@@ -8,6 +8,7 @@ import java.io.IOException;
  */
 public class ServerUDP {
 	public static void main(String[] args) throws IOException {
+		System.out.println("Launching server");
         new ServerUDPThread().start();
     }
 }

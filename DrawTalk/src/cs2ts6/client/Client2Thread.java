@@ -75,12 +75,12 @@ public class Client2Thread extends Thread{
 	 * Running the server watch thread (UDP)
 	 */
 	public void run() {
-		byte[] buffer = new byte[256];
+		byte[] buffer = new byte[5000];
+		DatagramPacket packet;
 		try {
 			MulticastSocket socket = new MulticastSocket(port+1);
-			InetAddress address = InetAddress.getByName("130.0.0.1");
+			InetAddress address = InetAddress.getByName("224.0.0.1");
 			socket.joinGroup(address);
-			DatagramPacket packet;
 			while (true) {
 				packet = new DatagramPacket(buffer, buffer.length);
 				socket.receive(packet); // Will wait until new packet received - Hence separate thread
@@ -90,7 +90,7 @@ public class Client2Thread extends Thread{
 		        System.out.println(pkt.toString());
 			}
 		} catch (Exception e) {
-			System.err.println("Error in client connect params");
+			System.err.println("Exception");
 		}
 	}
 	

@@ -50,6 +50,12 @@ public class ServerUDPThread extends Thread{
 	 */
 	public void run() {
 		byte[] buffer = new byte[256];
+		try {
+			group = InetAddress.getByName("224.0.0.1"); //Broadcast group on Inet 130.0.0.1 broadcast - client match
+		} catch (UnknownHostException e) {
+			System.err.println("Unknown Host - Reduce error");
+			e.printStackTrace();
+		}
 		while(true){ //Continuous Execution in Thread
 			while(true) { // Only output packet when values are available - avoid NULL packet transmission/*Values in Buffer List*/
 				PointPacket pnt = new PointPacket(1,2,3,4,Color.RED,6,cs2ts6.client.DrawingPanel.DrawType.PEN);
@@ -61,12 +67,6 @@ public class ServerUDPThread extends Thread{
 						buffer = baos.toByteArray();          // The packet to transmit - grab from sync method in mainserver class arraylist
 				} catch (IOException e) {
 					System.err.println("Cannot serialize");
-				}
-				try {
-					group = InetAddress.getByName("130.0.0.1"); //Broadcast group on Inet 130.0.0.1 broadcast - client match
-				} catch (UnknownHostException e) {
-					System.err.println("Unknown Host - Reduce error");
-					e.printStackTrace();
 				}
 				packet = new DatagramPacket(buffer, buffer.length, group, port+1); // Construct the packet - DEST PORT = serverport+1
 				try {

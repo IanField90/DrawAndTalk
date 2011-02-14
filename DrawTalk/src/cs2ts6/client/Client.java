@@ -29,4 +29,11 @@ public class Client {
 	public void sendMessage(ChatPacket cht) {
 		chat.drawMessage(cht);
 	}
+	
+	/**
+	 * Testing main
+	 */
+	public static void main(String[] args) {
+		new Client2Thread(null, null).start();
+	}
 }
