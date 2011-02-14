@@ -88,6 +88,13 @@ public class Client2Thread extends Thread{
 		        ObjectInputStream ois=new ObjectInputStream(new BufferedInputStream(bais));
 		        Packet pkt = (Packet)ois.readObject();
 		        System.out.println(pkt.toString());
+		        if(pkt instanceof PointPacket) {
+		        	//Send packet to Canvas
+		        	canvas.drawPoints((PointPacket)pkt);
+		        }
+		        if(pkt instanceof ChatPacket) {
+		        	chat.drawMessage((ChatPacket)pkt);
+		        }
 			}
 		} catch (Exception e) {
 			System.err.println("Exception");
