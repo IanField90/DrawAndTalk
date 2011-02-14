@@ -50,6 +50,7 @@ public class ServerUDPThread extends Thread{
 	 */
 	public void run() {
 		byte[] buffer = new byte[256];
+		int ctr = 0; //for testing
 		try {
 			group = InetAddress.getByName("224.0.0.1"); //Broadcast group on Inet 130.0.0.1 broadcast - client match
 		} catch (UnknownHostException e) {
@@ -58,7 +59,7 @@ public class ServerUDPThread extends Thread{
 		}
 		while(true){ //Continuous Execution in Thread
 			while(true) { // Only output packet when values are available - avoid NULL packet transmission/*Values in Buffer List*/
-				PointPacket pnt = new PointPacket(1,2,3,4,Color.RED,6,cs2ts6.client.DrawingPanel.DrawType.PEN);
+				PointPacket pnt = new PointPacket(ctr,2,3,4,Color.RED,6,cs2ts6.client.DrawingPanel.DrawType.PEN);
 				try {
 					ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					ObjectOutputStream oos = new ObjectOutputStream(baos);
@@ -71,7 +72,12 @@ public class ServerUDPThread extends Thread{
 				packet = new DatagramPacket(buffer, buffer.length, group, port+1); // Construct the packet - DEST PORT = serverport+1
 				try {
 					socket.send(packet); // Send the packet
+					ctr++;
+					Thread.sleep(20);
 				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
