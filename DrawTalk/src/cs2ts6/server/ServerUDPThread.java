@@ -73,7 +73,7 @@ public class ServerUDPThread extends Thread{
 				try {
 					socket.send(packet); // Send the packet
 					ctr++;
-					Thread.sleep(20);
+					Thread.sleep(5);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
