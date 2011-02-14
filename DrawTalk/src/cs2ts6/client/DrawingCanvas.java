@@ -52,10 +52,36 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		PointPacket pkt = new PointPacket(previousP.x, previousP.y, currentP.x, 
 				currentP.y, colour, 1, selectedOption);
 		client.sendPoints(pkt);
-		//System.out.println("PointPacket sent!");
+		//TODO locally draw - remove for server or keep for stand alone
+		drawPoints(pkt);
 	}
 	
+	/**
+	 * Draws the packet transmitted from the server on the canvas.
+	 * @param pkt Packet containing start and end points, with draw
+	 */
 	public void drawPoints(PointPacket pkt){
+		switch (pkt.get_drawType()){
+		case PEN:
+			Graphics g = getGraphics();    
+	        g.setColor(pkt.get_colour());       
+	        Graphics2D gThick = (Graphics2D) g;
+	        gThick.setStroke(new BasicStroke(1));
+	        gThick.drawLine(pkt.get_startX(), pkt.get_startY(), 
+	        		pkt.get_finishX(), pkt.get_finishY());        
+	        this.paint(gThick);
+			break;
+		case BRUSH:
+			Graphics g2 = getGraphics();    
+	        g2.setColor(pkt.get_colour());       
+	        Graphics2D gThick2 = (Graphics2D) g2;
+	        gThick2.setStroke(new BasicStroke(5));
+	        gThick2.drawLine(pkt.get_startX(), pkt.get_startY(), 
+	        		pkt.get_finishX(), pkt.get_finishY());        
+	        this.paint(gThick2);
+			break;
+		}
+		
 		// TODO Ali - Implement
 	}
 	
@@ -76,6 +102,13 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		// Unused but required to override
 	}
 	
+	/**
+	 * Clears the canvas
+	 */
+	public void clear(){
+		super.paint(getGraphics()); //super - default clears canvas
+	}
+	
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		System.out.println(System.nanoTime()-time);
@@ -83,13 +116,6 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		// Get current point
 		currentP = e.getPoint();
 		sendPoints();
-		
-		// Perform various different functions for currently selected tool
-		switch (selectedOption) {
-        	case PEN: pencilDragged(currentP); break;      
-        	case BRUSH: brushDragged(currentP); break;
-		}
-		// Reset the previous point for next use.
 		previousP = currentP;
 		
 	}
@@ -115,39 +141,12 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	public void mousePressed(MouseEvent e) {
 		previousP = e.getPoint();
 		currentP = e.getPoint();
-		switch (selectedOption) {
-    		case PEN: pencilDragged(currentP); break;      
-    		case BRUSH: brushDragged(currentP); break;
-		}
+		sendPoints();
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 	}
-	
-	/**
-	 * Handles what to do when dragging with the pencil tool selected
-	 * @param p Point to draw to from previous point
-	 */
-	private void pencilDragged(Point p){
-		Graphics g = getGraphics();    
-        g.setColor(colour);
-        g.drawLine(previousP.x, previousP.y, p.x, p.y);
-        this.paint(g);
-	}
-	
-	/**
-	 * Handles what to do when dragging with the brush tool selected
-	 * @param p Point to draw to from previous point
-	 */
-	private void brushDragged(Point p){
-		Graphics g = getGraphics();    
-        g.setColor(colour);       
-        Graphics2D gThick = (Graphics2D) g;
-        gThick.setStroke(new BasicStroke(5));
-        gThick.drawLine(previousP.x, previousP.y, p.x, p.y);        
-        this.paint(g);
-        // TODO: add some circles to give brush strokes nice round edges
-	}
+
 }

@@ -51,7 +51,7 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		
 		clear = new JButton("Clear");
 		clear.setToolTipText("Clear canvas");
-		clear.setEnabled(false);//TODO Support teacher admin (sprint 2)
+		//clear.setEnabled(false);//TODO Support teacher admin (sprint 2)
 		clear.addActionListener(this);
 		
 		brushSize = new JButton("Brush Size");
@@ -93,8 +93,9 @@ public class DrawingPanel extends JPanel implements ActionListener{
 			//TODO Brush size
 		}
 		if(e.getSource() == clear){
-			canvas = new DrawingCanvas(); //Clear the canvas
-			canvas.set_client(client); // canvas needs client
+			//canvas = new DrawingCanvas(); //Clear the canvas
+			canvas.clear(); //clear canvas, does not change reference
+			//canvas.set_client(client); // canvas needs client
 		}
 		
 		//TODO Colours
