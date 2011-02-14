@@ -13,7 +13,7 @@ import cs2ts6.packets.PointPacket;
  */
 public class ClientSendThread extends Thread{
 	
-	private static final int port = 61021;
+	private static final int port = 61000;
 	ObjectOutputStream oos;
 	Packet pkt;
 	int ctr = 0;
@@ -38,11 +38,16 @@ public class ClientSendThread extends Thread{
 				pkt = pnt;
 				
 				oos.writeObject(pkt);
+				oos.flush();
+				Thread.sleep(1000);
 				ctr++;
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.err.println("Cannot send Packet");
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -34,6 +34,7 @@ public class Client {
 	 * Testing main
 	 */
 	public static void main(String[] args) {
-		new Client2Thread(null, null).start();
+		//new Client2Thread(null, null).start();
+		new ClientSendThread().start();
 	}
 }

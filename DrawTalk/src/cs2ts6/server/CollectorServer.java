@@ -25,9 +25,9 @@ public class CollectorServer extends Thread{
 	public void run() {
 		ServerSocket svrSkt = null;
 		try {
-			svrSkt = new ServerSocket(port);
+			svrSkt = new ServerSocket(port+2);
 		} catch (IOException e) {
-			System.err.println("Could not listen on port: "+port);
+			System.err.println("Could not listen on port: "+(port+2));
 			System.exit(-1);
 		}
 		
@@ -39,5 +39,10 @@ public class CollectorServer extends Thread{
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public static void main(String[] args) {
+		System.out.println("Launching server");
+		new CollectorServer().start();
 	}
 }
