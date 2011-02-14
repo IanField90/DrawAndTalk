@@ -87,10 +87,10 @@ public class Client2Thread extends Thread{
 				ByteArrayInputStream bais=new ByteArrayInputStream(buffer);		        
 		        ObjectInputStream ois=new ObjectInputStream(new BufferedInputStream(bais));
 		        Packet pkt = (Packet)ois.readObject();
-		        System.out.println(pkt);
+		        System.out.println(pkt.toString());
 			}
 		} catch (Exception e) {
-			System.err.println("Error in cleint connect params");
+			System.err.println("Error in client connect params");
 		}
 	}
 	

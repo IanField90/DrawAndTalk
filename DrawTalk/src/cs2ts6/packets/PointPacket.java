@@ -9,6 +9,10 @@ import cs2ts6.client.DrawingPanel.DrawType;
  * Used to transmit the data of the drawing between the clients and server.
  */
 public class PointPacket extends Packet{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int startX, startY, finishX, finishY;
 	private int size;
 	private Color colour;
@@ -74,4 +78,9 @@ public class PointPacket extends Packet{
 		return drawType;
 	}
 	
+	public String toString() {
+		String str = "";
+		str = str+startX+" "+finishX+" "+startY+" "+finishY+" "+size;
+		return str;
+	}
 }

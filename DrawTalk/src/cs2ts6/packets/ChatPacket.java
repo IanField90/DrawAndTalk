@@ -5,6 +5,10 @@ package cs2ts6.packets;
  * Used to transmit the data of the chat between the clients and server.
  */
 public class ChatPacket extends Packet{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String sender;
 	private String message;
 	
