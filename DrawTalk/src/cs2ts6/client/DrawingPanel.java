@@ -51,19 +51,23 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		brush = new JButton(getImageIcon("brush.jpg"));
 		brush.setToolTipText("Brush");
 		brush.addActionListener(this);
+		brush.setBackground(Color.lightGray);
 		
 		pen = new JButton(getImageIcon("pen.jpg"));
 		pen.setToolTipText("Pen");
 		pen.addActionListener(this);
+		pen.setBackground(Color.lightGray);
 		
 		clear = new JButton(getImageIcon("new.jpg"));
 		clear.setToolTipText("Clear canvas");
 		//clear.setEnabled(false);//TODO Support teacher admin (sprint 2)
 		clear.addActionListener(this);
+		clear.setBackground(Color.lightGray);
 		
 		brushSize = new JButton(getImageIcon("size.jpg"));
 		brushSize.setToolTipText("Brush size");
 		brushSize.addActionListener(this);
+		brushSize.setBackground(Color.lightGray);
 		
 		sizeSlider = new JSlider(JSlider.HORIZONTAL, 2, 32, 5);
 		sizeSlider.setVisible(false);
@@ -71,15 +75,19 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		sizeSlider.setMinorTickSpacing(1);
 		sizeSlider.setPaintTicks(true);
 		sizeSlider.setPaintLabels(true);
+		//Changing this to light grey makes minor ticks not visible
+		//sizeSlider.setBackground(Color.lightGray); 
 		
 		erase = new JButton(getImageIcon("eraser.jpg"));
 		erase.setToolTipText("Erase by drawing with the 'rubber'");
 		erase.addActionListener(this);
+		erase.setBackground(Color.lightGray);
 		
 		brushColour = new JButton(getImageIcon("palette.jpg"));
 		brushColour.setSize(brushColour.getPreferredSize());
 		brushColour.setToolTipText("Colour Palette");
 		brushColour.addActionListener(this);
+		brushColour.setBackground(Color.lightGray);
 		
 		toolBar.setOrientation(0);//Make toolbar appear horizontal
 		toolBar.add(pen);
@@ -94,6 +102,7 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		toolBar.add(erase);
 		toolBar.addSeparator(  );
 		toolBar.add(clear);
+		toolBar.setBackground(Color.lightGray);
 		toolBar.setFloatable(false); //Disables dragging of toolbar
 		
 		panel.add(toolBar, BorderLayout.NORTH);
