@@ -64,9 +64,12 @@ public class MainWindow extends JPanel implements WindowListener{
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
 				try {
-				    // Set cross-platform Java L&F (also called "Metal")
-			        UIManager.setLookAndFeel(
-			        		UIManager.getSystemLookAndFeelClassName());
+					System.out.println(System.getProperty("os.name"));
+					if(System.getProperty("os.name").contains("Linux")) {
+						UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+					} else {
+						UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					}
 			    } 
 			    catch (UnsupportedLookAndFeelException e) {
 			       // handle exception
