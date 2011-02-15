@@ -29,7 +29,7 @@ public class DrawingPanel extends JPanel implements ActionListener{
 	private Client client; // treated like a pointer
 	
 	// Use enums for types
-	public static enum DrawType { PEN, BRUSH, ERASE, SQUARE, CIRCLE };
+	public static enum DrawType { PEN, BRUSH, ERASE, SQUARE, CIRCLE , FULL_CLEAR};
 	
 	public DrawingPanel(Client client){
 		this.client = client;

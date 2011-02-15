@@ -12,11 +12,13 @@ import java.net.ServerSocket;
 public class CollectorServer extends Thread{
 	
 	private static final int port = 61000;
+	private Server server;
 	/**
 	 * Server Constructor
 	 */
-	CollectorServer() {
+	CollectorServer(Server srv) {
 		super("CollectorServer");
+		server = srv;
 	}
 	
 	/**
@@ -33,7 +35,7 @@ public class CollectorServer extends Thread{
 		
 		while (true) {
 			try {
-				new CollectorServerThread(svrSkt.accept()).start();
+				new CollectorServerThread(svrSkt.accept(), server).start();
 			} catch (IOException e) {
 				System.err.println("Error in client connection");
 				e.printStackTrace();
@@ -41,8 +43,8 @@ public class CollectorServer extends Thread{
 		}
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		System.out.println("Launching server");
-		new CollectorServer().start();
-	}
+		new CollectorServer(server).start();
+	}*/
 }

@@ -27,16 +27,17 @@ public class Client2Thread extends Thread{
 	private ChatPanel chat;
 	private static final int port = 61021;
 	boolean firstRun = true;
-	
+	private Client client;
 	/**
 	 * Constructor linking client to windows
 	 * @param canv DrawingCanvas reference
 	 * @param cht ChatPanel reference
 	 */
-	public Client2Thread(DrawingCanvas canv, ChatPanel cht) {
+	public Client2Thread(DrawingCanvas canv, ChatPanel cht, Client cli) {
 		super("Client2");
 		canvas = canv;
 		chat = cht;
+		client = cli;
 	}
 	public void setCanvas(DrawingCanvas canvas) {
 		this.canvas = canvas;
@@ -95,13 +96,13 @@ public class Client2Thread extends Thread{
 				if(firstRun) {
 					firstRun = false;
 					//Create thread to handle socket send
-					new ClientSendThread(packet.getAddress(), this).start();
+					new ClientSendThread(packet.getAddress(), this, client).start();
 				}
 				
 				ByteArrayInputStream bais=new ByteArrayInputStream(buffer);		        
 		        ObjectInputStream ois=new ObjectInputStream(new BufferedInputStream(bais));
 		        Packet pkt = (Packet)ois.readObject();
-		        System.out.println(pkt.toString());
+		        //System.out.println(pkt.toString());
 		        if(pkt instanceof PointPacket) {
 		        	//Send packet to Canvas
 		        	canvas.drawPoints((PointPacket)pkt);

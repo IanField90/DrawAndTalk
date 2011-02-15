@@ -76,9 +76,9 @@ public class ServerUDPThread extends Thread{
 				}
 				packet = new DatagramPacket(buffer, buffer.length, group, port+1); // Construct the packet - DEST PORT = serverport+1
 				try {
+					//System.out.println(packet);
 					socket.send(packet); // Send the packet
-					ctr++;
-					Thread.sleep(10000);
+					//ctr++;
 				} catch (Exception e) {
 					System.err.println("Error in sending a UDP Broadcast");
 				}

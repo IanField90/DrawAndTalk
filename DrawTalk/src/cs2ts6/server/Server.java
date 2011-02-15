@@ -25,7 +25,7 @@ public class Server {
 		}
 		else {
 			try {
-				Thread.sleep(50);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {}
 			return new ChatPacket("KEEPALIVE","");
 		}
@@ -38,7 +38,7 @@ public class Server {
 	public static void main(String[] args) throws IOException{
 		System.out.println("Launching Server");
 		Server srv = new Server();
-		new CollectorServer().start();
+		new CollectorServer(srv).start();
 		new ServerUDPThread(srv).start();
 	}
 }

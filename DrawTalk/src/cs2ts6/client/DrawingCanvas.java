@@ -34,6 +34,8 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	long time;
 	private Client client; //treated as a pointer
 	
+	private Graphics graphic;
+	
 	public DrawingCanvas(){
 		//this.client = client;
 		setBackground(Color.white);
@@ -61,6 +63,11 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	 * @param pkt Packet containing start and end points, with draw
 	 */
 	public void drawPoints(PointPacket pkt){
+		//Will be integrated but proof of concept
+		if(pkt.get_drawType() == DrawType.FULL_CLEAR) {
+			super.paint(getGraphics());
+		}
+		
 		switch (pkt.get_drawType()){
 		case PEN:
 			Graphics g = getGraphics();    
@@ -68,7 +75,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	        Graphics2D gThick = (Graphics2D) g;
 	        gThick.setStroke(new BasicStroke(1));
 	        gThick.drawLine(pkt.get_startX(), pkt.get_startY(), 
-	        		pkt.get_finishX(), pkt.get_finishY());        
+	        		pkt.get_finishX(), pkt.get_finishY());   
 	        this.paint(gThick);
 			break;
 		case BRUSH:
@@ -100,13 +107,19 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	@Override
 	public void paint (Graphics g){
 		// Unused but required to override
+		
 	}
 	
 	/**
 	 * Clears the canvas
 	 */
 	public void clear(){
-		super.paint(getGraphics()); //super - default clears canvas
+		DrawType prev = selectedOption;
+		set_selectedOption(DrawType.FULL_CLEAR);
+		sendPoints();
+		sendPoints(); // Ensure 100% on UDP
+		selectedOption = prev;
+		//super.paint(getGraphics()); //super - default clears canvas
 	}
 	
 	@Override
