@@ -89,9 +89,9 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	
 	public void drawMessage(ChatPacket pkt){
 		if(!pkt.get_sender().equals(username)) {
-			chatBox.append(pkt.get_sender() + ": " + pkt.get_message()+"\n");
+			chatBox.append(chatBox.getText()+pkt.get_sender() + ": " + pkt.get_message()+"\n");
 		} else {
-			chatBox.setText("You: "+pkt.get_message());
+			chatBox.setText(chatBox.getText()+"You: "+pkt.get_message());
 		}
 	}
 

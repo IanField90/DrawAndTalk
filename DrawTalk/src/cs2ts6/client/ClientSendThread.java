@@ -41,7 +41,7 @@ public class ClientSendThread extends Thread{
 			System.err.println("Error setting up ClientSender\nCan only listen");
 		}
 		//Inform user everyting is ready to GO (Both send/recieve active)
-		JOptionPane.showMessageDialog(null,"You can now send to the server");
+		JOptionPane.showMessageDialog(null,"You can now send to the server\nServer detected at: "+serverAddress.toString());
 		try {
 			while(true) {
 				//PointPacket pnt = new PointPacket(ctr,2,3,4,Color.RED,6,cs2ts6.client.DrawingPanel.DrawType.PEN);
