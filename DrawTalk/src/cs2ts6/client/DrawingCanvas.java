@@ -111,6 +111,10 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 
 	}
 	
+	/**
+	 * Draws all previous points in the array list on screen. This is in place as the paint method is called
+	 * by the system and would result in the wiping of the canvas. At least, all but the last draw call.
+	 */
 	public void redrawAction(){
 		Graphics g = getGraphics();
 		for(int i = 0; i < pktList.size(); i++){
@@ -182,4 +186,20 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	public void mouseReleased(MouseEvent e) {
 	}
 
+	
+	private class RedrawThread extends Thread {
+		RedrawThread(){
+			super("RedrawThread");
+		}
+		
+		public void run(){
+			try{
+				Thread.sleep(4000);
+				//TODO add references to canvas in order to implement redrawAction();
+			}
+			catch (InterruptedException e){
+				//Do nothing
+			}
+		}
+	}
 }

@@ -33,6 +33,7 @@ public class MainWindow extends JPanel implements WindowListener{
 		username = JOptionPane.showInputDialog("Please enter your username:");
 		JFrame frame = new JFrame("Draw & Talk Application - Team 11");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);// disables maximise button
 		drawingPanel = new DrawingPanel();
 		chatPanel = new ChatPanel(username);
 		client = new Client(drawingPanel.get_canvas(), chatPanel); //Client needs canvas + chatpanel
