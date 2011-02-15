@@ -1,5 +1,6 @@
 package cs2ts6.client;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -41,7 +42,9 @@ public class MainWindow extends JPanel implements WindowListener{
 		client = new Client(drawingPanel.get_canvas(), chatPanel); //Client needs canvas + chatpanel
 		drawingPanel.get_canvas().set_client(client); // canvas needs client
 		chatPanel.set_client(client);
-		frame.setPreferredSize(new Dimension(1000, 480));
+		frame.setPreferredSize(new Dimension(980, 470));
+		drawingPanel.setBackground(Color.lightGray);
+		chatPanel.setBackground(Color.lightGray);
 		frame.add("West", drawingPanel);
 		frame.add(chatPanel);
 		frame.addWindowListener(this);

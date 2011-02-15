@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JToolBar;
 
 /**
@@ -26,6 +27,7 @@ public class DrawingPanel extends JPanel implements ActionListener{
 	 */
 	private static final long serialVersionUID = 7531407885742074028L;
 	private JButton pen, brush, clear, brushSize, erase, brushColour;
+	private JSlider sizeSlider;
 	private DrawingCanvas canvas; //Canvas where drawing is handled
 	private Color colour; //Holds drawing colour - for GUI/feedback
 	private final static String ICON_PATH = "src/icons" + File.separator;
@@ -63,6 +65,13 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		brushSize.setToolTipText("Brush size");
 		brushSize.addActionListener(this);
 		
+		sizeSlider = new JSlider(JSlider.HORIZONTAL, 2, 32, 5);
+		sizeSlider.setVisible(false);
+		sizeSlider.setMajorTickSpacing(5);
+		sizeSlider.setMinorTickSpacing(1);
+		sizeSlider.setPaintTicks(true);
+		sizeSlider.setPaintLabels(true);
+		
 		erase = new JButton(getImageIcon("eraser.jpg"));
 		erase.setToolTipText("Erase by drawing with the 'rubber'");
 		erase.addActionListener(this);
@@ -78,6 +87,7 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		toolBar.add(brush);
 		toolBar.addSeparator(  );
 		toolBar.add(brushSize);
+		toolBar.add(sizeSlider);
 		toolBar.addSeparator(  );
 		toolBar.add(brushColour);
 		toolBar.addSeparator(  );
@@ -126,7 +136,8 @@ public class DrawingPanel extends JPanel implements ActionListener{
 			canvas.set_selectedOption(DrawType.PEN);
 		}
 		if(e.getSource() == brushSize){
-			//TODO Brush size
+			brushSize.setVisible(false);
+			sizeSlider.setVisible(true);
 		}
 		if(e.getSource() == clear){
 			//canvas = new DrawingCanvas(); //Clear the canvas

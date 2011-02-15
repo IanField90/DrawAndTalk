@@ -1,5 +1,6 @@
 package cs2ts6.client;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Panel;
@@ -42,6 +43,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		JTabbedPane jtpChat = new JTabbedPane();
 		globalChat = new JPanel();
 		globalChat.setPreferredSize(new Dimension(300,400));
+		globalChat.setBackground(Color.lightGray);
 		chatBox = new JTextArea();
 		JScrollPane areaScrollPane = new JScrollPane(chatBox);
 		areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -51,6 +53,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		chatBox.setWrapStyleWord(true);
 		txtField = new JTextField(28);
 		btnSend = new JButton("Send");
+		btnSend.setBackground(Color.lightGray);
 		
 		
 		globalChat.setLayout(new BoxLayout(globalChat, BoxLayout.PAGE_AXIS));
