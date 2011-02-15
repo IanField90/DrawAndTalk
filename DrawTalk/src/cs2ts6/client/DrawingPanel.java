@@ -77,7 +77,7 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		brushSize.addActionListener(this);
 		brushSize.setBackground(Color.lightGray);
 		
-		sizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 20, 5);
+		sizeSlider = new JSlider(JSlider.HORIZONTAL, 0, 20, 5);
 		sizeSlider.setVisible(false);
 		sizeSlider.setMajorTickSpacing(5);
 		sizeSlider.setMinorTickSpacing(1);
@@ -147,33 +147,35 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 	public void actionPerformed(ActionEvent e) {
 		//TODO Emphasise selected drawType
 		//Sort drawing type
-		//TODO Size implement max change
-		//TODO Size implement fix code
 		//TODO Fix redraw issue
+		int size = 1;
 		if(e.getSource() == brush){
 			canvas.set_selectedOption(DrawType.BRUSH);
-			canvas.set_brushSize(5);
-			sizeSlider.setVisible(false);
-			brushSize.setVisible(true);
+			sizeSlider.setMaximum(20);
+			size = 5;
 		}
 		if(e.getSource() == pen){
 			canvas.set_selectedOption(DrawType.PEN);
-			canvas.set_brushSize(1);
-			sizeSlider.setVisible(false);
-			brushSize.setVisible(true);
-		}
-		if(e.getSource() == brushSize){
-			brushSize.setVisible(false);
-			sizeSlider.setVisible(true);
+			sizeSlider.setMaximum(10);
+			size = 1;
 		}
 		if(e.getSource() == clear){
 			canvas.clear(); //clear canvas, does not change reference
 		}
 		if(e.getSource() == erase) {
 			canvas.set_selectedOption(DrawType.ERASE);
-			canvas.set_brushSize(30);
-			sizeSlider.setVisible(false);
-			brushSize.setVisible(true);
+			sizeSlider.setMaximum(40);
+			size = 30;
+		}
+		//Generic to all
+		canvas.set_brushSize(size);
+		sizeSlider.setVisible(false);
+		brushSize.setVisible(true);
+		sizeSlider.setValue(size);
+
+		if(e.getSource() == brushSize){
+			brushSize.setVisible(false);
+			sizeSlider.setVisible(true);
 		}
 		if(e.getSource() == brushColour) {
 			if(firstRun) {
@@ -181,10 +183,9 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 				cp.createAndShowGUI();
 				firstRun = false;
 			}
-			
 			cp.setVisible(masterFrame.getX(),masterFrame.getY()+masterFrame.getHeight());
 		}
-		//TODO Save
+		canvas.redrawAction();
 
 	}
 

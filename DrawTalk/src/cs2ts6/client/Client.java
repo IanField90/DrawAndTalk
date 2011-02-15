@@ -43,6 +43,7 @@ public class Client {
 	 */
 	public void onServerSet(boolean t) {
 		onServer = t;
+		packets.clear(); // Removes old packets in the buffer
 	}
 	/**
 	 * Checks status of server connection

@@ -72,6 +72,7 @@ public class ColourPalette{
 			JTextField src = (JTextField)arg0.getSource();
 			canvas.set_colour(src.getBackground());
 			cPalette.setVisible(false);
+			canvas.redrawAction();
 		}
 		public void mouseEntered(MouseEvent e) {
 			cPalette.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
