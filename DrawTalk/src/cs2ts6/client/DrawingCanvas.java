@@ -43,6 +43,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		colour = Color.black;
 		this.addMouseMotionListener(this);
 		this.addMouseListener(this);
+		new RedrawThread(this).start();
 	}
 	
 	public void set_client(Client client){
@@ -189,17 +190,22 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 
 	
 	private class RedrawThread extends Thread {
-		RedrawThread(){
+		DrawingCanvas canvas;
+		RedrawThread(DrawingCanvas canv){
 			super("RedrawThread");
+			canvas = canv;
 		}
 		
 		public void run(){
+			while (true) {
 			try{
 				Thread.sleep(4000);
-				//TODO add references to canvas in order to implement redrawAction();
+				canvas.redrawAction();
+				System.out.println("REDRAW");
 			}
 			catch (InterruptedException e){
 				//Do nothing
+			}
 			}
 		}
 	}
