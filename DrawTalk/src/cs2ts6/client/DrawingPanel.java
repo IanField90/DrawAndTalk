@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JToolBar;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * 
@@ -22,7 +24,7 @@ import javax.swing.JToolBar;
  * Creates the Canvas panel. This is a 640px x 480px DrawingCanvas and a toolbar.
  * Toolbar sets private members in DrawingCanvas.
  */
-public class DrawingPanel extends JPanel implements ActionListener{
+public class DrawingPanel extends JPanel implements ActionListener, ChangeListener{
 
 	/**
 	 * Automatically generated number
@@ -75,12 +77,13 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		brushSize.addActionListener(this);
 		brushSize.setBackground(Color.lightGray);
 		
-		sizeSlider = new JSlider(JSlider.HORIZONTAL, 2, 32, 5);
+		sizeSlider = new JSlider(JSlider.HORIZONTAL, 1, 20, 5);
 		sizeSlider.setVisible(false);
 		sizeSlider.setMajorTickSpacing(5);
 		sizeSlider.setMinorTickSpacing(1);
 		sizeSlider.setPaintTicks(true);
 		sizeSlider.setPaintLabels(true);
+		sizeSlider.addChangeListener(this);
 		//Changing this to light grey makes minor ticks not visible
 		//sizeSlider.setBackground(Color.lightGray); 
 		
@@ -144,11 +147,20 @@ public class DrawingPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		//TODO Emphasise selected drawType
 		//Sort drawing type
+		//TODO Size implement max change
+		//TODO Size implement fix code
+		//TODO Fix redraw issue
 		if(e.getSource() == brush){
 			canvas.set_selectedOption(DrawType.BRUSH);
+			canvas.set_brushSize(5);
+			sizeSlider.setVisible(false);
+			brushSize.setVisible(true);
 		}
 		if(e.getSource() == pen){
 			canvas.set_selectedOption(DrawType.PEN);
+			canvas.set_brushSize(1);
+			sizeSlider.setVisible(false);
+			brushSize.setVisible(true);
 		}
 		if(e.getSource() == brushSize){
 			brushSize.setVisible(false);
@@ -159,6 +171,9 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		}
 		if(e.getSource() == erase) {
 			canvas.set_selectedOption(DrawType.ERASE);
+			canvas.set_brushSize(30);
+			sizeSlider.setVisible(false);
+			brushSize.setVisible(true);
 		}
 		if(e.getSource() == brushColour) {
 			if(firstRun) {
@@ -171,6 +186,14 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		}
 		//TODO Save
 
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent arg0) {
+		if(arg0.getSource() == sizeSlider) {
+			canvas.set_brushSize(sizeSlider.getValue());
+		}
+		
 	}
 
 }

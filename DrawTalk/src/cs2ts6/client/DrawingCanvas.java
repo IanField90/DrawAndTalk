@@ -32,6 +32,8 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	private Point currentP;
 	// The currently selected tool
 	private DrawType selectedOption;
+	
+	private int size;
 	long time;
 	private Client client; //treated as a pointer
 	
@@ -52,10 +54,9 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	public void sendPoints(){
 		// Send point packet to server
 		PointPacket pkt = new PointPacket(previousP.x, previousP.y, currentP.x, 
-				currentP.y, colour, 1, selectedOption);
+				currentP.y, colour, size, selectedOption);
 		client.sendPoints(pkt);
-		//drawPoints(pkt); // Live local drawing - regardless of client
-		pktList.add(pkt);//= pkt;
+		pktList.add(pkt);
 		paint(getGraphics());
 	}
 	
@@ -88,6 +89,10 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		selectedOption = option;
 	}
 	
+	public void set_brushSize(int s) {
+		size = s;
+	}
+	
 	@Override
 	public void paint (Graphics g){
 		// Unused but required to override
@@ -97,13 +102,13 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 			Graphics2D gThick = (Graphics2D)g;
 			switch(pkt.get_drawType()){
 			case PEN:
-		        gThick.setStroke(new BasicStroke(1));
+		        gThick.setStroke(new BasicStroke(size));
 				break;
 			case BRUSH:
-		        gThick.setStroke(new BasicStroke(5));
+		        gThick.setStroke(new BasicStroke(size));
 				break;
 			case ERASE:
-				gThick.setStroke(new BasicStroke(30));
+				gThick.setStroke(new BasicStroke(size));
 				g.setColor(Color.WHITE);
 			}
 			gThick.drawLine(pkt.get_startX(), pkt.get_startY(), pkt.get_finishX(), pkt.get_finishY()); 
@@ -123,13 +128,13 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 			Graphics2D gThick = (Graphics2D)g;
 			switch(pkt.get_drawType()){
 			case PEN:
-		        gThick.setStroke(new BasicStroke(1));
+		        gThick.setStroke(new BasicStroke(pkt.get_size()));
 				break;
 			case BRUSH:
-		        gThick.setStroke(new BasicStroke(5));
+		        gThick.setStroke(new BasicStroke(pkt.get_size()));
 				break;
 			case ERASE:
-				gThick.setStroke(new BasicStroke(30));
+				gThick.setStroke(new BasicStroke(pkt.get_size()));
 				g.setColor(Color.WHITE);
 			}
 			gThick.drawLine(pkt.get_startX(), pkt.get_startY(), pkt.get_finishX(), pkt.get_finishY()); 
