@@ -51,6 +51,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		PointPacket pkt = new PointPacket(previousP.x, previousP.y, currentP.x, 
 				currentP.y, colour, 1, selectedOption);
 		client.sendPoints(pkt);
+		drawPoints(pkt); // Live local drawing - regardless of client
 	}
 	
 	/**
