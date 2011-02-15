@@ -42,6 +42,7 @@ public class ClientSendThread extends Thread{
 		}
 		//Inform user everyting is ready to GO (Both send/recieve active)
 		JOptionPane.showMessageDialog(null,"You can now send to the server\nServer detected at: "+serverAddress.toString());
+		client.onServerSet(true);
 		try {
 			while(true) {
 				//PointPacket pnt = new PointPacket(ctr,2,3,4,Color.RED,6,cs2ts6.client.DrawingPanel.DrawType.PEN);
@@ -54,6 +55,8 @@ public class ClientSendThread extends Thread{
 			}
 		} catch (Exception e) {
 			System.err.println("Cannot send Packet");
+			JOptionPane.showMessageDialog(null,"No Longer connected to server");
+			client.onServerSet(false);
 			// Reset Calling Thread so that it can be re-instantiated on next successful communication
 			caller.invertRunParam();
 			e.printStackTrace();

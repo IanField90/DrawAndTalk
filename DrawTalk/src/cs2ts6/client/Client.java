@@ -8,6 +8,7 @@ public class Client {
 	private ArrayList<Packet> packets;
 	private DrawingCanvas canvas;
 	private ChatPanel chat;
+	private boolean onServer = false;
 	/**
 	 * Construct the client class with refernces to canvas and chat windows
 	 * @param cnv Canvas reference
@@ -36,6 +37,21 @@ public class Client {
 		//chat.drawMessage(cht);
 		packets.add(cht);
 	}
+	/**
+	 * 
+	 * @param t True-Connected False-noConnection
+	 */
+	public void onServerSet(boolean t) {
+		onServer = t;
+	}
+	/**
+	 * Checks status of server connection
+	 * @return True - connected, False - None
+	 */
+	public boolean onServerGet() {
+		return onServer;
+	}
+	
 	/**
 	 * Used by CleintSendThread for communicating a packet from Client->Server
 	 * @return The packet to be transmitted
