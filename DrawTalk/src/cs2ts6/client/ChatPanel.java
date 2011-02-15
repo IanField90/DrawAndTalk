@@ -51,7 +51,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		chatBox.setEnabled(false);
 		chatBox.setLineWrap(true);
 		chatBox.setWrapStyleWord(true);
-		txtField = new JTextField(28);
+		txtField = new JTextField(26);
 		btnSend = new JButton("Send");
 		btnSend.setBackground(Color.lightGray);
 		
