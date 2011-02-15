@@ -67,7 +67,7 @@ public class MainWindow extends JPanel implements WindowListener{
 				try {
 				    // Set cross-platform Java L&F (also called "Metal")
 			        UIManager.setLookAndFeel(
-			            UIManager.getSystemLookAndFeelClassName());
+			        		UIManager.getSystemLookAndFeelClassName());
 			    } 
 			    catch (UnsupportedLookAndFeelException e) {
 			       // handle exception

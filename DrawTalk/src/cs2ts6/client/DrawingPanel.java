@@ -30,7 +30,9 @@ public class DrawingPanel extends JPanel implements ActionListener{
 	private JSlider sizeSlider;
 	private DrawingCanvas canvas; //Canvas where drawing is handled
 	private Color colour; //Holds drawing colour - for GUI/feedback
+	private ColourPalette cp;
 	private final static String ICON_PATH = "src/icons" + File.separator;
+	private boolean firstRun = true;
 	
 	// Use enums for types
 	public static enum DrawType { PEN, BRUSH, ERASE, SQUARE, CIRCLE , FULL_CLEAR};
@@ -151,9 +153,13 @@ public class DrawingPanel extends JPanel implements ActionListener{
 			/*String[] choices = { "Red", "Green", "Blue", "Black", "Yellow" };
 			int choice = JOptionPane.showOptionDialog(null, "Choose a colour", "Colour Palette", 
 					JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, "Black");*/
-			
-			ColourPalette cp = new ColourPalette();
-			cp.createAndShowGUI();
+			if(firstRun) {
+				cp = new ColourPalette(canvas);
+				cp.createAndShowGUI();
+				firstRun = false;
+			} else {
+				cp.setVisible();
+			}
 			/*switch(choice) {
 			case 0: canvas.set_colour(Color.RED); break;
 			case 1: canvas.set_colour(Color.GREEN); break;

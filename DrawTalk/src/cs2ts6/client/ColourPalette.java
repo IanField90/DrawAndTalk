@@ -25,9 +25,10 @@ public class ColourPalette{
 
 	JWindow cPalette = new JWindow();
 	private JTextField red, green, blue, black, yellow;
+	private DrawingCanvas canvas;
 	
-	ColourPalette(){
-		
+	ColourPalette(DrawingCanvas canv){
+		canvas = canv;
 		red = new JTextField ();
 		red.setBackground(Color.red);
 		red.setEnabled(false);
@@ -60,10 +61,16 @@ public class ColourPalette{
 		
 	}
 	
+	public void setVisible() {
+		cPalette.setVisible(true);
+	}
+	
 	MouseListener hover = new MouseListener() {
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			//TODO When clicked the colours change
+			JTextField src = (JTextField)arg0.getSource();
+			canvas.set_colour(src.getBackground());
+			cPalette.setVisible(false);
 		}
 		public void mouseEntered(MouseEvent e) {
 			cPalette.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
