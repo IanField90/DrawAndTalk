@@ -32,6 +32,8 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	private Point currentP;
 	// The currently selected tool
 	private DrawType selectedOption;
+	private boolean flag = true;
+	private int iflag = 0;
 	
 	private int size;
 	long time;
@@ -160,8 +162,25 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	public void mouseDragged(MouseEvent e) {
 		// Get current point
 		currentP = e.getPoint();
-		sendPoints();
-		previousP = currentP;
+		
+		//One packet in 2
+		/*if(flag) {
+			sendPoints();
+			previousP = currentP;
+			flag = false;
+		} else {
+			flag = true;
+		}*/
+		
+		//One packet in X
+		if(iflag == 0 || iflag == 3){
+			sendPoints();
+			previousP = currentP;
+			flag = false;
+			iflag = 1;
+		} else {
+			iflag++;
+		}
 		
 	}
 

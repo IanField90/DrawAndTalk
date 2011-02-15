@@ -62,6 +62,10 @@ public class ColourPalette{
 	}
 	
 	public void setVisible(int X, int Y) {
+		if(cPalette.isVisible()) {
+			cPalette.setVisible(false);
+			return;
+		}
 		cPalette.setLocation(X,Y-cPalette.getHeight());
 		cPalette.setVisible(true);
 	}
@@ -94,8 +98,8 @@ public class ColourPalette{
 			public void run() {
 				cPalette.setSize(130, 80);
 				//cPalette.setLocation(150, 80);
-				//cPalette.setVisible(true); Now called internally
-				
+				cPalette.setVisible(true);
+				cPalette.setVisible(false);
 			}
 		});
 	}
