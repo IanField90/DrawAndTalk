@@ -15,7 +15,7 @@ import cs2ts6.client.DrawingPanel.DrawType;
 import cs2ts6.packets.PointPacket;
 
 /** 
- * @author Ian Field
+ * @author Ian Field, Stephen, Ali
  * A custom implementation of canvas to implement drawing for lines and brush strokes (Sprint 1)
  */
 public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseListener {
@@ -38,7 +38,6 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	private ArrayList<PointPacket> pktList = new ArrayList<PointPacket>();
 	
 	public DrawingCanvas(){
-		//this.client = client;
 		setBackground(Color.white);
 		colour = Color.black;
 		this.addMouseMotionListener(this);
@@ -198,14 +197,13 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		
 		public void run(){
 			while (true) {
-			try{
-				Thread.sleep(4000);
-				canvas.redrawAction();
-				System.out.println("REDRAW");
-			}
-			catch (InterruptedException e){
-				//Do nothing
-			}
+				try{
+					Thread.sleep(4000);
+					canvas.redrawAction();
+				}
+				catch (InterruptedException e){
+					//Do nothing
+				}
 			}
 		}
 	}
