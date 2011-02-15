@@ -8,9 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -37,12 +40,13 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	private Client client;
 	private String username;
 	private String lastMessage;
+	private final static String ICON_PATH = "src/icons" + File.separator;
 	
 	public ChatPanel(String uname){
 		username = uname;
 		JTabbedPane jtpChat = new JTabbedPane();
 		globalChat = new JPanel();
-		globalChat.setPreferredSize(new Dimension(300,400));
+		globalChat.setPreferredSize(new Dimension(300,297));
 		globalChat.setBackground(Color.lightGray);
 		chatBox = new JTextArea();
 		JScrollPane areaScrollPane = new JScrollPane(chatBox);
@@ -69,7 +73,12 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		jtpChat.add("Global Chat", globalChat);
 		txtField.addKeyListener(this);
 		btnSend.addActionListener(this);
-		//jtpChat.add()
+
+		File theImage = new File(ICON_PATH + "logo.jpg");
+		ImageIcon img = new ImageIcon(theImage.getAbsolutePath());
+		
+		JLabel label = new JLabel(img);
+		add(label);
 		add(jtpChat);
 		
 	}
