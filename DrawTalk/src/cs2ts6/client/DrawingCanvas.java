@@ -34,8 +34,6 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	long time;
 	private Client client; //treated as a pointer
 	
-	private Graphics graphic;
-	
 	public DrawingCanvas(){
 		//this.client = client;
 		setBackground(Color.white);

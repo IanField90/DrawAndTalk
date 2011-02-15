@@ -1,6 +1,5 @@
 package cs2ts6.server;
 
-import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -10,7 +9,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import cs2ts6.packets.Packet;
-import cs2ts6.packets.PointPacket;
 
 /**
  * Multi-Thread Server UDP (Transmit pkts)
@@ -44,7 +42,7 @@ public class ServerUDPThread extends Thread{
 	 * @throws IOException to allow for exit - premature disconnect
 	 */
 	public ServerUDPThread(Server srv) throws IOException {
-        super("UDPServerThread"); //Thread super constructor
+        super("UDPServerThread"); //Thread super constructor - with thread name
         socket = new DatagramSocket(port); //Datagram port setup
         server = srv;
     }
@@ -53,8 +51,7 @@ public class ServerUDPThread extends Thread{
 	 * Main execution cycle - sends broadcast messages to ALL connected clients
 	 */
 	public void run() {
-		byte[] buffer = new byte[256];
-		int ctr = 0; //for testing
+		byte[] buffer = new byte[1024];
 		try {
 			group = InetAddress.getByName("224.0.0.31"); //Broadcast group on Inet 130.0.0.1 broadcast - client match
 		} catch (UnknownHostException e) {
@@ -63,20 +60,21 @@ public class ServerUDPThread extends Thread{
 		}
 		while(true){ //Continuous Execution in Thread
 			while(true) { // Only output packet when values are available - avoid NULL packet transmission/*Values in Buffer List*/
-				//PointPacket pnt = new PointPacket(ctr,2,3,4,Color.RED,6,cs2ts6.client.DrawingPanel.DrawType.PEN); // WAS FOR TESTING
+				//Prepare data for transmission
 				try {
-					Packet pnt = server.getForBroadcast();
+					Packet pnt = server.getForBroadcast(); //Takes packet list item from queue
 					ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					ObjectOutputStream oos = new ObjectOutputStream(baos);
-					oos.writeObject(pnt);
+					oos.writeObject(pnt); // prepares the data 'packet' for drawing or chat
 						oos.flush();
 						buffer = baos.toByteArray();          // The packet to transmit - grab from sync method in mainserver class arraylist
 				} catch (IOException e) {
 					System.err.println("Cannot serialize");
 				}
+				//Attempt to transmit data
 				packet = new DatagramPacket(buffer, buffer.length, group, port+1); // Construct the packet - DEST PORT = serverport+1
 				try {
-					socket.send(packet); // Send the packet
+					socket.send(packet); //Finally send the packet to clients
 				} catch (Exception e) {
 					System.err.println("Error in sending a UDP Broadcast");
 				}

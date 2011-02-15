@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 /**
  * TCP Connections to Server
  * Depositing Packets for transmission
+ * Receives packets being transmitted to be ready for broadcast.
  * @author stephen
  *
  */
@@ -23,6 +24,7 @@ public class CollectorServer extends Thread{
 	
 	/**
 	 * Main method - ported from server
+	 * Gathers server socket, keeps accepting new client connections.
 	 */
 	public void run() {
 		ServerSocket svrSkt = null;
@@ -43,8 +45,4 @@ public class CollectorServer extends Thread{
 		}
 	}
 	
-	/*public static void main(String[] args) {
-		System.out.println("Launching server");
-		new CollectorServer(server).start();
-	}*/
 }

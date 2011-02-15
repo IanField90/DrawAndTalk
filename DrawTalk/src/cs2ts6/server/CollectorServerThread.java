@@ -16,6 +16,11 @@ public class CollectorServerThread extends Thread{
 	Packet pkt;
 	Server server;
 	
+	/**
+	 * 
+	 * @param connection Socket between client and server
+	 * @param srv Class packets are pushed to
+	 */
 	CollectorServerThread(Socket connection, Server srv) {
 		super();
 		skt = connection;
@@ -26,9 +31,8 @@ public class CollectorServerThread extends Thread{
 		try {
 			ois = new ObjectInputStream(skt.getInputStream());
 			do {
-				pkt = (Packet)ois.readObject();
-				//System.out.println((PointPacket)pkt);
-				server.addToBroadcast(pkt);
+				pkt = (Packet)ois.readObject(); //Casts packet
+				server.addToBroadcast(pkt); // Queues packet for broadcast
 			} while (pkt != null);
 		} catch (IOException e) {
 			System.err.println("Error In establishing Tunnel for TCP communication");

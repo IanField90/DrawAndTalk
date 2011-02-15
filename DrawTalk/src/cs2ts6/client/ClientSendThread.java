@@ -1,13 +1,13 @@
 package cs2ts6.client;
 
-import java.awt.Color;
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
 import cs2ts6.packets.Packet;
-import cs2ts6.packets.PointPacket;
 /**
  * 
  * @author stephen
@@ -23,6 +23,12 @@ public class ClientSendThread extends Thread{
 	private Client2Thread caller;
 	int ctr = 0;
 	
+	/**
+	 * 
+	 * @param add Address of server
+	 * @param cliThrd reference to the calling thread
+	 * @param cli Container for packet list to be handled
+	 */
 	ClientSendThread(InetAddress add, Client2Thread cliThrd, Client cli) {
 		super("ClientSendThread");
 		serverAddress = add;
@@ -45,20 +51,16 @@ public class ClientSendThread extends Thread{
 		client.onServerSet(true);
 		try {
 			while(true) {
-				//PointPacket pnt = new PointPacket(ctr,2,3,4,Color.RED,6,cs2ts6.client.DrawingPanel.DrawType.PEN);
 				pkt = client.getPacketToSend();
-				//pkt = pnt;
-				//System.out.println(pkt);
 				oos.writeObject(pkt);
 				oos.flush();
-				//ctr++;
 			}
 		} catch (Exception e) {
 			System.err.println("Cannot send Packet");
 			JOptionPane.showMessageDialog(null,"No Longer connected to server");
 			client.onServerSet(false);
 			// Reset Calling Thread so that it can be re-instantiated on next successful communication
-			caller.invertRunParam();
+			caller.invertRunParam(); // If server disconnects - resets client to 'searching'
 			e.printStackTrace();
 		}
 	}

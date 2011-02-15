@@ -1,6 +1,5 @@
 package cs2ts6.client;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Panel;
@@ -16,9 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.StyledDocument;
 
 import cs2ts6.packets.ChatPacket;
 
@@ -71,7 +67,6 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		jtpChat.add("Global", globalChat);
 		txtField.addKeyListener(this);
 		btnSend.addActionListener(this);
-		//jtpChat.add()
 		add(jtpChat);
 		
 	}
@@ -109,7 +104,6 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		//enter pressed or button pressed to send
 		if(!txtField.getText().equals("")) {
 			send();
@@ -119,7 +113,6 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER && !txtField.getText().equals("")) {
 			send();
 		}
@@ -139,13 +132,13 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
+	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {
+	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -8,6 +8,7 @@ import cs2ts6.packets.Packet;
 
 /**
  * For running the server as a thread within the Client - Teacher and Testing
+ * Embedded - allows 'master' client to create server via #startserver
  * @author stephen
  *
  */

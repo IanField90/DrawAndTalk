@@ -18,8 +18,6 @@ public class MainWindow extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 983051938169997622L;
-	//TODO Create client
-	//TODO Pass client references to this.getDrawingPanel().getDrawingCanvas(); etc
 	private DrawingPanel drawingPanel;
 	private ChatPanel chatPanel;
 	private Client client;
@@ -33,7 +31,7 @@ public class MainWindow extends JPanel{
 		username = JOptionPane.showInputDialog("Please enter your username:");
 		JFrame frame = new JFrame("Draw & Talk");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		drawingPanel = new DrawingPanel(client);
+		drawingPanel = new DrawingPanel();
 		chatPanel = new ChatPanel(username);
 		client = new Client(drawingPanel.get_canvas(), chatPanel); //Client needs canvas + chatpanel
 		drawingPanel.get_canvas().set_client(client); // canvas needs client

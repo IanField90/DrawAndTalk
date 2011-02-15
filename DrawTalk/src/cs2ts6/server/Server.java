@@ -5,9 +5,14 @@ import java.util.*;
 
 import cs2ts6.packets.*;
 
+/**
+ * 
+ * @author Stephen
+ *
+ */
 public class Server {
 	
-	private ArrayList<Packet> packets;
+	private ArrayList<Packet> packets; //FIFO queue of packets awaiting broadcast
 	
 	Server() {
 		packets = new ArrayList<Packet>();
@@ -18,6 +23,7 @@ public class Server {
 	 */
 	public Packet getForBroadcast() {
 		Packet bcast;
+		//Keep taking first element while element exists
 		if (packets.size() > 0) {
 			bcast = packets.get(0);
 			packets.remove(0);
@@ -25,12 +31,16 @@ public class Server {
 		}
 		else {
 			try {
-				Thread.sleep(10);
+				Thread.sleep(10); //pause for 10ms
 			} catch (InterruptedException e) {}
-			return new ChatPacket("KEEPALIVE","");
+			return new ChatPacket("KEEPALIVE",""); // Ensures clients can connect
 		}
 	}
 	
+	/**
+	 * 
+	 * @param pkt Packet to be added to the packet queue, not sent immediately.
+	 */
 	public void addToBroadcast(Packet pkt) {
 		packets.add(pkt);
 	}
@@ -38,7 +48,7 @@ public class Server {
 	public static void main(String[] args) throws IOException{
 		System.out.println("Launching Server");
 		Server srv = new Server();
-		new CollectorServer(srv).start();
-		new ServerUDPThread(srv).start();
+		new CollectorServer(srv).start(); //starts receives from client
+		new ServerUDPThread(srv).start(); //starts broadcast thread
 	}
 }

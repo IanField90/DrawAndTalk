@@ -10,8 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
-import cs2ts6.packets.PointPacket;
-
 /**
  * 
  * @author Ian Field, Stephen (Minor)
@@ -27,13 +25,11 @@ public class DrawingPanel extends JPanel implements ActionListener{
 	private JButton pen, brush, clear, brushSize, erase, brushcolour;
 	private DrawingCanvas canvas; //Canvas where drawing is handled
 	private Color colour; //Holds drawing colour - for GUI/feedback
-	private Client client; // treated like a pointer
 	
 	// Use enums for types
 	public static enum DrawType { PEN, BRUSH, ERASE, SQUARE, CIRCLE , FULL_CLEAR};
 	
-	public DrawingPanel(Client client){
-		this.client = client;
+	public DrawingPanel(){
 		JPanel panel = new JPanel(); //Panel with tooblar + canvas
 		colour = Color.BLACK;
 		canvas = new DrawingCanvas();
@@ -57,6 +53,7 @@ public class DrawingPanel extends JPanel implements ActionListener{
 		
 		brushSize = new JButton("Brush Size");
 		brushSize.setToolTipText("Brush size");
+		brushSize.setEnabled(false);
 		brushSize.addActionListener(this);
 		
 		erase = new JButton("Erase");
@@ -120,7 +117,6 @@ public class DrawingPanel extends JPanel implements ActionListener{
 			case 4: canvas.set_colour(Color.YELLOW); break;
 			}
 		}
-		//TODO Colours
 		//TODO Save
 
 	}
