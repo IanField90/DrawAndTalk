@@ -53,7 +53,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 				currentP.y, colour, 1, selectedOption);
 		client.sendPoints(pkt);
 		//TODO locally draw - remove for server or keep for stand alone
-		drawPoints(pkt);
+		//drawPoints(pkt);
 	}
 	
 	/**
@@ -111,8 +111,8 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		System.out.println(System.nanoTime()-time);
-		time = System.nanoTime();
+		//System.out.println(System.nanoTime()-time);
+		//time = System.nanoTime();
 		// Get current point
 		currentP = e.getPoint();
 		sendPoints();

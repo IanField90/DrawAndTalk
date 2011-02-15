@@ -14,9 +14,12 @@ public class CollectorServerThread extends Thread{
 	private Socket skt;
 	ObjectInputStream ois;
 	Packet pkt;
-	CollectorServerThread(Socket connection) {
+	Server server;
+	
+	CollectorServerThread(Socket connection, Server srv) {
 		super();
 		skt = connection;
+		server = srv;
 	}
 	
 	public void run() {
@@ -24,14 +27,11 @@ public class CollectorServerThread extends Thread{
 			ois = new ObjectInputStream(skt.getInputStream());
 			do {
 				pkt = (Packet)ois.readObject();
-				System.out.println((PointPacket)pkt);
+				//System.out.println((PointPacket)pkt);
+				server.addToBroadcast(pkt);
 			} while (pkt != null);
 		} catch (IOException e) {
 			System.err.println("Error In establishing Tunnel for TCP communication");
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (ClassNotFoundException e) {}
 	}
 }

@@ -26,7 +26,7 @@ public class Client2Thread extends Thread{
 	 */
 	private ChatPanel chat;
 	private static final int port = 61021;
-	
+	boolean firstRun = true;
 	
 	/**
 	 * Constructor linking client to windows
@@ -50,7 +50,14 @@ public class Client2Thread extends Thread{
 	public ChatPanel getChat() {
 		return chat;
 	}
-	
+	public void invertRunParam() {
+		if (firstRun) {
+			firstRun = false;
+		}
+		else {
+			firstRun = true;
+		}
+	}
 	
 	// Client/Server Architecture methods
 	/**
@@ -79,19 +86,25 @@ public class Client2Thread extends Thread{
 		DatagramPacket packet;
 		try {
 			MulticastSocket socket = new MulticastSocket(port+1);
-			InetAddress address = InetAddress.getByName("224.0.0.1");
+			InetAddress address = InetAddress.getByName("224.0.0.31");
 			socket.joinGroup(address);
 			while (true) {
 				packet = new DatagramPacket(buffer, buffer.length);
 				socket.receive(packet); // Will wait until new packet received - Hence separate thread
+				
+				if(firstRun) {
+					firstRun = false;
+					//Create thread to handle socket send
+					new ClientSendThread(packet.getAddress(), this).start();
+				}
+				
 				ByteArrayInputStream bais=new ByteArrayInputStream(buffer);		        
 		        ObjectInputStream ois=new ObjectInputStream(new BufferedInputStream(bais));
 		        Packet pkt = (Packet)ois.readObject();
 		        System.out.println(pkt.toString());
-		        System.out.println(packet.getAddress().toString());
 		        if(pkt instanceof PointPacket) {
 		        	//Send packet to Canvas
-		        	//canvas.drawPoints((PointPacket)pkt);
+		        	canvas.drawPoints((PointPacket)pkt);
 		        }
 		        if(pkt instanceof ChatPacket) {
 		        	//chat.drawMessage((ChatPacket)pkt);

@@ -9,6 +9,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import cs2ts6.packets.Packet;
 import cs2ts6.packets.PointPacket;
 
 /**
@@ -32,6 +33,8 @@ public class ServerUDPThread extends Thread{
 	 */
 	private DatagramPacket packet;
 	
+	private Server server;
+	
 	/**
 	 * Inet Address group
 	 */
@@ -40,9 +43,10 @@ public class ServerUDPThread extends Thread{
 	 * Constructs DataGram Class
 	 * @throws IOException to allow for exit - premature disconnect
 	 */
-	public ServerUDPThread() throws IOException {
+	public ServerUDPThread(Server srv) throws IOException {
         super("UDPServerThread"); //Thread super constructor
         socket = new DatagramSocket(port); //Datagram port setup
+        server = srv;
     }
 	
 	/**
@@ -52,15 +56,16 @@ public class ServerUDPThread extends Thread{
 		byte[] buffer = new byte[256];
 		int ctr = 0; //for testing
 		try {
-			group = InetAddress.getByName("224.0.0.1"); //Broadcast group on Inet 130.0.0.1 broadcast - client match
+			group = InetAddress.getByName("224.0.0.31"); //Broadcast group on Inet 130.0.0.1 broadcast - client match
 		} catch (UnknownHostException e) {
 			System.err.println("Unknown Host - Reduce error");
 			e.printStackTrace();
 		}
 		while(true){ //Continuous Execution in Thread
 			while(true) { // Only output packet when values are available - avoid NULL packet transmission/*Values in Buffer List*/
-				PointPacket pnt = new PointPacket(ctr,2,3,4,Color.RED,6,cs2ts6.client.DrawingPanel.DrawType.PEN);
+				//PointPacket pnt = new PointPacket(ctr,2,3,4,Color.RED,6,cs2ts6.client.DrawingPanel.DrawType.PEN); // WAS FOR TESTING
 				try {
+					Packet pnt = server.getForBroadcast();
 					ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					ObjectOutputStream oos = new ObjectOutputStream(baos);
 					oos.writeObject(pnt);
@@ -73,13 +78,9 @@ public class ServerUDPThread extends Thread{
 				try {
 					socket.send(packet); // Send the packet
 					ctr++;
-					Thread.sleep(1000);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Thread.sleep(10000);
+				} catch (Exception e) {
+					System.err.println("Error in sending a UDP Broadcast");
 				}
 			}
 		}
