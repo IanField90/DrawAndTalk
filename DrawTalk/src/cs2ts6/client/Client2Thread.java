@@ -108,7 +108,9 @@ public class Client2Thread extends Thread{
 		        	canvas.drawPoints((PointPacket)pkt);
 		        }
 		        if(pkt instanceof ChatPacket) {
-		        	//chat.drawMessage((ChatPacket)pkt);
+		        	if(!((ChatPacket)pkt).get_sender().equals("KEEPALIVE")) {
+		        		chat.drawMessage((ChatPacket)pkt);
+		        	}
 		        }
 			}
 		} catch (Exception e) {

@@ -31,4 +31,8 @@ public class ChatPacket extends Packet{
 	public String get_message() {
 		return message;
 	}
+	
+	public String toString() {
+		return sender+": "+message;
+	}
 }

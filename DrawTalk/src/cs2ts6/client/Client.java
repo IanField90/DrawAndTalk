@@ -33,8 +33,8 @@ public class Client {
 	 * @param cht
 	 */
 	public void sendMessage(ChatPacket cht) {
-		chat.drawMessage(cht);
-		//packets.add(cht);
+		//chat.drawMessage(cht);
+		packets.add(cht);
 	}
 	/**
 	 * Used by CleintSendThread for communicating a packet from Client->Server

@@ -12,15 +12,19 @@ import java.awt.event.KeyListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.StyledDocument;
 
 import cs2ts6.packets.ChatPacket;
 
 /**
  * 
- * @author Vince, Curtis
+ * @author Vince, Curtis, Stephen (Logic Layer)
  *
  */
 public class ChatPanel extends JPanel implements ActionListener, KeyListener{
@@ -33,20 +37,29 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	private JTextArea chatBox;
 	private JTextField txtField;
 	private JButton btnSend;
+	private Client client;
+	private String username;
+	StyledDocument doc;
 	
-	public ChatPanel(){
+	public ChatPanel(String uname){
+		username = uname;
 		JTabbedPane jtpChat = new JTabbedPane();
 		globalChat = new JPanel();
 		globalChat.setPreferredSize(new Dimension(220,400));
 		chatBox = new JTextArea();
+		JScrollPane areaScrollPane = new JScrollPane(chatBox);
+		areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		areaScrollPane.setPreferredSize(new Dimension(220, 350));
 		chatBox.setEnabled(false);
+		chatBox.setLineWrap(true);
+		chatBox.setWrapStyleWord(true);
 		txtField = new JTextField(12);
 		btnSend = new JButton("Send");
 		
 		
 		globalChat.setLayout(new BoxLayout(globalChat, BoxLayout.PAGE_AXIS));
 
-		globalChat.add(chatBox);
+		globalChat.add(areaScrollPane);
 		
 		Panel p = new Panel();
 		p.setLayout(new FlowLayout());
@@ -56,33 +69,47 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		globalChat.add(p);
 		
 		jtpChat.add("Global", globalChat);
-		addKeyListener(this);
+		txtField.addKeyListener(this);
+		btnSend.addActionListener(this);
 		//jtpChat.add()
 		add(jtpChat);
 		
 	}
 	
+	public void set_client(Client cli) {
+		client = cli;
+	}
+	
 	public void sendMessage(){
 		String msg = null;
 		msg = txtField.getText();
-		ChatPacket chtpkt = new ChatPacket("sender", msg);
+		ChatPacket chtpkt = new ChatPacket(username, msg);
+		client.sendMessage(chtpkt);
 	}
 	
 	public void drawMessage(ChatPacket pkt){
-		chatBox.append(pkt.get_sender() + ": " + pkt.get_message());
+		if(!pkt.get_sender().equals(username)) {
+			chatBox.append(pkt.get_sender() + ": " + pkt.get_message()+"\n");
+		} else {
+			chatBox.setText("You: "+pkt.get_message());
+		}
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		//enter pressed or button pressed to send
+		sendMessage();
 	}
 
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			sendMessage();
+			txtField.setText(""); // Blank text
+		}
 	}
 
 
@@ -96,7 +123,5 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(e);
-		//if (e.getSource() == Key
 	}
 }

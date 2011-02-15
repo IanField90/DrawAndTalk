@@ -42,7 +42,6 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		colour = Color.black;
 		this.addMouseMotionListener(this);
 		this.addMouseListener(this);
-		time = System.nanoTime();
 	}
 	
 	public void set_client(Client client){
@@ -54,8 +53,6 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		PointPacket pkt = new PointPacket(previousP.x, previousP.y, currentP.x, 
 				currentP.y, colour, 1, selectedOption);
 		client.sendPoints(pkt);
-		//TODO locally draw - remove for server or keep for stand alone
-		//drawPoints(pkt);
 	}
 	
 	/**
