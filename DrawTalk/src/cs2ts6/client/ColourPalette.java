@@ -61,7 +61,8 @@ public class ColourPalette{
 		
 	}
 	
-	public void setVisible() {
+	public void setVisible(int X, int Y) {
+		cPalette.setLocation(X,Y-cPalette.getHeight());
 		cPalette.setVisible(true);
 	}
 	
@@ -91,8 +92,8 @@ public class ColourPalette{
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				cPalette.setSize(130, 80);
-				cPalette.setLocation(150, 80);
-				cPalette.setVisible(true);
+				//cPalette.setLocation(150, 80);
+				//cPalette.setVisible(true); Now called internally
 				
 			}
 		});

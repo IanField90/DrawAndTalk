@@ -2,6 +2,7 @@ package cs2ts6.client;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -31,13 +33,15 @@ public class DrawingPanel extends JPanel implements ActionListener{
 	private DrawingCanvas canvas; //Canvas where drawing is handled
 	private Color colour; //Holds drawing colour - for GUI/feedback
 	private ColourPalette cp;
+	private JFrame masterFrame; // used for co-ord tracking
 	private final static String ICON_PATH = "src/icons" + File.separator;
 	private boolean firstRun = true;
 	
 	// Use enums for types
 	public static enum DrawType { PEN, BRUSH, ERASE, SQUARE, CIRCLE , FULL_CLEAR};
 	
-	public DrawingPanel(){
+	public DrawingPanel(JFrame f){
+		masterFrame = f;
 		JPanel panel = new JPanel(); //Panel with tooblar + canvas
 		panel.setLayout(new BorderLayout());
 		colour = Color.BLACK;
@@ -162,13 +166,14 @@ public class DrawingPanel extends JPanel implements ActionListener{
 			/*String[] choices = { "Red", "Green", "Blue", "Black", "Yellow" };
 			int choice = JOptionPane.showOptionDialog(null, "Choose a colour", "Colour Palette", 
 					JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, "Black");*/
+			
 			if(firstRun) {
 				cp = new ColourPalette(canvas);
 				cp.createAndShowGUI();
 				firstRun = false;
-			} else {
-				cp.setVisible();
 			}
+			
+			cp.setVisible(masterFrame.getX(),masterFrame.getY()+masterFrame.getHeight());
 			/*switch(choice) {
 			case 0: canvas.set_colour(Color.RED); break;
 			case 1: canvas.set_colour(Color.GREEN); break;
