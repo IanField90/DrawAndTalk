@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * @author Ian Field, Stephen
@@ -59,6 +61,23 @@ public class MainWindow extends JPanel implements WindowListener{
 		final MainWindow mainWindow = new MainWindow();
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
+				try {
+				    // Set cross-platform Java L&F (also called "Metal")
+			        UIManager.setLookAndFeel(
+			            UIManager.getSystemLookAndFeelClassName());
+			    } 
+			    catch (UnsupportedLookAndFeelException e) {
+			       // handle exception
+			    }
+			    catch (ClassNotFoundException e) {
+			       // handle exception
+			    }
+			    catch (InstantiationException e) {
+			       // handle exception
+			    }
+			    catch (IllegalAccessException e) {
+			       // handle exception
+			    }
 				mainWindow.createAndShowGUI();
 			}
 		});

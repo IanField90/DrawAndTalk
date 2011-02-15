@@ -41,15 +41,15 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		username = uname;
 		JTabbedPane jtpChat = new JTabbedPane();
 		globalChat = new JPanel();
-		globalChat.setPreferredSize(new Dimension(220,400));
+		globalChat.setPreferredSize(new Dimension(300,400));
 		chatBox = new JTextArea();
 		JScrollPane areaScrollPane = new JScrollPane(chatBox);
 		areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		areaScrollPane.setPreferredSize(new Dimension(220, 350));
-		chatBox.setEditable(false);
+		areaScrollPane.setPreferredSize(new Dimension(220, 370));
+		chatBox.setEnabled(false);
 		chatBox.setLineWrap(true);
 		chatBox.setWrapStyleWord(true);
-		txtField = new JTextField(12);
+		txtField = new JTextField(28);
 		btnSend = new JButton("Send");
 		
 		
@@ -63,10 +63,10 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		p.add(btnSend);
 		
 		globalChat.add(p);
-		
-		jtpChat.add("Global", globalChat);
+		jtpChat.add("Global Chat", globalChat);
 		txtField.addKeyListener(this);
 		btnSend.addActionListener(this);
+		//jtpChat.add()
 		add(jtpChat);
 		
 	}
@@ -84,7 +84,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	
 	public void drawMessage(ChatPacket pkt){
 		if(!pkt.get_sender().equals(username)) {
-			chatBox.setText(chatBox.getText()+pkt.get_sender() + ": " + pkt.get_message()+"\n");
+			chatBox.append(pkt.get_sender() + ": " + pkt.get_message()+"\n");
 		} else {
 			chatBox.setText(chatBox.getText()+"You: "+pkt.get_message()+"\n");
 		}
@@ -104,6 +104,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		//enter pressed or button pressed to send
 		if(!txtField.getText().equals("")) {
 			send();
@@ -113,6 +114,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER && !txtField.getText().equals("")) {
 			send();
 		}
@@ -132,13 +134,13 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
