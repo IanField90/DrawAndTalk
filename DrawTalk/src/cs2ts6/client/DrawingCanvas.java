@@ -146,6 +146,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		sendPoints();
 		sendPoints(); // Ensure 100% on UDP
 		selectedOption = prev;
+		super.paint(getGraphics());
 		pktList.clear(); //empty array list for redrawing
 		//super.paint(getGraphics()); //super - default clears canvas
 	}
