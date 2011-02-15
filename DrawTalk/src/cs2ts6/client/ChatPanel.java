@@ -24,7 +24,7 @@ import cs2ts6.packets.ChatPacket;
 
 /**
  * 
- * @author Vince, Curtis, Stephen (Logic Layer)
+ * @author Vince, Curtis, Stephen (Logic Layer and Some GUI)
  *
  */
 public class ChatPanel extends JPanel implements ActionListener, KeyListener{
@@ -39,7 +39,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	private JButton btnSend;
 	private Client client;
 	private String username;
-	StyledDocument doc;
+	private String lastMessage;
 	
 	public ChatPanel(String uname){
 		username = uname;
@@ -93,36 +93,54 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		} else {
 			chatBox.setText(chatBox.getText()+"You: "+pkt.get_message()+"\n");
 		}
+		chatBox.selectAll(); // Forces chatbox to autoscroll to bottom
+	}
+	
+	private void runServerCode() {
+		new cs2ts6.server.ServerThread().start();
+		chatBox.append(chatBox.getText()+"SERVER: IM ALIVE!\n");
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		//enter pressed or button pressed to send
-		sendMessage();
-		txtField.setText(""); // Blank text
+		if(!txtField.getText().equals("")) {
+			send();
+		}
 	}
 
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			sendMessage();
-			txtField.setText(""); // Blank text
+		if (e.getKeyCode() == KeyEvent.VK_ENTER && !txtField.getText().equals("")) {
+			send();
+		}
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+			txtField.setText(lastMessage);
 		}
 	}
-
+	
+	public void send() {
+		if(txtField.getText().equals("#startserver")) {
+			runServerCode();
+			return;
+		}
+		sendMessage();
+		lastMessage = txtField.getText();
+		txtField.setText(""); // Blank text
+	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
+		
 	}
 }
