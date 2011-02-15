@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 import cs2ts6.client.DrawingPanel.DrawType;
 import cs2ts6.packets.PointPacket;
@@ -34,6 +35,8 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	long time;
 	private Client client; //treated as a pointer
 	
+	private ArrayList<PointPacket> pktList = new ArrayList<PointPacket>();
+	
 	public DrawingCanvas(){
 		//this.client = client;
 		setBackground(Color.white);
@@ -51,7 +54,9 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		PointPacket pkt = new PointPacket(previousP.x, previousP.y, currentP.x, 
 				currentP.y, colour, 1, selectedOption);
 		client.sendPoints(pkt);
-		drawPoints(pkt); // Live local drawing - regardless of client
+		//drawPoints(pkt); // Live local drawing - regardless of client
+		pktList.add(pkt);//= pkt;
+		paint(getGraphics());
 	}
 	
 	/**
@@ -59,31 +64,16 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	 * @param pkt Packet containing start and end points, with draw
 	 */
 	public void drawPoints(PointPacket pkt){
-		
 		//Will be integrated but proof of concept
 		if(pkt.get_drawType() == DrawType.FULL_CLEAR) {
 			super.paint(getGraphics());
+			pktList.clear();
 			return;
 		}
-		
-		Graphics g = getGraphics();    
-        g.setColor(pkt.get_colour());       
-        Graphics2D gThick = (Graphics2D) g;
-        
-		switch (pkt.get_drawType()){
-		case PEN:
-	        gThick.setStroke(new BasicStroke(1));
-			break;
-		case BRUSH:
-	        gThick.setStroke(new BasicStroke(5));
-			break;
-		case ERASE:
-			gThick.setStroke(new BasicStroke(30));
-			g.setColor(Color.WHITE);
+		else{
+			pktList.add(pkt);
+			paint(getGraphics());
 		}
-		
-		gThick.drawLine(pkt.get_startX(), pkt.get_startY(), pkt.get_finishX(), pkt.get_finishY()); 
-		this.paint(gThick);
 	}
 	
 	/**
@@ -101,7 +91,46 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	@Override
 	public void paint (Graphics g){
 		// Unused but required to override
-		
+		if(pktList.size() > 0){
+			PointPacket pkt = pktList.get(pktList.size()-1);
+			g.setColor(pkt.get_colour());
+			Graphics2D gThick = (Graphics2D)g;
+			switch(pkt.get_drawType()){
+			case PEN:
+		        gThick.setStroke(new BasicStroke(1));
+				break;
+			case BRUSH:
+		        gThick.setStroke(new BasicStroke(5));
+				break;
+			case ERASE:
+				gThick.setStroke(new BasicStroke(30));
+				g.setColor(Color.WHITE);
+			}
+			gThick.drawLine(pkt.get_startX(), pkt.get_startY(), pkt.get_finishX(), pkt.get_finishY()); 
+		}
+
+	}
+	
+	public void redrawAction(){
+		Graphics g = getGraphics();
+		for(int i = 0; i < pktList.size(); i++){
+			PointPacket pkt = pktList.get(i);
+			g.setColor(pkt.get_colour());
+			Graphics2D gThick = (Graphics2D)g;
+			switch(pkt.get_drawType()){
+			case PEN:
+		        gThick.setStroke(new BasicStroke(1));
+				break;
+			case BRUSH:
+		        gThick.setStroke(new BasicStroke(5));
+				break;
+			case ERASE:
+				gThick.setStroke(new BasicStroke(30));
+				g.setColor(Color.WHITE);
+			}
+			gThick.drawLine(pkt.get_startX(), pkt.get_startY(), pkt.get_finishX(), pkt.get_finishY()); 
+		}
+		paint(g);
 	}
 	
 	/**
@@ -113,13 +142,12 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		sendPoints();
 		sendPoints(); // Ensure 100% on UDP
 		selectedOption = prev;
+		pktList.clear(); //empty array list for redrawing
 		//super.paint(getGraphics()); //super - default clears canvas
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		//System.out.println(System.nanoTime()-time);
-		//time = System.nanoTime();
 		// Get current point
 		currentP = e.getPoint();
 		sendPoints();
@@ -133,7 +161,6 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -153,7 +180,6 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 	}
 
 }

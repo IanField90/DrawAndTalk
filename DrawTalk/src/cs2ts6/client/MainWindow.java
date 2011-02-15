@@ -1,6 +1,8 @@
 package cs2ts6.client;
 
 import java.awt.Dimension;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,7 +14,7 @@ import javax.swing.SwingUtilities;
  * Client side window for the Draw & Talk application. This contains DrawingPanel and ChatPanel.
  * Entry point for collaboration.
  */
-public class MainWindow extends JPanel{
+public class MainWindow extends JPanel implements WindowListener{
 
 	/**
 	 * 
@@ -29,7 +31,7 @@ public class MainWindow extends JPanel{
 	 */
 	private void createAndShowGUI(){
 		username = JOptionPane.showInputDialog("Please enter your username:");
-		JFrame frame = new JFrame("Draw & Talk");
+		JFrame frame = new JFrame("Draw & Talk Application - Team 11");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		drawingPanel = new DrawingPanel();
 		chatPanel = new ChatPanel(username);
@@ -39,8 +41,10 @@ public class MainWindow extends JPanel{
 		frame.setPreferredSize(new Dimension(1000, 480));
 		frame.add("West", drawingPanel);
 		frame.add(chatPanel);
+		frame.addWindowListener(this);
 		frame.pack();
 		frame.setVisible(true);
+		
 	}
 	
 	public Client get_client(){
@@ -57,6 +61,35 @@ public class MainWindow extends JPanel{
 				mainWindow.createAndShowGUI();
 			}
 		});
+	}
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		drawingPanel.get_canvas().redrawAction();
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
 	}
 
 }
