@@ -46,7 +46,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		JScrollPane areaScrollPane = new JScrollPane(chatBox);
 		areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		areaScrollPane.setPreferredSize(new Dimension(220, 350));
-		chatBox.setEnabled(false);
+		chatBox.setEditable(false);
 		chatBox.setLineWrap(true);
 		chatBox.setWrapStyleWord(true);
 		txtField = new JTextField(12);
@@ -84,7 +84,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	
 	public void drawMessage(ChatPacket pkt){
 		if(!pkt.get_sender().equals(username)) {
-			chatBox.append(chatBox.getText()+pkt.get_sender() + ": " + pkt.get_message()+"\n");
+			chatBox.setText(chatBox.getText()+pkt.get_sender() + ": " + pkt.get_message()+"\n");
 		} else {
 			chatBox.setText(chatBox.getText()+"You: "+pkt.get_message()+"\n");
 		}
