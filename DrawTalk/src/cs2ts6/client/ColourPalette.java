@@ -18,7 +18,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 /**
  * Window for colour palette for brushes
- * @author Curtis
+ * @author Curtis, Stephen
  *
  */
 public class ColourPalette{

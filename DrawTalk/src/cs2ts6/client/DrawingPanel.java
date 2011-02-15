@@ -18,7 +18,7 @@ import javax.swing.JToolBar;
 
 /**
  * 
- * @author Ian Field, Stephen (Minor), Curtis (GUI)
+ * @author Ian Field, Stephen, Curtis (GUI)
  * Creates the Canvas panel. This is a 640px x 480px DrawingCanvas and a toolbar.
  * Toolbar sets private members in DrawingCanvas.
  */
@@ -155,18 +155,12 @@ public class DrawingPanel extends JPanel implements ActionListener{
 			sizeSlider.setVisible(true);
 		}
 		if(e.getSource() == clear){
-			//canvas = new DrawingCanvas(); //Clear the canvas
 			canvas.clear(); //clear canvas, does not change reference
-			//canvas.set_client(client); // canvas needs client
 		}
 		if(e.getSource() == erase) {
 			canvas.set_selectedOption(DrawType.ERASE);
 		}
 		if(e.getSource() == brushColour) {
-			/*String[] choices = { "Red", "Green", "Blue", "Black", "Yellow" };
-			int choice = JOptionPane.showOptionDialog(null, "Choose a colour", "Colour Palette", 
-					JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, choices, "Black");*/
-			
 			if(firstRun) {
 				cp = new ColourPalette(canvas);
 				cp.createAndShowGUI();
@@ -174,15 +168,7 @@ public class DrawingPanel extends JPanel implements ActionListener{
 			}
 			
 			cp.setVisible(masterFrame.getX(),masterFrame.getY()+masterFrame.getHeight());
-			/*switch(choice) {
-			case 0: canvas.set_colour(Color.RED); break;
-			case 1: canvas.set_colour(Color.GREEN); break;
-			case 2: canvas.set_colour(Color.BLUE); break;
-			case 3: canvas.set_colour(Color.BLACK); break;
-			case 4: canvas.set_colour(Color.YELLOW); break;
-			}*/
 		}
-		//TODO Colours
 		//TODO Save
 
 	}
