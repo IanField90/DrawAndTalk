@@ -91,7 +91,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		if(!pkt.get_sender().equals(username)) {
 			chatBox.append(chatBox.getText()+pkt.get_sender() + ": " + pkt.get_message()+"\n");
 		} else {
-			chatBox.setText(chatBox.getText()+"You: "+pkt.get_message());
+			chatBox.setText(chatBox.getText()+"You: "+pkt.get_message()+"\n");
 		}
 	}
 
@@ -100,6 +100,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		// TODO Auto-generated method stub
 		//enter pressed or button pressed to send
 		sendMessage();
+		txtField.setText(""); // Blank text
 	}
 
 

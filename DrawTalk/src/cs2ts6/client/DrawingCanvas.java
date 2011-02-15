@@ -60,33 +60,31 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	 * @param pkt Packet containing start and end points, with draw
 	 */
 	public void drawPoints(PointPacket pkt){
+		
 		//Will be integrated but proof of concept
 		if(pkt.get_drawType() == DrawType.FULL_CLEAR) {
 			super.paint(getGraphics());
+			return;
 		}
 		
+		Graphics g = getGraphics();    
+        g.setColor(pkt.get_colour());       
+        Graphics2D gThick = (Graphics2D) g;
+        
 		switch (pkt.get_drawType()){
 		case PEN:
-			Graphics g = getGraphics();    
-	        g.setColor(pkt.get_colour());       
-	        Graphics2D gThick = (Graphics2D) g;
 	        gThick.setStroke(new BasicStroke(1));
-	        gThick.drawLine(pkt.get_startX(), pkt.get_startY(), 
-	        		pkt.get_finishX(), pkt.get_finishY());   
-	        this.paint(gThick);
 			break;
 		case BRUSH:
-			Graphics g2 = getGraphics();    
-	        g2.setColor(pkt.get_colour());       
-	        Graphics2D gThick2 = (Graphics2D) g2;
-	        gThick2.setStroke(new BasicStroke(5));
-	        gThick2.drawLine(pkt.get_startX(), pkt.get_startY(), 
-	        		pkt.get_finishX(), pkt.get_finishY());        
-	        this.paint(gThick2);
+	        gThick.setStroke(new BasicStroke(5));
 			break;
+		case ERASE:
+			gThick.setStroke(new BasicStroke(30));
+			g.setColor(Color.WHITE);
 		}
 		
-		// TODO Ali - Implement
+		gThick.drawLine(pkt.get_startX(), pkt.get_startY(), pkt.get_finishX(), pkt.get_finishY()); 
+		this.paint(gThick);
 	}
 	
 	/**
