@@ -53,6 +53,10 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	}
 	
 	public void sendPoints(){
+		// Check point have been initilized
+		if (previousP == null || currentP == null)
+			return;
+		
 		// Send point packet to server
 		PointPacket pkt = new PointPacket(previousP.x, previousP.y, currentP.x, 
 				currentP.y, colour, size, selectedOption);
