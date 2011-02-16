@@ -149,15 +149,12 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//TODO Emphasise selected drawType
-		//Sort drawing type
-		//TODO Fix redraw issue
 		int size = 1;
 		boolean flag = false;
 		if(e.getSource() == brush){
 			canvas.set_selectedOption(DrawType.BRUSH);
-			sizeSlider.setMaximum(20);
-			size = 5;
+			sizeSlider.setMaximum(30);
+			size = 10;
 			flag = true;
 			((JButton)e.getSource()).setBackground(Color.BLACK);
 		}
@@ -167,10 +164,11 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 			size = 1;
 			flag = true;
 		}
-		if(e.getSource() == clear){
+		/*if(e.getSource() == clear){
+			size = canvas.get_brushSize();
 			canvas.clear(); //clear canvas, does not change reference
 			flag = true;
-		}
+		}*/
 		if(e.getSource() == erase) {
 			canvas.set_selectedOption(DrawType.ERASE);
 			sizeSlider.setMaximum(40);
@@ -191,6 +189,10 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 			((JButton)e.getSource()).setBackground(Color.darkGray);
 			//If clear, just turn to 'off'
 			clear.setBackground(Color.lightGray);
+		}
+		
+		if(e.getSource() == clear){
+			canvas.clear(); //clear canvas, does not change reference
 		}
 
 		if(e.getSource() == brushSize){

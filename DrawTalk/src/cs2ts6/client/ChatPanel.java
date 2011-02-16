@@ -156,7 +156,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	private void runServerCode() {
 		if(!client.onServerGet()) { //If not connected, embedded server can activate
 			new cs2ts6.server.ServerThread().start();
-			chatBox.append(chatBox.getText()+"SERVER: IM ALIVE!\n");
+			chatBox.setText("SERVER: IM ALIVE!\nYou are the host\n");
 			client.setHostTitle();
 		} else { // IF connected - do not activate
 			chatBox.append("SERVER: You are already attached to a server!\n");

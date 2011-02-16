@@ -80,6 +80,7 @@ public class Client {
 		while (packets.size() == 0) {
 			try {
 				Thread.sleep(10);
+				return new ChatPacket("KEEPALIVE","");
 			} catch (InterruptedException e) {}
 		}
 		//Then return packet when one exists

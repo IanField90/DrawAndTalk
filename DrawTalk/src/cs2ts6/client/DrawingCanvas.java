@@ -98,6 +98,10 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		size = s;
 	}
 	
+	public int get_brushSize() {
+		return size;
+	}
+	
 	@Override
 	public void paint (Graphics g){
 		// Unused but required to override
