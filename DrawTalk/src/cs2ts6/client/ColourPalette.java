@@ -55,8 +55,9 @@ public class ColourPalette{
 	}
 	
 	public void setVisible(int X, int Y, boolean move) {
+		int modY=80, modX=160;
 		if(move) {
-			cPalette.setLocation(X+160,Y+85);
+			cPalette.setLocation(X+modX,Y+modY);
 			return;
 		} else {
 			if(cPalette.isVisible()) {
@@ -64,7 +65,7 @@ public class ColourPalette{
 				return;
 			}
 			cPalette.setVisible(false);
-			cPalette.setLocation(X+160,Y+80);
+			cPalette.setLocation(X+modX,Y+modY);
 			cPalette.setVisible(true);
 		}
 	}
