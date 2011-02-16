@@ -61,7 +61,6 @@ public class ClientSendThread extends Thread{
 			client.onServerSet(false);
 			// Reset Calling Thread so that it can be re-instantiated on next successful communication
 			caller.invertRunParam(); // If server disconnects - resets client to 'searching'
-			e.printStackTrace();
 		}
 	}
 }

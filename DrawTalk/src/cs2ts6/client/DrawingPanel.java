@@ -155,6 +155,7 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 			sizeSlider.setMaximum(20);
 			size = 5;
 			flag = true;
+			((JButton)e.getSource()).setBackground(Color.BLACK);
 		}
 		if(e.getSource() == pen){
 			canvas.set_selectedOption(DrawType.PEN);
@@ -178,6 +179,14 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 			sizeSlider.setVisible(false);
 			brushSize.setVisible(true);
 			sizeSlider.setValue(size);
+			//Set all to 'off'
+			pen.setBackground(Color.lightGray);
+			brush.setBackground(Color.lightGray);
+			erase.setBackground(Color.lightGray);
+			//Set selected to 'on'
+			((JButton)e.getSource()).setBackground(Color.BLACK);
+			//If clear, just turn to 'off'
+			clear.setBackground(Color.lightGray);
 		}
 
 		if(e.getSource() == brushSize){

@@ -2,19 +2,23 @@ package cs2ts6.client;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import cs2ts6.packets.*;
 
 public class Client {
 	private ArrayList<Packet> packets;
 	private DrawingCanvas canvas;
 	private ChatPanel chat;
-	private boolean onServer = false;
+	private boolean onServer = false, host = false;
+	private JFrame master;
 	/**
 	 * Construct the client class with refernces to canvas and chat windows
 	 * @param cnv Canvas reference
 	 * @param cht Chat window reference
 	 */
-	public Client(DrawingCanvas cnv, ChatPanel cht) {
+	public Client(DrawingCanvas cnv, ChatPanel cht, JFrame frame) {
+		master = frame;
 		canvas = cnv;
 		chat = cht;
 		packets = new ArrayList<Packet>();
@@ -26,7 +30,6 @@ public class Client {
 	 * @param pnt
 	 */
 	public void sendPoints(PointPacket pnt) {
-		//canvas.drawPoints(pnt);
 		packets.add(pnt);
 	}
 	/**
@@ -34,7 +37,6 @@ public class Client {
 	 * @param cht
 	 */
 	public void sendMessage(ChatPacket cht) {
-		//chat.drawMessage(cht);
 		packets.add(cht);
 	}
 	/**
@@ -44,6 +46,14 @@ public class Client {
 	public void onServerSet(boolean t) {
 		onServer = t;
 		packets.clear(); // Removes old packets in the buffer
+		if(onServer) {
+			master.setTitle("Draw & Talk - Team 11 - **ONLINE**");
+			if(host) {
+				master.setTitle("Draw & Talk - Team 11 - **ONLINE - HOSTING EMBEDDED SERVER**");
+			}
+		} else {
+			master.setTitle("Draw & Talk - Team 11 - **OFFLINE**");
+		}
 	}
 	/**
 	 * Checks status of server connection
@@ -51,6 +61,10 @@ public class Client {
 	 */
 	public boolean onServerGet() {
 		return onServer;
+	}
+	
+	public void setHostTitle() {
+		host = true;
 	}
 	
 	/**

@@ -108,17 +108,6 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		}
 		chatBox.selectAll(); // Forces chatbox to autoscroll to bottom
 	}
-	
-	//Embedded Server - Stephen
-	private void runServerCode() {
-		if(!client.onServerGet()) { //If not connected, embedded server can activate
-			new cs2ts6.server.ServerThread().start();
-			chatBox.append(chatBox.getText()+"SERVER: IM ALIVE!\n");
-		} else { // IF connected - do not activate
-			chatBox.append("SERVER: You are already attached to a server!\n");
-		}
-		txtField.setText("");
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -161,5 +150,19 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	
+	
+	//Embedded Server - Stephen
+	private void runServerCode() {
+		if(!client.onServerGet()) { //If not connected, embedded server can activate
+			new cs2ts6.server.ServerThread().start();
+			chatBox.append(chatBox.getText()+"SERVER: IM ALIVE!\n");
+			client.setHostTitle();
+		} else { // IF connected - do not activate
+			chatBox.append("SERVER: You are already attached to a server!\n");
+		}
+		txtField.setText("");
 	}
 }
