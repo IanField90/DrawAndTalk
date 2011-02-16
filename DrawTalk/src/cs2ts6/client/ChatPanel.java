@@ -59,6 +59,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		btnSend = new JButton("Send");
 		btnSend.setBackground(Color.lightGray);
 		
+		chatBox.setText("OFFLINE MODE\n\n");
 		
 		globalChat.setLayout(new BoxLayout(globalChat, BoxLayout.PAGE_AXIS));
 
@@ -91,14 +92,19 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		String msg = null;
 		msg = txtField.getText();
 		ChatPacket chtpkt = new ChatPacket(username, msg);
-		client.sendMessage(chtpkt);
+		if(client.onServerGet()) {
+			client.sendMessage(chtpkt);
+			return;
+		} else { //Not on server
+			drawMessage(chtpkt);
+		}
 	}
 	
 	public void drawMessage(ChatPacket pkt){
 		if(!pkt.get_sender().equals(username)) {
 			chatBox.append(pkt.get_sender() + ": " + pkt.get_message()+"\n");
 		} else {
-			chatBox.setText(chatBox.getText()+"You: "+pkt.get_message()+"\n");
+			chatBox.append("You: "+pkt.get_message()+"\n");
 		}
 		chatBox.selectAll(); // Forces chatbox to autoscroll to bottom
 	}

@@ -32,7 +32,6 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	private Point currentP;
 	// The currently selected tool
 	private DrawType selectedOption;
-	private boolean flag = true;
 	private int iflag = 0;
 	
 	private int size;
@@ -124,7 +123,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	 */
 	public void redrawAction(){
 		Graphics g = getGraphics();
-		for(int i = 0; i < pktList.size(); i++){
+		for(int i = 0; i < pktList.size(); i++){ 
 			PointPacket pkt = pktList.get(i);
 			g.setColor(pkt.get_colour());
 			Graphics2D gThick = (Graphics2D)g;
@@ -141,7 +140,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 			}
 			gThick.drawLine(pkt.get_startX(), pkt.get_startY(), pkt.get_finishX(), pkt.get_finishY()); 
 		}
-		paint(g);
+		//paint(g); // I believe this was causing issues in the repaint
 	}
 	
 	/**
@@ -163,20 +162,10 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		// Get current point
 		currentP = e.getPoint();
 		
-		//One packet in 2
-		/*if(flag) {
-			sendPoints();
-			previousP = currentP;
-			flag = false;
-		} else {
-			flag = true;
-		}*/
-		
 		//One packet in X
 		if(iflag == 0 || iflag == 3){
 			sendPoints();
 			previousP = currentP;
-			flag = false;
 			iflag = 1;
 		} else {
 			iflag++;
@@ -223,7 +212,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 			while (true) {
 				try{
 					Thread.sleep(4000);
-					canvas.redrawAction();
+					//canvas.redrawAction();
 				}
 				catch (InterruptedException e){
 					//Do nothing

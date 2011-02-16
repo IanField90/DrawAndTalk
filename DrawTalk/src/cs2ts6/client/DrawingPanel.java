@@ -149,29 +149,36 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		//Sort drawing type
 		//TODO Fix redraw issue
 		int size = 1;
+		boolean flag = false;
 		if(e.getSource() == brush){
 			canvas.set_selectedOption(DrawType.BRUSH);
 			sizeSlider.setMaximum(20);
 			size = 5;
+			flag = true;
 		}
 		if(e.getSource() == pen){
 			canvas.set_selectedOption(DrawType.PEN);
 			sizeSlider.setMaximum(10);
 			size = 1;
+			flag = true;
 		}
 		if(e.getSource() == clear){
 			canvas.clear(); //clear canvas, does not change reference
+			flag = true;
 		}
 		if(e.getSource() == erase) {
 			canvas.set_selectedOption(DrawType.ERASE);
 			sizeSlider.setMaximum(40);
 			size = 30;
+			flag = true;
 		}
-		//Generic to all
-		canvas.set_brushSize(size);
-		sizeSlider.setVisible(false);
-		brushSize.setVisible(true);
-		sizeSlider.setValue(size);
+		if(flag) {
+			//Generic to all
+			canvas.set_brushSize(size);
+			sizeSlider.setVisible(false);
+			brushSize.setVisible(true);
+			sizeSlider.setValue(size);
+		}
 
 		if(e.getSource() == brushSize){
 			brushSize.setVisible(false);
