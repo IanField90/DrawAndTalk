@@ -2,20 +2,13 @@ package cs2ts6.client;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Panel;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JWindow;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 /**
  * Window for colour palette for brushes
  * @author Curtis, Stephen
@@ -61,13 +54,19 @@ public class ColourPalette{
 		
 	}
 	
-	public void setVisible(int X, int Y) {
-		if(cPalette.isVisible()) {
-			cPalette.setVisible(false);
+	public void setVisible(int X, int Y, boolean move) {
+		if(move) {
+			cPalette.setLocation(X+160,Y+85);
 			return;
+		} else {
+			if(cPalette.isVisible()) {
+				cPalette.setVisible(false);
+				return;
+			}
+			cPalette.setVisible(false);
+			cPalette.setLocation(X+160,Y+80);
+			cPalette.setVisible(true);
 		}
-		cPalette.setLocation(X,Y-80);
-		cPalette.setVisible(true);
 	}
 	
 	MouseListener hover = new MouseListener() {

@@ -2,6 +2,8 @@ package cs2ts6.client;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -17,7 +19,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * Client side window for the Draw & Talk application. This contains DrawingPanel and ChatPanel.
  * Entry point for collaboration.
  */
-public class MainWindow extends JPanel implements WindowListener{
+public class MainWindow extends JPanel implements WindowListener, ComponentListener{
 
 	/**
 	 * 
@@ -27,6 +29,8 @@ public class MainWindow extends JPanel implements WindowListener{
 	private ChatPanel chatPanel;
 	private Client client;
 	private String username;
+	private ColourPalette cpal; // Used for palette location
+	private JFrame frame;
 	
 	/**
 	 * Creates the GUI for the client side of the Draw & Talk application.
@@ -34,7 +38,7 @@ public class MainWindow extends JPanel implements WindowListener{
 	 */
 	private void createAndShowGUI(){
 		username = JOptionPane.showInputDialog("Please enter your username:");
-		JFrame frame = new JFrame("Draw & Talk - Team 11 - OFFLINE");
+		frame = new JFrame("Draw & Talk - Team 11 - OFFLINE");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);// disables maximise button
 		drawingPanel = new DrawingPanel(frame);
@@ -45,9 +49,11 @@ public class MainWindow extends JPanel implements WindowListener{
 		frame.setPreferredSize(new Dimension(980, 470));
 		drawingPanel.setBackground(Color.lightGray);
 		chatPanel.setBackground(Color.lightGray);
+		cpal = drawingPanel.get_cpalette();
 		frame.add("West", drawingPanel);
 		frame.add(chatPanel);
 		frame.addWindowListener(this);
+		frame.addComponentListener(this);
 		frame.pack();
 		frame.setVisible(true);
 	}
@@ -90,6 +96,7 @@ public class MainWindow extends JPanel implements WindowListener{
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {
+		drawingPanel.get_canvas().redrawAction(); // Should redraw on becoming focused window
 	}
 
 	@Override
@@ -115,6 +122,30 @@ public class MainWindow extends JPanel implements WindowListener{
 
 	@Override
 	public void windowOpened(WindowEvent arg0) {
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent e) {
+		drawingPanel.get_canvas().redrawAction();
+		cpal.setVisible(frame.getX(), frame.getY(),true);
+	}
+
+	@Override
+	public void componentResized(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentShown(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

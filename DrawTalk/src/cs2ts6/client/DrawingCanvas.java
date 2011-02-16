@@ -103,7 +103,11 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		// Unused but required to override
 		if(pktList.size() > 0){
 			PointPacket pkt = pktList.get(pktList.size()-1);
-			g.setColor(pkt.get_colour());
+			if(pkt.get_drawType() != DrawType.ERASE) {
+				g.setColor(pkt.get_colour());
+			} else {
+				g.setColor(Color.WHITE);
+			}
 			Graphics2D gThick = (Graphics2D)g;
 			gThick.setStroke(new BasicStroke(pkt.get_size())); // Sets brush size to packet size
 
@@ -159,19 +163,13 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		Graphics g = getGraphics();
 		for(int i = 0; i < pktList.size(); i++){ 
 			PointPacket pkt = pktList.get(i);
-			g.setColor(pkt.get_colour());
-			Graphics2D gThick = (Graphics2D)g;
-			switch(pkt.get_drawType()){
-			case PEN:
-		        gThick.setStroke(new BasicStroke(pkt.get_size()));
-				break;
-			case BRUSH:
-		        gThick.setStroke(new BasicStroke(pkt.get_size()));
-				break;
-			case ERASE:
-				gThick.setStroke(new BasicStroke(pkt.get_size()));
+			if(pkt.get_drawType() != DrawType.ERASE) {
+				g.setColor(pkt.get_colour());
+			} else {
 				g.setColor(Color.WHITE);
 			}
+			Graphics2D gThick = (Graphics2D)g;
+			gThick.setStroke(new BasicStroke(pkt.get_size()));
 			Point p0 = new Point(pkt.get_startX(), pkt.get_startY());
 			Point p1 = new Point(pkt.get_finishX(), pkt.get_finishY());
 			

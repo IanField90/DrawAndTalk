@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import cs2ts6.packets.*;
-
+/**
+ * 
+ * @author stephen
+ *
+ */
 public class Client {
 	private ArrayList<Packet> packets;
 	private DrawingCanvas canvas;

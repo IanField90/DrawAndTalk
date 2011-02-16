@@ -51,7 +51,7 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		canvas.setPreferredSize(new Dimension(640, 390));
 		canvas.set_colour(colour); //Sets drawing colour inside canvas
 		canvas.set_selectedOption(DrawType.PEN);
-		
+		cp = new ColourPalette(canvas);
 		//ToolBar
 		JToolBar toolBar = new JToolBar();
         toolBar.setRollover(true);
@@ -141,6 +141,10 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 	public DrawingCanvas get_canvas(){
 		return canvas;
 	}
+	
+	public ColourPalette get_cpalette() {
+		return cp;
+	}
 
 
 	@Override
@@ -173,7 +177,7 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 			size = 30;
 			flag = true;
 		}
-		if(flag) {
+		if(flag) { // If one of the above
 			//Generic to all
 			canvas.set_brushSize(size);
 			sizeSlider.setVisible(false);
@@ -184,7 +188,7 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 			brush.setBackground(Color.lightGray);
 			erase.setBackground(Color.lightGray);
 			//Set selected to 'on'
-			((JButton)e.getSource()).setBackground(Color.BLACK);
+			((JButton)e.getSource()).setBackground(Color.darkGray);
 			//If clear, just turn to 'off'
 			clear.setBackground(Color.lightGray);
 		}
@@ -195,11 +199,10 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		}
 		if(e.getSource() == brushColour) {
 			if(firstRun) {
-				cp = new ColourPalette(canvas);
 				cp.createAndShowGUI();
 				firstRun = false;
 			}
-			cp.setVisible(masterFrame.getX(),masterFrame.getY()+masterFrame.getHeight());
+			cp.setVisible(masterFrame.getX(),masterFrame.getY(), false);
 		}
 		canvas.redrawAction();
 

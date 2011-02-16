@@ -59,8 +59,6 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		btnSend = new JButton("Send");
 		btnSend.setBackground(Color.lightGray);
 		
-		chatBox.setText("OFFLINE MODE\n\n");
-		
 		globalChat.setLayout(new BoxLayout(globalChat, BoxLayout.PAGE_AXIS));
 
 		globalChat.add(areaScrollPane);
