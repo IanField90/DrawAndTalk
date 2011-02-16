@@ -107,15 +107,13 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 			Graphics2D gThick = (Graphics2D)g;
 			switch(pkt.get_drawType()){
 			case PEN:
-		        gThick.setStroke(new BasicStroke(size));
 				break;
 			case BRUSH:
-		        gThick.setStroke(new BasicStroke(size));
 				break;
-			case ERASE:
-				gThick.setStroke(new BasicStroke(size));
+			case ERASE:;
 				g.setColor(Color.WHITE);
 			}
+			gThick.setStroke(new BasicStroke(pkt.get_size())); // Sets brush size to packet size
 			gThick.drawLine(pkt.get_startX(), pkt.get_startY(), pkt.get_finishX(), pkt.get_finishY()); 
 		}
 

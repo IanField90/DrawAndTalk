@@ -97,9 +97,6 @@ public class ColourPalette{
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				cPalette.setSize(130, 80);
-				//cPalette.setLocation(150, 80);
-				//cPalette.setVisible(true);
-				//cPalette.setVisible(false);
 			}
 		});
 	}
