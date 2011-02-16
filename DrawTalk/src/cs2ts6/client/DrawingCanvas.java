@@ -106,7 +106,47 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 			g.setColor(pkt.get_colour());
 			Graphics2D gThick = (Graphics2D)g;
 			gThick.setStroke(new BasicStroke(pkt.get_size())); // Sets brush size to packet size
-			gThick.drawLine(pkt.get_startX(), pkt.get_startY(), pkt.get_finishX(), pkt.get_finishY()); 
+
+			Point p0 = new Point(pkt.get_startX(), pkt.get_startY());
+			Point p1 = new Point(pkt.get_finishX(), pkt.get_finishY());
+			
+			int size = pkt.get_size(); 
+			double angle = Math.atan2(p1.y - p0.y, p1.x - p0.x);		
+			double distance = p0.distance(p1);
+			
+			// If after the line is shortened by a brush size it is still smaller than the smallest possible line which can be drawn (a square)
+			// then draw a polygon instead of using a line
+			if ((distance - size) > size){
+				
+				// These 2 points basically shorten the drawn line by half the brush width at either end
+				Point p2 = new Point((int)(p0.x + (size / 2) * Math.cos(angle)), (int)(p0.y + (size / 2) * Math.sin(angle)));
+				Point p3 = new Point((int)(p1.x + (size / 2) * Math.cos(angle + Math.PI)), (int)(p1.y + (size / 2) * Math.sin(angle + Math.PI)));			
+				gThick.drawLine(p2.x, p2.y, p3.x, p3.y);
+				
+			} else {
+				
+				// Possibly drawing a line may become deprecated, if we decide to represent everything with just polygons.
+				
+				// Calculate polygon points
+				int[] xPoly = {
+						(int)(p0.x + (size / 2) * Math.cos(angle + Math.PI / 2)), 
+						(int)(p0.x + (size / 2) * Math.cos(angle - Math.PI / 2)),
+						(int)(p1.x + (size / 2) * Math.cos(angle - Math.PI / 2)),
+						(int)(p1.x + (size / 2) * Math.cos(angle + Math.PI / 2))
+				};
+				
+				int[] yPoly = {
+						(int)(p0.y + (size / 2) * Math.sin(angle + Math.PI / 2)),
+						(int)(p0.y + (size / 2) * Math.sin(angle - Math.PI / 2)),
+						(int)(p1.y + (size / 2) * Math.sin(angle - Math.PI / 2)),
+						(int)(p1.y + (size / 2) * Math.sin(angle + Math.PI / 2))
+				};
+				
+				g.fillPolygon(xPoly, yPoly, xPoly.length);
+			}
+						
+			// Smooth of the edges with a circle
+			g.fillOval(p1.x - (size / 2), p1.y - (size / 2), size, size); 
 		}
 
 	}
@@ -132,7 +172,46 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 				gThick.setStroke(new BasicStroke(pkt.get_size()));
 				g.setColor(Color.WHITE);
 			}
-			gThick.drawLine(pkt.get_startX(), pkt.get_startY(), pkt.get_finishX(), pkt.get_finishY()); 
+			Point p0 = new Point(pkt.get_startX(), pkt.get_startY());
+			Point p1 = new Point(pkt.get_finishX(), pkt.get_finishY());
+			
+			int size = pkt.get_size(); 
+			double angle = Math.atan2(p1.y - p0.y, p1.x - p0.x);		
+			double distance = p0.distance(p1);
+			
+			// If after the line is shortened by a brush size it is still smaller than the smallest possible line which can be drawn (a square)
+			// then draw a polygon instead of using a line
+			if ((distance - size) > size){
+				
+				// These 2 points basically shorten the drawn line by half the brush width at either end
+				Point p2 = new Point((int)(p0.x + (size / 2) * Math.cos(angle)), (int)(p0.y + (size / 2) * Math.sin(angle)));
+				Point p3 = new Point((int)(p1.x + (size / 2) * Math.cos(angle + Math.PI)), (int)(p1.y + (size / 2) * Math.sin(angle + Math.PI)));			
+				gThick.drawLine(p2.x, p2.y, p3.x, p3.y);
+				
+			} else {
+				
+				// Possibly drawing a line may become deprecated, if we decide to represent everything with just polygons.
+				
+				// Calculate polygon points
+				int[] xPoly = {
+						(int)(p0.x + (size / 2) * Math.cos(angle + Math.PI / 2)), 
+						(int)(p0.x + (size / 2) * Math.cos(angle - Math.PI / 2)),
+						(int)(p1.x + (size / 2) * Math.cos(angle - Math.PI / 2)),
+						(int)(p1.x + (size / 2) * Math.cos(angle + Math.PI / 2))
+				};
+				
+				int[] yPoly = {
+						(int)(p0.y + (size / 2) * Math.sin(angle + Math.PI / 2)),
+						(int)(p0.y + (size / 2) * Math.sin(angle - Math.PI / 2)),
+						(int)(p1.y + (size / 2) * Math.sin(angle - Math.PI / 2)),
+						(int)(p1.y + (size / 2) * Math.sin(angle + Math.PI / 2))
+				};
+				
+				g.fillPolygon(xPoly, yPoly, xPoly.length);
+			}
+						
+			// Smooth of the edges with a circle
+			g.fillOval(p1.x - (size / 2), p1.y - (size / 2), size, size); 
 		}
 		//paint(g); // I believe this was causing issues in the repaint
 	}
