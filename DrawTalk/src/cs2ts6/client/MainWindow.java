@@ -38,7 +38,7 @@ public class MainWindow extends JPanel implements WindowListener, ComponentListe
 	 */
 	private void createAndShowGUI(){
 		username = JOptionPane.showInputDialog("Please enter your username:");
-		frame = new JFrame("Draw & Talk - Team 11 - OFFLINE");
+		frame = new JFrame("Draw & Talk (T11) - "+username+" - **OFFLINE**");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);// disables maximise button
 		drawingPanel = new DrawingPanel(frame);

@@ -53,12 +53,12 @@ public class Client {
 		onServer = t;
 		packets.clear(); // Removes old packets in the buffer
 		if(onServer) {
-			master.setTitle("Draw & Talk (T11)- "+username+" - **ONLINE @ "+address+"**");
+			master.setTitle("Draw & Talk (T11) - "+username+" - **ONLINE @ "+address+"**");
 			if(host) {
-				master.setTitle("Draw & Talk (T11)- "+username+" - **ONLINE - HOSTING EMBEDDED SERVER - "+address+"**");
+				master.setTitle("Draw & Talk (T11) - "+username+" - **ONLINE - HOSTING EMBEDDED SERVER - "+address+"**");
 			}
 		} else {
-			master.setTitle("Draw & Talk (T11)- "+username+" - **OFFLINE**");
+			master.setTitle("Draw & Talk (T11) - "+username+" - **OFFLINE**");
 		}
 	}
 	/**

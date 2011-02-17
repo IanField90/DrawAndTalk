@@ -1,9 +1,11 @@
 package cs2ts6.server;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.util.*;
 
 import cs2ts6.client.ChatPanel;
+import cs2ts6.client.DrawingPanel.DrawType;
 import cs2ts6.packets.*;
 
 /**
@@ -18,6 +20,7 @@ public class Server {
 	
 	Server(ChatPanel cp) {
 		packets = new ArrayList<Packet>();
+		packets.add(new PointPacket(1, 1, 1, 1, Color.WHITE, 1, DrawType.FULL_CLEAR));
 		logWindow = cp;
 	}
 	/**

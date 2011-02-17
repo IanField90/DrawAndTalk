@@ -24,7 +24,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import cs2ts6.client.DrawingPanel.DrawType;
 import cs2ts6.packets.ChatPacket;
+import cs2ts6.packets.PointPacket;
 
 /**
  * 
