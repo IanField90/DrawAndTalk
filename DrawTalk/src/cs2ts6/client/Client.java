@@ -81,7 +81,7 @@ public class Client {
 		//System.out.println(packets.size());
 		while (packets.size() == 0) {
 			try {
-				Thread.sleep(10);
+				Thread.sleep(100);
 				return new ChatPacket("KEEPALIVE",username);
 			} catch (InterruptedException e) {}
 		}

@@ -4,9 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -124,17 +127,24 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 	 * @return the icon as an image 
 	 */
 	static ImageIcon getImageIcon(String iconFilename) {
-		ImageIcon theIcon;
+		ImageIcon theIcon = null;
 		// Directory of the image
-		File theImage = new File(ICON_PATH + iconFilename);
-		if (theImage.isFile()) {
+		//File theImage = new File(ICON_PATH + iconFilename);
+		java.net.URL imgURL = DrawingPanel.class.getResource("/src/icons/"+iconFilename);
+		if(imgURL != null) {
+			Image theImage = Toolkit.getDefaultToolkit().getImage(imgURL);
+			theIcon = new ImageIcon(theImage);
+		} else {
+			JOptionPane.showMessageDialog(null, "Error - file not found: "+ iconFilename);
+		}
+		/*if (theImage.isFile()) {
 			theIcon = new ImageIcon(theImage.getAbsolutePath());
 		} else {
 			// display an error if the image can't be found
 			theIcon = null;
 			JOptionPane.showMessageDialog(null, "Error - file not found: "
 					+ iconFilename);
-		}
+		}*/
 		return (theIcon);
 	}
 	

@@ -47,8 +47,8 @@ public class ClientSendThread extends Thread{
 			System.err.println("Error setting up ClientSender\nCan only listen");
 		}
 		//Inform user everyting is ready to GO (Both send/recieve active)
-		JOptionPane.showMessageDialog(null,"You can now send to the server\nServer detected at: "+serverAddress.toString());
 		client.onServerSet(true, serverAddress.toString());
+		JOptionPane.showMessageDialog(null,"You can now send to the server\nServer detected at: "+serverAddress.toString());
 		try {
 			while(true) {
 				pkt = client.getPacketToSend();
