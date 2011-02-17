@@ -15,6 +15,7 @@ public class CollectorServerThread extends Thread{
 	ObjectInputStream ois;
 	Packet pkt;
 	Server server;
+	String username = "dflt", ip = "dflt";
 	
 	/**
 	 * 
@@ -25,17 +26,23 @@ public class CollectorServerThread extends Thread{
 		super();
 		skt = connection;
 		server = srv;
+		ip = connection.getInetAddress().toString();
 	}
 	
 	public void run() {
 		try {
 			ois = new ObjectInputStream(skt.getInputStream());
+			pkt = (Packet)ois.readObject(); //Casts packet
+			if(pkt instanceof ChatPacket) { // A 'no-data packet sent from the client
+				username = ((ChatPacket)pkt).get_message();
+			}
+			server.writeServerMessage("Client Connected\n   "+username+"@"+ip);
 			do {
 				pkt = (Packet)ois.readObject(); //Casts packet
 				server.addToBroadcast(pkt); // Queues packet for broadcast
 			} while (pkt != null);
 		} catch (IOException e) {
-			System.err.println("Error In establishing Tunnel for TCP communication");
+			server.writeServerMessage("Client Diconnected\n   "+username+"@"+ip);
 		} catch (ClassNotFoundException e) {}
 	}
 }

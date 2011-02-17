@@ -3,6 +3,7 @@ package cs2ts6.server;
 import java.io.IOException;
 import java.util.*;
 
+import cs2ts6.client.ChatPanel;
 import cs2ts6.packets.*;
 
 /**
@@ -13,9 +14,11 @@ import cs2ts6.packets.*;
 public class Server {
 	
 	private ArrayList<Packet> packets; //FIFO queue of packets awaiting broadcast
+	private ChatPanel logWindow; // Used if in Thread mode, to write to the chat window
 	
-	Server() {
+	Server(ChatPanel cp) {
 		packets = new ArrayList<Packet>();
+		logWindow = cp;
 	}
 	/**
 	 * USed to get a packet top broadcast (Used by the ServerUDPThread)
@@ -37,6 +40,14 @@ public class Server {
 		}
 	}
 	
+	public void writeServerMessage(String message) {
+		if(logWindow == null) { //Am in CLI mode - direct and not thread from GUI
+			System.out.println(message);
+		} else {
+			logWindow.drawMessage(new ChatPacket("SERVER",message));
+		}
+	}
+	
 	/**
 	 * 
 	 * @param pkt Packet to be added to the packet queue, not sent immediately.
@@ -47,7 +58,7 @@ public class Server {
 	
 	public static void main(String[] args) throws IOException{
 		System.out.println("Launching Server");
-		Server srv = new Server();
+		Server srv = new Server(null); // Pass null as log window, so will use System.out
 		new CollectorServer(srv).start(); //starts receives from client
 		new ServerUDPThread(srv).start(); //starts broadcast thread
 	}

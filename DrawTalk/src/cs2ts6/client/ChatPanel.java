@@ -9,6 +9,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -40,6 +44,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	private Client client;
 	private String username;
 	private String lastMessage;
+	private Calendar calendar;
 	private final static String ICON_PATH = "src/icons" + File.separator;
 	
 	public ChatPanel(String uname){
@@ -79,7 +84,6 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		JLabel label = new JLabel(img);
 		add(label);
 		add(jtpChat);
-		
 	}
 	
 	public void set_client(Client cli) {
@@ -99,10 +103,13 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	}
 	
 	public void drawMessage(ChatPacket pkt){
+		calendar = new GregorianCalendar();
+		DateFormat dfm = new SimpleDateFormat("HH:mm:ss");
+		String time = dfm.format(calendar.getTime());
 		if(!pkt.get_sender().equals(username)) {
-			chatBox.append(pkt.get_sender() + ": " + pkt.get_message()+"\n");
+			chatBox.append(pkt.get_sender() + ":  " +time+"\n   "+pkt.get_message()+"\n");
 		} else {
-			chatBox.append("You: "+pkt.get_message()+"\n");
+			chatBox.append("You:  "+time+"\n   "+pkt.get_message()+"\n");
 		}
 		chatBox.selectAll(); // Forces chatbox to autoscroll to bottom
 	}
@@ -155,11 +162,11 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	//Embedded Server - Stephen
 	private void runServerCode() {
 		if(!client.onServerGet()) { //If not connected, embedded server can activate
-			new cs2ts6.server.ServerThread().start();
-			chatBox.setText("SERVER: IM ALIVE!\nYou are the host\n");
-			client.setHostTitle();
+			new cs2ts6.server.ServerThread(this).start();
+			chatBox.setText("");
+			client.setHostTitle(); //Set the title of the window to the 'embedded server message'
 		} else { // IF connected - do not activate
-			chatBox.append("SERVER: You are already attached to a server!\n");
+			chatBox.append("SERVER:\n   You are already attached to a server!\n");
 		}
 		txtField.setText("");
 	}

@@ -3,6 +3,7 @@ package cs2ts6.server;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import cs2ts6.client.ChatPanel;
 import cs2ts6.packets.ChatPacket;
 import cs2ts6.packets.Packet;
 
@@ -16,38 +17,17 @@ public class ServerThread extends Thread{
 
 	
 	private ArrayList<Packet> packets;
+	private ChatPanel log;
 	
-	public ServerThread() {
+	public ServerThread(ChatPanel cp) {
 		super("ServerThread");
+		log = cp;
 		packets = new ArrayList<Packet>();
-	}
-	
-	/**
-	 * USed to get a packet top broadcast (Used by the ServerUDPThread)
-	 * @return The packet to be transmitted
-	 */
-	public Packet getForBroadcast() {
-		Packet bcast;
-		if (packets.size() > 0) {
-			bcast = packets.get(0);
-			packets.remove(0);
-			return bcast;
-		}
-		else {
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {}
-			return new ChatPacket("KEEPALIVE","");
-		}
-	}
-	
-	public void addToBroadcast(Packet pkt) {
-		packets.add(pkt);
 	}
 	
 	public void run(){
 		System.out.println("Launching Server");
-		Server srv = new Server();
+		Server srv = new Server(log);
 		new CollectorServer(srv).start();
 		try {
 			new ServerUDPThread(srv).start();

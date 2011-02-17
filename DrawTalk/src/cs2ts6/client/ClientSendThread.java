@@ -48,7 +48,7 @@ public class ClientSendThread extends Thread{
 		}
 		//Inform user everyting is ready to GO (Both send/recieve active)
 		JOptionPane.showMessageDialog(null,"You can now send to the server\nServer detected at: "+serverAddress.toString());
-		client.onServerSet(true);
+		client.onServerSet(true, serverAddress.toString());
 		try {
 			while(true) {
 				pkt = client.getPacketToSend();
@@ -56,9 +56,9 @@ public class ClientSendThread extends Thread{
 				oos.flush();
 			}
 		} catch (Exception e) {
-			System.err.println("Cannot send Packet");
+			System.err.println("Lost connection to server");
 			JOptionPane.showMessageDialog(null,"No Longer connected to server");
-			client.onServerSet(false);
+			client.onServerSet(false,"");
 			// Reset Calling Thread so that it can be re-instantiated on next successful communication
 			caller.invertRunParam(); // If server disconnects - resets client to 'searching'
 		}

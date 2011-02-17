@@ -43,7 +43,7 @@ public class MainWindow extends JPanel implements WindowListener, ComponentListe
 		frame.setResizable(false);// disables maximise button
 		drawingPanel = new DrawingPanel(frame);
 		chatPanel = new ChatPanel(username);
-		client = new Client(drawingPanel.get_canvas(), chatPanel, frame); //Client needs canvas + chatpanel
+		client = new Client(drawingPanel.get_canvas(), chatPanel, frame, username); //Client needs canvas + chatpanel
 		drawingPanel.get_canvas().set_client(client); // canvas needs client
 		chatPanel.set_client(client);
 		frame.setPreferredSize(new Dimension(980, 470));
