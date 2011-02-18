@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -104,6 +105,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	
 	@Override
 	public void paint (Graphics g){
+		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		// Unused but required to override
 		if(pktList.size() > 0){
 			PointPacket pkt = pktList.get(pktList.size()-1);
@@ -165,6 +167,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	 */
 	public void redrawAction(){
 		Graphics g = getGraphics();
+		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		for(int i = 0; i < pktList.size(); i++){ 
 			PointPacket pkt = pktList.get(i);
 			if(pkt.get_drawType() != DrawType.ERASE) {
