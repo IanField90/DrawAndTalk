@@ -47,11 +47,13 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	private String username;
 	private String lastMessage;
 	private Calendar calendar;
+	private AdminPanel admin;
 	private final static String ICON_PATH = "src/icons" + File.separator;
 	
 	public ChatPanel(String uname){
 		username = uname;
 		JTabbedPane jtpChat = new JTabbedPane();
+		admin = new AdminPanel();
 		globalChat = new JPanel();
 		globalChat.setPreferredSize(new Dimension(300,297));
 		globalChat.setBackground(Color.lightGray);
@@ -76,7 +78,8 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		p.add(btnSend);
 		
 		globalChat.add(p);
-		jtpChat.add("Global Chat", globalChat);
+		jtpChat.addTab("Chat", globalChat);
+		jtpChat.addTab("Admin", admin);
 		txtField.addKeyListener(this);
 		btnSend.addActionListener(this);
 
