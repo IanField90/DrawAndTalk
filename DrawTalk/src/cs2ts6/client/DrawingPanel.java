@@ -60,22 +60,15 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		canvas.set_selectedOption(DrawType.PEN);
 		cp = new ColourPalette(canvas);
 		//ToolBar
-		//JToolBar toolBar = new JToolBar();
-		JToolBar toolBar = new JToolBar() {
-			
-		        @Override
-		        protected JButton createActionComponent(Action a) {
-		            JButton jb = super.createActionComponent(a);
-		            jb.setOpaque(false);
-		            return jb;
-		        }
-		    };
-		toolBar.setOpaque(false);
+		ImageIcon imgicon = new ImageIcon("src/icons/Toolbar.png");
+		JToolBar toolBar = new ToolBarWithImage("test", 0, imgicon);
+		// WHY WONT THIS WORK FFS!!!
         toolBar.setRollover(true);
 		        
 		brush = new JButton(new ImageIcon(ICON_PATH + "brush.png"));
 		brush.setToolTipText("Brush");
 		brush.addActionListener(this);
+		brush.setOpaque(false);
 				
 		pen = new JButton(new ImageIcon(ICON_PATH + "pen.png"));
 		pen.setToolTipText("Pen");
@@ -86,13 +79,16 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		clear.setToolTipText("Clear canvas");
 		//clear.setEnabled(false);//TODO Support teacher admin (sprint 2)
 		clear.addActionListener(this);
+		clear.setOpaque(false);
 		
 		brushSize = new JButton(new ImageIcon(ICON_PATH + "size.png"));
 		brushSize.setToolTipText("Brush size");
 		brushSize.addActionListener(this);
+		brushSize.setOpaque(false);
 		
 		sizeSlider = new JSlider(JSlider.HORIZONTAL, 0, 20, 5);
 		sizeSlider.setVisible(false);
+		sizeSlider.setOpaque(false);
 		sizeSlider.setMajorTickSpacing(5);
 		sizeSlider.setMinorTickSpacing(1);
 		sizeSlider.setPaintTicks(true);
@@ -104,11 +100,13 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		erase = new JButton(new ImageIcon(ICON_PATH + "eraser.png"));
 		erase.setToolTipText("Erase by drawing with the 'rubber'");
 		erase.addActionListener(this);
+		erase.setOpaque(false);
 		
 		brushColour = new JButton(new ImageIcon(ICON_PATH + "palette.png"));
 		brushColour.setSize(brushColour.getPreferredSize());
 		brushColour.setToolTipText("Colour Palette");
 		brushColour.addActionListener(this);
+		brushColour.setOpaque(false);
 		
 		toolBar.setOrientation(0);//Make toolbar appear horizontal
 		toolBar.add(pen);
@@ -244,5 +242,30 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		}
 		
 	}
+	
+	/**
+	 * Class Overrides JToolBar to enable an image to be used as a background
+	 * Class will stretch supplied image to fit the space available
+	 * @author Curtis
+	 *
+	 */
+	   class ToolBarWithImage extends JToolBar {
+	 
+	      private ImageIcon bgImage;
+	 
+	      ToolBarWithImage(String name, int orientation, ImageIcon imgicon) {
+	         super(name, orientation);
+	         this.bgImage = imgicon;
+	         setOpaque(true);
+	      }
+	 
+	      public void paintComponent(Graphics g) {
+	         super.paintComponent(g);
+	         if (bgImage != null) {
+	            Dimension size = this.getSize();
+	            g.drawImage(bgImage.getImage(), 0,0, size.width, size.height, this);
+	         }
+	      }
+	   }
 
 }

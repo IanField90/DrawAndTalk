@@ -57,10 +57,11 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		this.bimg = bimg;
 		username = uname;
 		JTabbedPane jtpChat = new JTabbedPane();
+		jtpChat.setOpaque(false);
 		admin = new AdminPanel();
 		globalChat = new JPanel();
-		globalChat.setPreferredSize(new Dimension(300,297));
-		globalChat.setBackground(Color.lightGray);
+		globalChat.setPreferredSize(new Dimension(300,338));
+		globalChat.setOpaque(false);
 		chatBox = new JTextArea();
 		JScrollPane areaScrollPane = new JScrollPane(chatBox);
 		areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -70,7 +71,6 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		chatBox.setWrapStyleWord(true);
 		txtField = new JTextField(26);
 		btnSend = new JButton("Send");
-		btnSend.setBackground(Color.lightGray);
 		
 		globalChat.setLayout(new BoxLayout(globalChat, BoxLayout.PAGE_AXIS));
 
@@ -87,7 +87,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		txtField.addKeyListener(this);
 		btnSend.addActionListener(this);
 
-		File theImage = new File(ICON_PATH + "logo.png");
+		File theImage = new File(ICON_PATH + "space.png");
 		ImageIcon img = new ImageIcon(theImage.getAbsolutePath());
 		
 		JLabel label = new JLabel(img);
