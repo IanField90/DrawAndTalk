@@ -58,24 +58,24 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		//ToolBar
 		JToolBar toolBar = new JToolBar();
         toolBar.setRollover(true);
-		
-		brush = new JButton(getImageIcon("brush.jpg"));
+		        
+		brush = new JButton(new ImageIcon(ICON_PATH + "brush.png"));
 		brush.setToolTipText("Brush");
 		brush.addActionListener(this);
-		brush.setBackground(Color.lightGray);
-		
-		pen = new JButton(getImageIcon("pen.jpg"));
+		brush.setBackground(Color.lightGray);	
+				
+		pen = new JButton(new ImageIcon(ICON_PATH + "pen.png"));
 		pen.setToolTipText("Pen");
 		pen.addActionListener(this);
 		pen.setBackground(Color.lightGray);
 		
-		clear = new JButton(getImageIcon("new.jpg"));
+		clear = new JButton(new ImageIcon(ICON_PATH + "new.png"));
 		clear.setToolTipText("Clear canvas");
 		//clear.setEnabled(false);//TODO Support teacher admin (sprint 2)
 		clear.addActionListener(this);
 		clear.setBackground(Color.lightGray);
 		
-		brushSize = new JButton(getImageIcon("size.jpg"));
+		brushSize = new JButton(new ImageIcon(ICON_PATH + "size.png"));
 		brushSize.setToolTipText("Brush size");
 		brushSize.addActionListener(this);
 		brushSize.setBackground(Color.lightGray);
@@ -90,12 +90,12 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		//Changing this to light grey makes minor ticks not visible
 		//sizeSlider.setBackground(Color.lightGray); 
 		
-		erase = new JButton(getImageIcon("eraser.jpg"));
+		erase = new JButton(new ImageIcon(ICON_PATH + "eraser.png"));
 		erase.setToolTipText("Erase by drawing with the 'rubber'");
 		erase.addActionListener(this);
 		erase.setBackground(Color.lightGray);
 		
-		brushColour = new JButton(getImageIcon("palette.jpg"));
+		brushColour = new JButton(new ImageIcon(ICON_PATH + "palette.png"));
 		brushColour.setSize(brushColour.getPreferredSize());
 		brushColour.setToolTipText("Colour Palette");
 		brushColour.addActionListener(this);
