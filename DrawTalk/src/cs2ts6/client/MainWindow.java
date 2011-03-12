@@ -7,6 +7,7 @@ import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -41,14 +42,12 @@ public class MainWindow extends JPanel implements WindowListener, ComponentListe
 		frame = new JFrame("Draw & Talk (T11) - "+username+" - **OFFLINE**");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);// disables maximise button
-		drawingPanel = new DrawingPanel(frame);
-		chatPanel = new ChatPanel(username);
+		drawingPanel = new DrawingPanel(frame, new ImageIcon("src/icons/Canvas_Panel.png").getImage());
+		chatPanel = new ChatPanel(username, new ImageIcon("src/icons/Chat_Panel.png").getImage());
 		client = new Client(drawingPanel.get_canvas(), chatPanel, frame, username); //Client needs canvas + chatpanel
 		drawingPanel.get_canvas().set_client(client); // canvas needs client
 		chatPanel.set_client(client);
 		frame.setPreferredSize(new Dimension(980, 470));
-		drawingPanel.setBackground(Color.lightGray);
-		chatPanel.setBackground(Color.lightGray);
 		cpal = drawingPanel.get_cpalette();
 		frame.add("West", drawingPanel);
 		frame.add(chatPanel);

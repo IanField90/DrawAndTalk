@@ -3,6 +3,8 @@ package cs2ts6.client;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,7 +52,9 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	private AdminPanel admin;
 	private final static String ICON_PATH = "src/icons" + File.separator;
 	
-	public ChatPanel(String uname){
+	private Image bimg;	
+	public ChatPanel(String uname, Image bimg){
+		this.bimg = bimg;
 		username = uname;
 		JTabbedPane jtpChat = new JTabbedPane();
 		admin = new AdminPanel();
@@ -83,14 +87,18 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		txtField.addKeyListener(this);
 		btnSend.addActionListener(this);
 
-		File theImage = new File(ICON_PATH + "logo.jpg");
+		File theImage = new File(ICON_PATH + "logo.png");
 		ImageIcon img = new ImageIcon(theImage.getAbsolutePath());
 		
 		JLabel label = new JLabel(img);
 		add(label);
 		add(jtpChat);
 	}
-	
+		 
+	public void paintComponent(Graphics g) {
+	  g.drawImage(bimg, 0, 0, null);
+	}
+
 	public void set_client(Client cli) {
 		client = cli;
 	}

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URL;
 
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -41,44 +43,53 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 	private JFrame masterFrame; // used for co-ord tracking
 	private final static String ICON_PATH = "src/icons" + File.separator;
 	private boolean firstRun = true;
+	private Image bimg;	
 	
 	// Use enums for types
 	public static enum DrawType { PEN, BRUSH, ERASE, SQUARE, CIRCLE , FULL_CLEAR};
 	
-	public DrawingPanel(JFrame f){
+	public DrawingPanel(JFrame f, Image bimg){
 		masterFrame = f;
+		this.bimg = bimg;
 		JPanel panel = new JPanel(); //Panel with tooblar + canvas
 		panel.setLayout(new BorderLayout());
 		colour = Color.BLACK;
 		canvas = new DrawingCanvas();
-		canvas.setPreferredSize(new Dimension(640, 390));
+		canvas.setPreferredSize(new Dimension(640, 366));
 		canvas.set_colour(colour); //Sets drawing colour inside canvas
 		canvas.set_selectedOption(DrawType.PEN);
 		cp = new ColourPalette(canvas);
 		//ToolBar
-		JToolBar toolBar = new JToolBar();
+		//JToolBar toolBar = new JToolBar();
+		JToolBar toolBar = new JToolBar() {
+			
+		        @Override
+		        protected JButton createActionComponent(Action a) {
+		            JButton jb = super.createActionComponent(a);
+		            jb.setOpaque(false);
+		            return jb;
+		        }
+		    };
+		toolBar.setOpaque(false);
         toolBar.setRollover(true);
 		        
 		brush = new JButton(new ImageIcon(ICON_PATH + "brush.png"));
 		brush.setToolTipText("Brush");
 		brush.addActionListener(this);
-		brush.setBackground(Color.lightGray);	
 				
 		pen = new JButton(new ImageIcon(ICON_PATH + "pen.png"));
 		pen.setToolTipText("Pen");
 		pen.addActionListener(this);
-		pen.setBackground(Color.lightGray);
+		pen.setBackground(Color.DARK_GRAY);
 		
 		clear = new JButton(new ImageIcon(ICON_PATH + "new.png"));
 		clear.setToolTipText("Clear canvas");
 		//clear.setEnabled(false);//TODO Support teacher admin (sprint 2)
 		clear.addActionListener(this);
-		clear.setBackground(Color.lightGray);
 		
 		brushSize = new JButton(new ImageIcon(ICON_PATH + "size.png"));
 		brushSize.setToolTipText("Brush size");
 		brushSize.addActionListener(this);
-		brushSize.setBackground(Color.lightGray);
 		
 		sizeSlider = new JSlider(JSlider.HORIZONTAL, 0, 20, 5);
 		sizeSlider.setVisible(false);
@@ -93,13 +104,11 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		erase = new JButton(new ImageIcon(ICON_PATH + "eraser.png"));
 		erase.setToolTipText("Erase by drawing with the 'rubber'");
 		erase.addActionListener(this);
-		erase.setBackground(Color.lightGray);
 		
 		brushColour = new JButton(new ImageIcon(ICON_PATH + "palette.png"));
 		brushColour.setSize(brushColour.getPreferredSize());
 		brushColour.setToolTipText("Colour Palette");
 		brushColour.addActionListener(this);
-		brushColour.setBackground(Color.lightGray);
 		
 		toolBar.setOrientation(0);//Make toolbar appear horizontal
 		toolBar.add(pen);
@@ -114,13 +123,16 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		toolBar.add(erase);
 		toolBar.addSeparator(  );
 		toolBar.add(clear);
-		toolBar.setBackground(Color.lightGray);
 		toolBar.setFloatable(false); //Disables dragging of toolbar
 		
 		panel.add(toolBar, BorderLayout.NORTH);
 		panel.add(canvas, BorderLayout.CENTER);
 		add(panel);
 	}
+	
+	public void paintComponent(Graphics g) {
+		  g.drawImage(bimg, 0, 0, null);
+		}
 	
 	/**
 	 * Return a ImageIcon with the given icon or generate an error message.
@@ -192,13 +204,18 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 			brushSize.setVisible(true);
 			sizeSlider.setValue(size);
 			//Set all to 'off'
-			pen.setBackground(Color.lightGray);
-			brush.setBackground(Color.lightGray);
-			erase.setBackground(Color.lightGray);
+			pen.setOpaque(false);
+			pen.repaint();
+			brush.setOpaque(false);
+			brush.repaint();
+			erase.setOpaque(false);
+			erase.repaint();
 			//Set selected to 'on'
+			((JButton)e.getSource()).setOpaque(true);
 			((JButton)e.getSource()).setBackground(Color.darkGray);
 			//If clear, just turn to 'off'
-			clear.setBackground(Color.lightGray);
+			clear.setOpaque(false);
+			clear.repaint();
 		}
 		
 		if(e.getSource() == clear){
