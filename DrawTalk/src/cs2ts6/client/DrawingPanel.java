@@ -26,7 +26,7 @@ import javax.swing.event.ChangeListener;
 /**
  * 
  * @author Ian Field, Stephen, Curtis (GUI)
- * Creates the Canvas panel. This is a 640px x 480px DrawingCanvas and a toolbar.
+ * Creates the Canvas panel. This is a 640px x 366px DrawingCanvas and a toolbar.
  * Toolbar sets private members in DrawingCanvas.
  */
 public class DrawingPanel extends JPanel implements ActionListener, ChangeListener{
@@ -62,7 +62,7 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		//ToolBar
 		ImageIcon imgicon = new ImageIcon("src/icons/Toolbar.png");
 		JToolBar toolBar = new ToolBarWithImage("test", 0, imgicon);
-		// WHY WONT THIS WORK FFS!!!
+		// WHY WONT THIS WORK!!!
         toolBar.setRollover(true);
 		        
 		brush = new JButton(new ImageIcon(ICON_PATH + "brush.png"));

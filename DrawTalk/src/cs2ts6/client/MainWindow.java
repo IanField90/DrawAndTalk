@@ -16,7 +16,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * @author Ian Field, Stephen
+ * @author Ian Field, Stephen, Curtis
  * Client side window for the Draw & Talk application. This contains DrawingPanel and ChatPanel.
  * Entry point for collaboration.
  */
