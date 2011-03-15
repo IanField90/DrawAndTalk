@@ -58,7 +58,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		username = uname;
 		JTabbedPane jtpChat = new JTabbedPane();
 		jtpChat.setOpaque(false);
-		admin = new AdminPanel();
+		admin = new AdminPanel(bimg);
 		globalChat = new JPanel();
 		globalChat.setPreferredSize(new Dimension(300,338));
 		globalChat.setOpaque(false);
