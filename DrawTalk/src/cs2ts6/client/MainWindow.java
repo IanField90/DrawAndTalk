@@ -131,7 +131,7 @@ public class MainWindow extends JPanel implements WindowListener, ComponentListe
 
 	@Override
 	public void componentMoved(ComponentEvent e) {
-		drawingPanel.get_canvas().redrawAction();
+		//drawingPanel.get_canvas().redrawAction();
 		cpal.setVisible(frame.getX(), frame.getY(),true);
 	}
 
