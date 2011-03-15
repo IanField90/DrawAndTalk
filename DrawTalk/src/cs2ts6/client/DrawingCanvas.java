@@ -40,19 +40,31 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	private Client client; //treated as a pointer
 	
 	private ArrayList<PointPacket> pktList = new ArrayList<PointPacket>();
-	
+	/**
+	 * Constructor
+	 */
 	public DrawingCanvas(){
+		//Make sure the canvas is initially white
 		setBackground(Color.white);
+		//Default pen colour is black
 		colour = Color.black;
+		//Ensure that events are performed
 		this.addMouseMotionListener(this);
 		this.addMouseListener(this);
 		new RedrawThread(this).start();
 	}
 	
+	/**
+	 * Ensure the single client object is accessible within this class
+	 * @param client
+	 */
 	public void set_client(Client client){
 		this.client = client;
 	}
 	
+	/**
+	 * Send the points to the server for distribution to clients
+	 */
 	public void sendPoints(){
 		// Check point have been initilized
 		if (previousP == null || currentP == null)
@@ -103,6 +115,9 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		return size;
 	}
 	
+	/**
+	 * Actually paint the drawing to the canvas
+	 */
 	@Override
 	public void paint (Graphics g){
 		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -123,7 +138,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 			int size = pkt.get_size(); 
 			double angle = Math.atan2(p1.y - p0.y, p1.x - p0.x);		
 			double distance = p0.distance(p1);
-			
+			//Ali's line smoothing method
 			// If after the line is shortened by a brush size it is still smaller than the smallest possible line which can be drawn (a square)
 			// then draw a polygon instead of using a line
 			if ((distance - size) > size){
@@ -184,6 +199,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 			double angle = Math.atan2(p1.y - p0.y, p1.x - p0.x);		
 			double distance = p0.distance(p1);
 			
+			//Ali's line smoothing method
 			// If after the line is shortened by a brush size it is still smaller than the smallest possible line which can be drawn (a square)
 			// then draw a polygon instead of using a line
 			if ((distance - size) > size){
@@ -253,22 +269,27 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		//Not used
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		//Not used
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
+		//Not used
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		//Not used
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		//Get ready to draw a dot on the canvas
 		previousP = e.getPoint();
 		currentP = e.getPoint();
 		sendPoints();
@@ -276,10 +297,12 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		//Not used
 	}
 
 	
 	private class RedrawThread extends Thread {
+		//TODO STEPHEN: canvas not used maybe remove to remove warning on submission?
 		DrawingCanvas canvas;
 		RedrawThread(DrawingCanvas canv){
 			super("RedrawThread");
@@ -289,6 +312,7 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		public void run(){
 			while (true) {
 				try{
+					//4 second delay
 					Thread.sleep(4000);
 					//canvas.redrawAction();
 				}

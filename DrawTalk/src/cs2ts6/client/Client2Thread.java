@@ -86,6 +86,7 @@ public class Client2Thread extends Thread{
 		byte[] buffer = new byte[5000];
 		DatagramPacket packet;
 		try {
+			//Create a socket
 			MulticastSocket socket = new MulticastSocket(port+1);
 			InetAddress address = InetAddress.getByName("224.0.0.31");
 			socket.joinGroup(address);
@@ -102,7 +103,8 @@ public class Client2Thread extends Thread{
 				ByteArrayInputStream bais=new ByteArrayInputStream(buffer);		        
 		        ObjectInputStream ois=new ObjectInputStream(new BufferedInputStream(bais));
 		        Packet pkt = (Packet)ois.readObject();
-		        //System.out.println(pkt.toString());
+
+		        //Check the packet type - perform action based on this
 		        if(pkt instanceof PointPacket) {
 		        	//Send packet to Canvas
 		        	canvas.drawPoints((PointPacket)pkt);

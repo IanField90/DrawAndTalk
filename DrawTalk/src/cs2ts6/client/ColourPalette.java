@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JWindow;
 /**
- * Window for colour palette for brushes
+ * Window for colour palette for brushes. Clickable colour boxes.
  * @author Curtis, Stephen
  *
  */
@@ -54,6 +54,12 @@ public class ColourPalette{
 		
 	}
 	
+	/**
+	 * Ensure it moves with the window when the window is dragged
+	 * @param X coordinate
+	 * @param Y coordinate
+	 * @param move
+	 */
 	public void setVisible(int X, int Y, boolean move) {
 		int modY=80, modX=160;
 		if(move) {
@@ -72,8 +78,8 @@ public class ColourPalette{
 	
 	MouseListener hover = new MouseListener() {
 		@Override
-		public void mouseClicked(MouseEvent arg0) {
-			JTextField src = (JTextField)arg0.getSource();
+		public void mouseClicked(MouseEvent e) {
+			JTextField src = (JTextField)e.getSource();
 			canvas.set_colour(src.getBackground());
 			cPalette.setVisible(false);
 			canvas.redrawAction();

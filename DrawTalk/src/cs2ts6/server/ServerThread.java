@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import cs2ts6.client.ChatPanel;
-import cs2ts6.packets.ChatPacket;
 import cs2ts6.packets.Packet;
 
 /**
@@ -16,13 +15,13 @@ import cs2ts6.packets.Packet;
 public class ServerThread extends Thread{
 
 	
-	private ArrayList<Packet> packets;
+	private ArrayList<Packet> packets; //TODO STEPHEN: Maybe remove for removal of warnings?
 	private ChatPanel log;
 	
 	public ServerThread(ChatPanel cp) {
 		super("ServerThread");
 		log = cp;
-		packets = new ArrayList<Packet>();
+		packets = new ArrayList<Packet>(); //TODO STEPHEN used here too
 	}
 	
 	public void run(){

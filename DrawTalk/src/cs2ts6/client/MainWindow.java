@@ -1,6 +1,5 @@
 package cs2ts6.client;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -57,6 +56,10 @@ public class MainWindow extends JPanel implements WindowListener, ComponentListe
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Ensure the other objects have a client reference.
+	 * @return
+	 */
 	public Client get_client(){
 		return client;
 	}
@@ -100,14 +103,17 @@ public class MainWindow extends JPanel implements WindowListener, ComponentListe
 
 	@Override
 	public void windowClosed(WindowEvent arg0) {
+		//Not used
 	}
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
+		//Not used
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
+		//Not used
 	}
 
 	@Override
@@ -117,16 +123,17 @@ public class MainWindow extends JPanel implements WindowListener, ComponentListe
 
 	@Override
 	public void windowIconified(WindowEvent arg0) {
+		//Not used
 	}
 
 	@Override
 	public void windowOpened(WindowEvent arg0) {
+		//Not used
 	}
 
 	@Override
 	public void componentHidden(ComponentEvent e) {
-		// TODO Auto-generated method stub
-		
+		//Not used
 	}
 
 	@Override
@@ -137,14 +144,12 @@ public class MainWindow extends JPanel implements WindowListener, ComponentListe
 
 	@Override
 	public void componentResized(ComponentEvent e) {
-		// TODO Auto-generated method stub
-		
+		//Not used
 	}
 
 	@Override
 	public void componentShown(ComponentEvent e) {
-		// TODO Auto-generated method stub
-		
+		//Not used
 	}
 
 }

@@ -2,7 +2,6 @@ package cs2ts6.client;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -10,9 +9,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.net.URL;
 
-import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -77,7 +74,7 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		
 		clear = new JButton(new ImageIcon(ICON_PATH + "new.png"));
 		clear.setToolTipText("Clear canvas");
-		//clear.setEnabled(false);//TODO Support teacher admin (sprint 2)
+		//clear.setEnabled(false);//TODO STEPHEN: Support teacher admin
 		clear.addActionListener(this);
 		clear.setOpaque(false);
 		
@@ -147,14 +144,6 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		} else {
 			JOptionPane.showMessageDialog(null, "Error - file not found: "+ iconFilename);
 		}
-		/*if (theImage.isFile()) {
-			theIcon = new ImageIcon(theImage.getAbsolutePath());
-		} else {
-			// display an error if the image can't be found
-			theIcon = null;
-			JOptionPane.showMessageDialog(null, "Error - file not found: "
-					+ iconFilename);
-		}*/
 		return (theIcon);
 	}
 	
@@ -184,11 +173,6 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 			size = 1;
 			flag = true;
 		}
-		/*if(e.getSource() == clear){
-			size = canvas.get_brushSize();
-			canvas.clear(); //clear canvas, does not change reference
-			flag = true;
-		}*/
 		if(e.getSource() == erase) {
 			canvas.set_selectedOption(DrawType.ERASE);
 			sizeSlider.setMaximum(40);
@@ -251,7 +235,11 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 	 */
 	   class ToolBarWithImage extends JToolBar {
 	 
-	      private ImageIcon bgImage;
+	    /**
+		 * Auto generated ID
+		 */
+		private static final long serialVersionUID = 9175206712453760272L;
+		private ImageIcon bgImage;
 	 
 	      ToolBarWithImage(String name, int orientation, ImageIcon imgicon) {
 	         super(name, orientation);

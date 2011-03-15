@@ -1,6 +1,5 @@
 package cs2ts6.client;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -26,9 +25,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import cs2ts6.client.DrawingPanel.DrawType;
 import cs2ts6.packets.ChatPacket;
-import cs2ts6.packets.PointPacket;
 
 /**
  * 
@@ -41,6 +38,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	 * Automatically generated
 	 */
 	private static final long serialVersionUID = -2697225417654336509L;
+	//Set up private member variables and objects.
 	private JPanel globalChat;
 	private JTextArea chatBox;
 	private JTextField txtField;
@@ -50,26 +48,33 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	private String lastMessage;
 	private Calendar calendar;
 	private AdminPanel admin;
+	//Create path information: STEPHEN - maybe sort out
 	private final static String ICON_PATH = "src/icons" + File.separator;
 	
-	private Image bimg;	
+	private Image bimg;
+	
+	//Constructor
 	public ChatPanel(String uname, Image bimg){
-		this.bimg = bimg;
-		username = uname;
-		JTabbedPane jtpChat = new JTabbedPane();
+		this.bimg = bimg; //set the background image?
+		username = uname; // Username entered on application startup
+		JTabbedPane jtpChat = new JTabbedPane(); //Tabbed pain for chat and admin panel
 		jtpChat.setOpaque(false);
 		admin = new AdminPanel(bimg);
 		globalChat = new JPanel();
-		globalChat.setPreferredSize(new Dimension(300,338));
+		globalChat.setPreferredSize(new Dimension(300,338)); //Set the size of the chat panel
 		globalChat.setOpaque(false);
 		chatBox = new JTextArea();
 		JScrollPane areaScrollPane = new JScrollPane(chatBox);
+		
+		 //Force chatbox to always display scrollbar
 		areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		areaScrollPane.setPreferredSize(new Dimension(220, 370));
+		//Prevent users from accidentally editing the live chat window
 		chatBox.setEnabled(false);
 		chatBox.setLineWrap(true);
 		chatBox.setWrapStyleWord(true);
 		txtField = new JTextField(26);
+		//If the user does not press enter, a button can be used to send message
 		btnSend = new JButton("Send");
 		
 		globalChat.setLayout(new BoxLayout(globalChat, BoxLayout.PAGE_AXIS));
@@ -94,18 +99,29 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		add(label);
 		add(jtpChat);
 	}
-		 
+	
+	/**
+	 * Draws the background image for target audience
+	 */
 	public void paintComponent(Graphics g) {
 	  g.drawImage(bimg, 0, 0, null);
 	}
 
+	/**
+	 * Create the client link for communication
+	 * @param cli Client to be used for communication
+	 */
 	public void set_client(Client cli) {
 		client = cli;
 	}
 	
+	/**
+	 * Sends the message in the text field within the chat panel.
+	 */
 	public void sendMessage(){
 		String msg = null;
 		msg = txtField.getText();
+		//Create a chat packet for data holding for communication
 		ChatPacket chtpkt = new ChatPacket(username, msg);
 		if(client.onServerGet()) {
 			client.sendMessage(chtpkt);
@@ -115,13 +131,20 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		}
 	}
 	
+	/**
+	 * Draws the message if one is received from the server.
+	 * Username and timestamp included.
+	 * @param pkt Packet received
+	 */
 	public void drawMessage(ChatPacket pkt){
 		calendar = new GregorianCalendar();
 		DateFormat dfm = new SimpleDateFormat("HH:mm:ss");
 		String time = dfm.format(calendar.getTime());
+		//If the sender is not you, display username.
 		if(!pkt.get_sender().equals(username)) {
 			chatBox.append(pkt.get_sender() + ":  " +time+"\n   "+pkt.get_message()+"\n");
 		} else {
+			//If the sender is you then 'You' is displayed rather than username
 			chatBox.append("You:  "+time+"\n   "+pkt.get_message()+"\n");
 		}
 		chatBox.selectAll(); // Forces chatbox to autoscroll to bottom
@@ -129,8 +152,8 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		//enter pressed or button pressed to send
+		//If text is null then do not waste communication
 		if(!txtField.getText().equals("")) {
 			send();
 		}
@@ -139,35 +162,40 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
+		//Implement send on enter press
 		if (e.getKeyCode() == KeyEvent.VK_ENTER && !txtField.getText().equals("")) {
 			send();
 		}
+		//Implement message last sent text field population
+		//can be used to re-send last message with a spelling correction
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			txtField.setText(lastMessage);
 		}
 	}
 	
+	/**
+	 * Sends the chat message to the server, which is then distributed to
+	 * connected clients
+	 */
 	public void send() {
+		//Embedded server implementation for quickstart
 		if(txtField.getText().equals("#startserver")) {
 			runServerCode();
 			return;
 		}
-		sendMessage();
-		lastMessage = txtField.getText();
-		txtField.setText(""); // Blank text
+		sendMessage(); // actually transmit message
+		lastMessage = txtField.getText(); //Populate lastMessage for up key press
+		txtField.setText(""); // Clear the text field
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		//Not used
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		//Not used
 	}
 	
 	

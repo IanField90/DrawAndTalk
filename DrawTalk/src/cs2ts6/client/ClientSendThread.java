@@ -11,7 +11,7 @@ import cs2ts6.packets.Packet;
 /**
  * 
  * @author stephen
- *
+ * Thread which sends data to the server.
  */
 public class ClientSendThread extends Thread{
 	

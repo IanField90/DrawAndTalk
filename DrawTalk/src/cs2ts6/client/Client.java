@@ -7,8 +7,8 @@ import javax.swing.JFrame;
 import cs2ts6.packets.*;
 /**
  * 
- * @author stephen
- *
+ * @author Stephen
+ * This is the client class used for communication between the client and the server.
  */
 public class Client {
 	private ArrayList<Packet> packets;
@@ -92,7 +92,7 @@ public class Client {
 	}
 	
 	
-	
+	//TODO STEPHEN - Remove?
 	/**
 	 * Testing main
 	 */
