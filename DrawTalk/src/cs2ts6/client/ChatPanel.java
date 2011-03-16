@@ -19,6 +19,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -43,7 +44,7 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	private JTextArea chatBox;
 	private JTextField txtField;
 	private JButton btnSend;
-	private Client client;
+	public Client client;
 	private String username;
 	private String lastMessage;
 	private Calendar calendar;
@@ -59,7 +60,11 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		username = uname; // Username entered on application startup
 		JTabbedPane jtpChat = new JTabbedPane(); //Tabbed pain for chat and admin panel
 		jtpChat.setOpaque(false);
-		admin = new AdminPanel(bimg);
+		admin = new AdminPanel(bimg, this);
+		if(username.equalsIgnoreCase("admin")) {
+			System.out.println(username);
+			admin.setAdmin();
+		}
 		globalChat = new JPanel();
 		globalChat.setPreferredSize(new Dimension(300,338)); //Set the size of the chat panel
 		globalChat.setOpaque(false);
@@ -92,10 +97,10 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		txtField.addKeyListener(this);
 		btnSend.addActionListener(this);
 
-		File theImage = new File(ICON_PATH + "space.png");
-		ImageIcon img = new ImageIcon(theImage.getAbsolutePath());
+		/*File theImage = new File(ICON_PATH + "space.png");
+		ImageIcon img = new ImageIcon(theImage.getAbsolutePath());*/
 		
-		JLabel label = new JLabel(img);
+		JLabel label = new JLabel(DrawingPanel.getImageIcon("space.png"));
 		add(label);
 		add(jtpChat);
 	}
@@ -140,8 +145,14 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 		calendar = new GregorianCalendar();
 		DateFormat dfm = new SimpleDateFormat("HH:mm:ss");
 		String time = dfm.format(calendar.getTime());
-		//If the sender is not you, display username.
-		if(!pkt.get_sender().equals(username)) {
+		System.out.println(pkt.get_sender()+" "+pkt.get_message());
+		if (pkt.get_sender().equals("ADMIN") && pkt.get_message().equals("Session Frozen")) {
+			MainWindow.frozen = true;
+			JOptionPane.showMessageDialog(this, "The session has been frozen, you are only drawing locally");
+		} else if (pkt.get_sender().equals("ADMIN") && pkt.get_message().equals("Session Unfrozen")) {
+			MainWindow.frozen = false;
+			JOptionPane.showMessageDialog(this, "The session has been unfrozen, you are drawing with peers");
+		} else if(!pkt.get_sender().equals(username)) { //If the sender is not you, display username.
 			chatBox.append(pkt.get_sender() + ":  " +time+"\n   "+pkt.get_message()+"\n");
 		} else {
 			//If the sender is you then 'You' is displayed rather than username
@@ -201,14 +212,16 @@ public class ChatPanel extends JPanel implements ActionListener, KeyListener{
 	
 	
 	//Embedded Server - Stephen
-	private void runServerCode() {
+	public int runServerCode() {
 		if(!client.onServerGet()) { //If not connected, embedded server can activate
 			new cs2ts6.server.ServerThread(this).start();
 			chatBox.setText("");
 			client.setHostTitle(); //Set the title of the window to the 'embedded server message'
 		} else { // IF connected - do not activate
 			chatBox.append("SERVER:\n   You are already attached to a server!\n");
+			return -1;
 		}
 		txtField.setText("");
+		return 0;
 	}
 }

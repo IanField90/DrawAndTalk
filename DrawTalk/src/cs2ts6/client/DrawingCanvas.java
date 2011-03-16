@@ -51,7 +51,6 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 		//Ensure that events are performed
 		this.addMouseMotionListener(this);
 		this.addMouseListener(this);
-		new RedrawThread(this).start();
 	}
 	
 	/**
@@ -84,14 +83,16 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	 */
 	public void drawPoints(PointPacket pkt){
 		//Will be integrated but proof of concept
-		if(pkt.get_drawType() == DrawType.FULL_CLEAR) {
-			super.paint(getGraphics());
-			pktList.clear();
-			return;
-		}
-		else{
-			pktList.add(pkt);
-			paint(getGraphics());
+		if(MainWindow.frozen == false) {
+			if(pkt.get_drawType() == DrawType.FULL_CLEAR) {
+				super.paint(getGraphics());
+				pktList.clear();
+				return;
+			}
+			else{
+				pktList.add(pkt);
+				paint(getGraphics());
+			}
 		}
 	}
 	
@@ -298,28 +299,5 @@ public class DrawingCanvas extends Canvas implements MouseMotionListener, MouseL
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		//Not used
-	}
-
-	
-	private class RedrawThread extends Thread {
-		//TODO STEPHEN: canvas not used maybe remove to remove warning on submission?
-		DrawingCanvas canvas;
-		RedrawThread(DrawingCanvas canv){
-			super("RedrawThread");
-			canvas = canv;
-		}
-		
-		public void run(){
-			while (true) {
-				try{
-					//4 second delay
-					Thread.sleep(4000);
-					//canvas.redrawAction();
-				}
-				catch (InterruptedException e){
-					//Do nothing
-				}
-			}
-		}
 	}
 }

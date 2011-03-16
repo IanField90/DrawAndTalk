@@ -29,14 +29,14 @@ public class CollectorServer extends Thread{
 	public void run() {
 		ServerSocket svrSkt = null;
 		try {
-			svrSkt = new ServerSocket(port+2);
-		} catch (IOException e) {
+			svrSkt = new ServerSocket(port+2); // Set up socket
+		} catch (IOException e) { // IF socket cant be established
 			System.err.println("Could not listen on port: "+(port+2));
 			System.exit(-1);
 		}
 		
 		while (true) {
-			try {
+			try { // On new connection, create a managing thread
 				new CollectorServerThread(svrSkt.accept(), server).start();
 			} catch (IOException e) {
 				System.err.println("Error in client connection");

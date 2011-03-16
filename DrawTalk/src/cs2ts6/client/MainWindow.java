@@ -25,6 +25,7 @@ public class MainWindow extends JPanel implements WindowListener, ComponentListe
 	 * 
 	 */
 	private static final long serialVersionUID = 983051938169997622L;
+	public static boolean frozen = false;
 	private DrawingPanel drawingPanel;
 	private ChatPanel chatPanel;
 	private Client client;
@@ -41,8 +42,8 @@ public class MainWindow extends JPanel implements WindowListener, ComponentListe
 		frame = new JFrame("Draw & Talk (T11) - "+username+" - **OFFLINE**");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);// disables maximise button
-		drawingPanel = new DrawingPanel(frame, new ImageIcon("src/icons/Canvas_Panel.png").getImage());
-		chatPanel = new ChatPanel(username, new ImageIcon("src/icons/Chat_Panel.png").getImage());
+		drawingPanel = new DrawingPanel(frame, DrawingPanel.getImageIcon("Canvas_Panel.png").getImage());
+		chatPanel = new ChatPanel(username, DrawingPanel.getImageIcon("Chat_Panel.png").getImage());
 		client = new Client(drawingPanel.get_canvas(), chatPanel, frame, username); //Client needs canvas + chatpanel
 		drawingPanel.get_canvas().set_client(client); // canvas needs client
 		chatPanel.set_client(client);

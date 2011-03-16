@@ -73,6 +73,10 @@ public class Client {
 		host = true;
 	}
 	
+	public void clearCanvas() {
+		canvas.clear();
+	}
+	
 	/**
 	 * Used by CleintSendThread for communicating a packet from Client->Server
 	 * @return The packet to be transmitted
@@ -90,14 +94,4 @@ public class Client {
 		packets.remove(0);
 		return pkt;
 	}
-	
-	
-	//TODO STEPHEN - Remove?
-	/**
-	 * Testing main
-	 */
-	/*public static void main(String[] args) {
-		new Client2Thread(null, null, ).start();
-		//new ClientSendThread().start();
-	}*/
 }

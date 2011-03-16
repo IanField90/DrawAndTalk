@@ -13,9 +13,9 @@ public class PointPacket extends Packet{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int startX, startY, finishX, finishY;
-	private int size;
-	private Color colour;
+	private int startX, startY, finishX, finishY; //Co-ordinates for drawing
+	private int size; // Brush size
+	private Color colour; // Tool colour
 	private DrawType drawType; //for future use (shapes)
 	
 	public PointPacket(int startX, int startY, int finishX, int finishY, Color colour, int size, DrawType drawType){

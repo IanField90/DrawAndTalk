@@ -15,15 +15,17 @@ import cs2ts6.packets.Packet;
 public class ServerThread extends Thread{
 
 	
-	private ArrayList<Packet> packets; //TODO STEPHEN: Maybe remove for removal of warnings?
+	//private ArrayList<Packet> packets; //TODO STEPHEN: Maybe remove for removal of warnings?
 	private ChatPanel log;
 	
 	public ServerThread(ChatPanel cp) {
 		super("ServerThread");
 		log = cp;
-		packets = new ArrayList<Packet>(); //TODO STEPHEN used here too
+		//packets = new ArrayList<Packet>(); //TODO STEPHEN used here too
 	}
-	
+	/**
+	 * Launches the server clas within a thread, so it can be ran as part of a client setup
+	 */
 	public void run(){
 		System.out.println("Launching Server");
 		Server srv = new Server(log);

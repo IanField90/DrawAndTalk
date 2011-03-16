@@ -33,16 +33,16 @@ public class CollectorServerThread extends Thread{
 		try {
 			ois = new ObjectInputStream(skt.getInputStream());
 			pkt = (Packet)ois.readObject(); //Casts packet
-			if(pkt instanceof ChatPacket) { // A 'no-data packet sent from the client
-				username = ((ChatPacket)pkt).get_message();
+			if(pkt instanceof ChatPacket) { // If its a chatpacket - new connections
+				username = ((ChatPacket)pkt).get_message(); // Get username
 			}
-			server.writeServerMessage("Client Connected\n   "+username+"@"+ip);
-			do {
+			server.writeServerMessage("Client Connected\n   "+username+"@"+ip); // Server log
+			do { // Keep reading objects and adding them to the output buffer
 				pkt = (Packet)ois.readObject(); //Casts packet
 				server.addToBroadcast(pkt); // Queues packet for broadcast
 			} while (pkt != null);
-		} catch (IOException e) {
-			server.writeServerMessage("Client Diconnected\n   "+username+"@"+ip);
+		} catch (IOException e) { // When connection drops
+			server.writeServerMessage("Client Diconnected\n   "+username+"@"+ip); // Write log message
 		} catch (ClassNotFoundException e) {}
 	}
 }

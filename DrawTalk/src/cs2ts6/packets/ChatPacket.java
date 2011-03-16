@@ -9,8 +9,8 @@ public class ChatPacket extends Packet{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String sender;
-	private String message;
+	private String sender; //The sending user
+	private String message; //The message
 	
 	//Constructor
 	public ChatPacket(String s, String m){

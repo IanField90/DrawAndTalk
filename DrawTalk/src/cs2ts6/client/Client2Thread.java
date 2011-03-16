@@ -62,20 +62,18 @@ public class Client2Thread extends Thread{
 	
 	// Client/Server Architecture methods
 	/**
-	 * For sending points to the server
+	 * For recv points from the server
 	 * PUBLIC method!
 	 */
 	public void sendPoints(PointPacket pnt) {
-		//TODO Implement Socket send to server - probably run a new thread
-		canvas.drawPoints(pnt);
+			canvas.drawPoints(pnt);
 	}
 	/**
-	 * For sending chats to the server
+	 * For recv chats from the server
 	 * PUBLIC method!
 	 */
 	public void sendMessage(ChatPacket cht) {
-		//TODO Implement Socket send to server - probably run a new thread
-		chat.drawMessage(cht);
+			chat.drawMessage(cht);
 	}
 	
 	

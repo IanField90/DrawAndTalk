@@ -33,9 +33,10 @@ public class Server {
 		if (packets.size() > 0) {
 			bcast = packets.get(0);
 			packets.remove(0);
-			return bcast;
+			return bcast; // Return a packet
 		}
 		else {
+			// USed if no packets on queue to keep broadcast alive - used for client auto connect
 			try {
 				Thread.sleep(10); //pause for 10ms
 			} catch (InterruptedException e) {}
@@ -43,6 +44,10 @@ public class Server {
 		}
 	}
 	
+	/**
+	 * Used to write logging messages, either to chat windows or to cli server
+	 * @param message
+	 */
 	public void writeServerMessage(String message) {
 		if(logWindow == null) { //Am in CLI mode - direct and not thread from GUI
 			System.out.println(message);
@@ -58,11 +63,15 @@ public class Server {
 	public void addToBroadcast(Packet pkt) {
 		packets.add(pkt);
 	}
-	
+	/**
+	 * Sets up a server
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException{
 		System.out.println("Launching Server");
 		Server srv = new Server(null); // Pass null as log window, so will use System.out
-		new CollectorServer(srv).start(); //starts receives from client
-		new ServerUDPThread(srv).start(); //starts broadcast thread
+		new CollectorServer(srv).start(); //starts receives from client - to recieve packets
+		new ServerUDPThread(srv).start(); //starts broadcast thread -  to send packets
 	}
 }

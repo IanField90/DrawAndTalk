@@ -3,7 +3,7 @@ package cs2ts6.packets;
 import java.io.Serializable;
 
 /**
- * 
+ * Class used for abstraction and inheritance
  * @author stephen
  *
  */

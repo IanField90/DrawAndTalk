@@ -57,28 +57,28 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		canvas.set_selectedOption(DrawType.PEN);
 		cp = new ColourPalette(canvas);
 		//ToolBar
-		ImageIcon imgicon = new ImageIcon("src/icons/Toolbar.png");
+		ImageIcon imgicon = DrawingPanel.getImageIcon("Toolbar.png");
 		JToolBar toolBar = new ToolBarWithImage("test", 0, imgicon);
 		// WHY WONT THIS WORK!!!
         toolBar.setRollover(true);
 		        
-		brush = new JButton(new ImageIcon(ICON_PATH + "brush.png"));
+		brush = new JButton(DrawingPanel.getImageIcon("brush.png"));
 		brush.setToolTipText("Brush");
 		brush.addActionListener(this);
 		brush.setOpaque(false);
 				
-		pen = new JButton(new ImageIcon(ICON_PATH + "pen.png"));
+		pen = new JButton(DrawingPanel.getImageIcon("pen.png"));
 		pen.setToolTipText("Pen");
 		pen.addActionListener(this);
 		pen.setBackground(Color.DARK_GRAY);
 		
-		clear = new JButton(new ImageIcon(ICON_PATH + "new.png"));
+		clear = new JButton(DrawingPanel.getImageIcon("new.png"));
 		clear.setToolTipText("Clear canvas");
 		//clear.setEnabled(false);//TODO STEPHEN: Support teacher admin
 		clear.addActionListener(this);
 		clear.setOpaque(false);
-		
-		brushSize = new JButton(new ImageIcon(ICON_PATH + "size.png"));
+		//new ImageIcon(ICON_PATH + "size.png")
+		brushSize = new JButton(DrawingPanel.getImageIcon("size.png"));
 		brushSize.setToolTipText("Brush size");
 		brushSize.addActionListener(this);
 		brushSize.setOpaque(false);
@@ -94,12 +94,12 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 		//Changing this to light grey makes minor ticks not visible
 		//sizeSlider.setBackground(Color.lightGray); 
 		
-		erase = new JButton(new ImageIcon(ICON_PATH + "eraser.png"));
+		erase = new JButton(DrawingPanel.getImageIcon("eraser.png"));
 		erase.setToolTipText("Erase by drawing with the 'rubber'");
 		erase.addActionListener(this);
 		erase.setOpaque(false);
 		
-		brushColour = new JButton(new ImageIcon(ICON_PATH + "palette.png"));
+		brushColour = new JButton(DrawingPanel.getImageIcon("palette.png"));
 		brushColour.setSize(brushColour.getPreferredSize());
 		brushColour.setToolTipText("Colour Palette");
 		brushColour.addActionListener(this);
