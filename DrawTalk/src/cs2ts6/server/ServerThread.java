@@ -1,10 +1,8 @@
 package cs2ts6.server;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import cs2ts6.client.ChatPanel;
-import cs2ts6.packets.Packet;
 
 /**
  * For running the server as a thread within the Client - Teacher and Testing
@@ -15,13 +13,11 @@ import cs2ts6.packets.Packet;
 public class ServerThread extends Thread{
 
 	
-	//private ArrayList<Packet> packets; //TODO STEPHEN: Maybe remove for removal of warnings?
 	private ChatPanel log;
 	
 	public ServerThread(ChatPanel cp) {
 		super("ServerThread");
 		log = cp;
-		//packets = new ArrayList<Packet>(); //TODO STEPHEN used here too
 	}
 	/**
 	 * Launches the server clas within a thread, so it can be ran as part of a client setup

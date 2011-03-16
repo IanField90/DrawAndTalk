@@ -8,7 +8,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -38,7 +37,6 @@ public class DrawingPanel extends JPanel implements ActionListener, ChangeListen
 	private Color colour; //Holds drawing colour - for GUI/feedback
 	private ColourPalette cp;
 	private JFrame masterFrame; // used for co-ord tracking
-	private final static String ICON_PATH = "src/icons" + File.separator;
 	private boolean firstRun = true;
 	private Image bimg;	
 	
