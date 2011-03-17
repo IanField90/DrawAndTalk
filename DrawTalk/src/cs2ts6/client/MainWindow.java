@@ -98,12 +98,12 @@ public class MainWindow extends JPanel implements WindowListener, ComponentListe
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		drawingPanel.get_canvas().redrawAction(); // Should redraw on becoming focused window
+//		try {
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//		drawingPanel.get_canvas().redrawAction(); // Should redraw on becoming focused window
 	}
 
 	@Override
